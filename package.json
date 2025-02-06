@@ -11,7 +11,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.5.0",
     "axios": "^1.7.9",
-    "framer-motion": "^12.0.11",
+    "framer-motion": "^12.4.0",
     "next": "15.1.3",
     "react": "^19.0.0",
     "react-confetti": "^6.2.2",
