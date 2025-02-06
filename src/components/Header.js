@@ -26,6 +26,8 @@ import dokanLogo from "@/assets/images/dokan.png";
 
 function Header() {
   const { user } = useSelector((state) => state.auth);
+  const { products } = useSelector((state) => state.cart);
+
   const { theme } = useSelector((state) => state.userPreferences);
 
   const [showProfile, setShowProfile] = useState(false);
@@ -74,8 +76,10 @@ function Header() {
 
   function logout() {
     dispatch(logoutUser());
+    router.push(LOGIN_ROUTE);
     setShowProfile(false);
   }
+
 
   function switchTheme() {
     dispatch(toggleTheme());
@@ -132,21 +136,26 @@ function Header() {
                   </button>
                 </div>
               </div>
-            <nav className="flex-col flex-grow hidden pb-4 md:pb-0 md:flex md:justify-end md:flex-row items-center">
-              {navLinks.map((navlink) => {
-                if (navlink.isAuth && !user) return <div></div>;
+              <nav className="flex-col flex-grow hidden pb-4 md:pb-0 md:flex md:justify-end md:flex-row items-center">
+                {navLinks.map((navlink) => {
+                  if (navlink.isAuth && !user) return <div key={navlink.route}></div>;
 
-                return (
-                  <Link
-                  key={navlink.route}
-                  className="h-8 px-5 py-1 mt-2 font-semibold text-[#d0fa44] font-serif bg-transparent rounded-3xl dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 md:mt-0 md:ml-4 hover:text-white focus:text-white hover:bg-[#8b2fa2] focus:bg-[#68217A] focus:outline-none focus:shadow-outline transition-all transform hover:scale-90 active:scale-105"
-                  href={navlink.route}
-                >
-                  {navlink.label}
-                </Link>
-
-                );
-              })}
+                  return (
+                    <div key={navlink.route} className="relative">
+                      <Link
+                        className="h-8 px-5 py-1 mt-2 font-semibold text-[#d0fa44] font-serif bg-transparent rounded-3xl dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 md:mt-0 md:ml-4 hover:text-white focus:text-white hover:bg-[#8b2fa2] focus:bg-[#68217A] focus:outline-none focus:shadow-outline transition-all transform hover:scale-90 active:scale-105"
+                        href={navlink.route}
+                      >
+                        {navlink.label}
+                      </Link>
+                      {navlink.notification && (
+                        <span className="absolute top-0 -right-1 bg-red-500 text-white rounded-full text-[0.6rem] h-4 w-4 flex items-center justify-center">
+                          {products.length}
+                        </span>
+                      )}
+                    </div>
+                  );
+                })}
 
               <button onClick={switchTheme} className="mx-5 bg-transparent rounded-3xl border-2 hover:text-white lg:text-[#C3EF38] bg-[#8b2fa2] hover:bg-[#68217A] transition-transform transform hover:scale-105 active:scale-105">
                 {theme === LIGHT_MODE ? (
@@ -186,7 +195,7 @@ function Header() {
                       href={"/profile/edit"}
                       className="bg-[#dd53ff] text-white font-serif w-full rounded-3xl hover:bg-[#8b2fa2] flex items-center justify-center my-3 transition-transform transform hover:scale-105 active:scale-105"
                     >
-                      Edit Profile
+                      Profile
                     </Link>
 
                     <button
@@ -241,20 +250,27 @@ function Header() {
               <RxCross2 className="h-7 w-7 rounded-full bg-[#dd53ff] hover:bg-[#8b2fa2] animate-bounce" />
             </button>
           </div>
+
+
           <nav className="flex flex-col flex-grow p-3 m-1 border-2 border-dashed border-[#8e912d]  md:hidden">
-            {navLinks.map((navlink) => (
-              <Link
-                key={navlink.route}
-                className="p-1 mt-4 text-sm font-semibold font-serif bg-transparent rounded-3xl dark:bg-transparent dark:hover:bg-[#8b2fa2] dark:focus:bg-[#8b2fa2] dark:focus:text-white dark:hover:text-white dark:text-gray-200 md:mt-0 md:ml-4 hover:text-white focus:text-gray-900 hover:bg-white focus:bg-primary-100 focus:outline-none focus:shadow-outline"
-                href={navlink.route}
-              >
-                <div className="px-4 py-2 text-[#d0fa44] font-serif font-semibold hover:text-white border-[#dd53ff] rounded-2xl bg-[#dd53ff]">
+            {navLinks.map((navlink) => {
+              if (navlink.isAuth && !user)
+                return <div key={navlink.route}></div>;
+
+              return (
+                <Link
+                  key={navlink.route}
+                  className="p-1 mt-4 text-sm font-semibold font-serif bg-transparent rounded-3xl dark:bg-transparent dark:hover:bg-[#8b2fa2] dark:focus:bg-[#8b2fa2] dark:focus:text-white dark:hover:text-white dark:text-gray-200 md:mt-0 md:ml-4 hover:text-white focus:text-gray-900 hover:bg-white focus:bg-primary-100 focus:outline-none focus:shadow-outline"
+                  href={navlink.route}
+                >
+                  <div className="px-4 py-2 text-[#d0fa44] font-serif font-semibold hover:text-white border-[#dd53ff] rounded-2xl bg-[#dd53ff]">
                   {navlink.label}
                 </div>
-                
-              </Link>
-            ))}
+                </Link>
+              );
+            })}
           </nav>
+
 
           {user ? (
             <>

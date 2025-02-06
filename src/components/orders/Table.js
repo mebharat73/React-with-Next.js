@@ -54,17 +54,21 @@ function OrdersTable() {
               <Link href={`/users/${order.userId}`}>{order.userId}</Link>
             </td>
             <td className="py-2 px-3 border border-slate-400">
-              {order.orderItems.map((item, index) => (
-                <div key={index}>
-                  <Link
-                    href={`${PRODUCTS_ROUTE}/${item.product.id}`}
-                    className="hover:underline"
-                  >
-                    {item.product.name}
-                    <span className="text-xs ml-2">x {item.quantity}</span>
-                  </Link>
-                </div>
-              ))}
+              {order.orderItems.map((item, index) => {
+                if (!item?.product) return;
+
+                return (
+                  <div key={index}>
+                    <Link
+                      href={`${PRODUCTS_ROUTE}/${item.product.id}`}
+                      className="hover:underline"
+                    >
+                      {item.product.name}
+                      <span className="text-xs ml-2">x {item.quantity}</span>
+                    </Link>
+                  </div>
+                );
+              })}
             </td>
             <td className="px-3 border border-slate-400 text-center">
               <span

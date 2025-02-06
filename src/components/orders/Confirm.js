@@ -12,22 +12,18 @@ function ConfirmOrder({ order }) {
   const [showConfirmPopup, setShowConfirmPopup] = useState(false);
 
   const { user } = useSelector((state) => state.auth);
-
   const router = useRouter();
 
   function onClickConfirm() {
     if (user && user.address && user.address.city && user.phone) {
       setShowConfirmPopup(true);
-
       return;
     }
-
     router.push("/profile/edit");
   }
 
   async function confirmOrder() {
     setLoading(true);
-
     try {
       const data = await checkoutOrder(order.id, {
         returnUrl: `${config.appUrl}/products/orders/${order.id}/payment`,
@@ -35,12 +31,11 @@ function ConfirmOrder({ order }) {
         totalAmount: order.totalPrice,
         orderName: order.orderItems[0].product.name,
       });
-
       window.location.href = data.payment_url;
     } catch (error) {
       toast.error(error.response.data, { autoClose: 1500 });
     } finally {
-      setLoading(true);
+      setLoading(false);
       setShowConfirmPopup(false);
     }
   }
@@ -64,19 +59,19 @@ function ConfirmOrder({ order }) {
           </div>
         ) : (
           <>
-            <p className="py-5 text-left">
+            <p className="py-5 text-left text-[#68217A] font-serif font-semibold">
               Are you sure you want to confirm this order?
             </p>
 
             <div className="flex items-center justify-between pt-2">
               <button
-                className="px-5 py-2 bg-red-500 hover:bg-red-700 text-white rounded"
+                className="px-5 py-2 bg-red-500 hover:bg-red-700 text-white rounded-2xl font-semibold"
                 onClick={() => setShowConfirmPopup(false)}
               >
                 Cancel
               </button>
               <button
-                className="px-5 py-2 bg-green-700 hover:bg-green-800 text-white rounded"
+                className="px-5 py-2 bg-green-700 hover:bg-green-800 text-white rounded-2xl font-semibold"
                 onClick={confirmOrder}
               >
                 Confirm

@@ -17,6 +17,7 @@ import { FaStar } from "react-icons/fa"; // For star rating
 import { motion } from 'framer-motion';
 import AddToCart from "@/components/products/AddToCart";
 
+
 function ProductCard({ product, productView }) {
   const [showDeletePopup, setShowDeletePopup] = useState(false);
   const [showFullDescription, setShowFullDescription] = useState(false);
@@ -136,8 +137,9 @@ function ProductCard({ product, productView }) {
 
             <div className="flex items-center justify-between pt-3">
               {/* Add to Cart Button */}
-              <AddToCart product={product} />
-
+                <div className="mt-0 flex items-center justify-end">
+                  <AddToCart product={product} className="w-full md:w-1/2 py-3 bg-[#68217A] text-[#C3EF38] text-lg rounded-2xl transition-all transform hover:scale-105 hover:bg-[#8b2fa2] duration-300 add-to-cart-btn" />
+                </div>
               {/* Price */}
               <p className="text-right">
                 <span className="text-2xl font-bold font-serif text-[#84a123] pr-1">$</span>
