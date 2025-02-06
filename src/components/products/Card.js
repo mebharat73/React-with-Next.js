@@ -61,7 +61,7 @@ function ProductCard({ product, productView }) {
 
   const className =
     productView === PRODUCT_GRID_VIEW
-      ? "bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] m-4 p-3 rounded-3xl border-2 border-[#8e912d] border-double shadow-lg shadow-[#d0fa44] dark:bg-gray-900 hover:bg-gradient-to-br from-[#F5F7FA] to-[#FEEEF9] dark:hover:bg-gray-950 transition-all hover:scale-105 duration-300 ease-in-out"
+      ? "bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] m-4 p-3 rounded-3xl border-2 border-[#8e912d] border-double shadow-lg shadow-[#d0fa44] dark:bg-gray-900 hover:bg-gradient-to-br from-[#F5F7FA] to-[#FEEEF9] dark:hover:bg-gray-950"
       : "grid grid-cols-1 sm:grid-cols-[1fr,1fr] md:grid-cols-[1fr,2fr] gap-x-20 bg-gray-50 p-5 sm:p-10 rounded-xl shadow dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-950 transition-all duration-300 ease-in-out";
 
   const descriptionPreview = product.description.substring(0, 60);
@@ -157,20 +157,22 @@ function ProductCard({ product, productView }) {
           ))}
         </div>
         <div className="flex items-center justify-end">
-          <Link
-                href={`${PRODUCTS_ROUTE}/edit/${product.id}`}
-                className="text-black hover:text-[#68217A] dark:text-white hover:dark:text-gray-200"
-              >
-                <MdOutlineEdit className="h-5 w-5 rounded-full border-2 border-[#8b2fa2] bg-[#C3EF38] hover:bg-white " />
-              </Link>
-              {user?.roles.includes("ADMIN") && (
-                <button
-                  onClick={removeProduct}
-                  className="p-1 text-red-500 hover:text-red-700 dark:text-white hover:dark:text-gray-200"
-                >
-                  <MdDelete />
-                </button>
-              )}
+          {user?.roles.includes("ADMIN") && (
+            <Link
+              href={`${PRODUCTS_ROUTE}/edit/${product.id}`}
+              className="text-black hover:text-[#68217A] dark:text-white hover:dark:text-gray-200"
+            >
+              <MdOutlineEdit className="h-5 w-5 rounded-full border-2 border-[#8b2fa2] bg-[#C3EF38] hover:bg-white " />
+            </Link>
+          )}
+          {user?.roles.includes("ADMIN") && (
+            <button
+              onClick={removeProduct}
+              className="p-1 text-red-500 hover:text-red-700 dark:text-white hover:dark:text-gray-200"
+            >
+              <MdDelete />
+            </button>
+          )}
         </div>
       </div>
 
