@@ -1,0 +1,38 @@
+.brand-checkbox {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    transition: background-color 0.3s, transform 0.3s;
+  }
+  
+  .brand-checkbox:hover {
+    background-color: #e0e0e0;
+    transform: scale(1.05);
+  }
+  
+  .modal {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  
+  .modal-enter {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  
+  .modal-enter-active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .modal-exit {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .modal-exit-active {
+    opacity: 0;
+    transform: translateY(-20px);
+  }

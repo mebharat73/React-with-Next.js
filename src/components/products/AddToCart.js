@@ -1,0 +1,38 @@
+"use client";
+
+import { addToCart } from "@/redux/cart/cartSlice";
+import { MdOutlineShoppingCart } from "react-icons/md";
+import { useDispatch } from "react-redux";
+import { toast, ToastContainer } from "react-toastify";
+
+function AddToCart({ product }) {
+  const dispatch = useDispatch();
+
+  function addProductToCart() {
+    dispatch(
+      addToCart({
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        image: product.imageUrls[0],
+      })
+    );
+
+    toast.success(`${product.name} added to cart successfully.`, {
+      autoClose: 1500,
+    });
+  }
+
+  return (
+    <button
+      onClick={addProductToCart}
+      className="font-serif text-[#d0fa44] hover:text-white bg-[#68217A] hover:bg-[#8b2fa2] px-2 py-0 rounded-2xl flex items-center md:text-base dark:text-white"
+    >
+      Add to cart
+      <MdOutlineShoppingCart className="ml-2 text-[#dbff65]" />
+      <ToastContainer />
+    </button>
+  );
+}
+
+export default AddToCart;
