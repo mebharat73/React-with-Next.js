@@ -11,6 +11,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useEffect, useState } from "react";
 import Confetti from "react-confetti"; // Import Confetti
+import AnimatedBox from "../AnimatedBox";
 
 const slides = [
   {
@@ -73,6 +74,9 @@ const Hero = () => {
           }}
         />
       )}
+      
+        <AnimatedBox />
+
 
       <Slider
         dots={true}

@@ -1,4 +1,4 @@
-import Footer from "@/components/Footer";
+
 import PopularBrand from "@/components/home/Brand";
 import HomeCategories from "@/components/home/Categories";
 import HomeFeaturedProduct from "@/components/home/Featured";
