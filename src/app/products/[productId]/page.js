@@ -18,10 +18,10 @@ async function ProductById({ params }) {
   const product = await getProductById(id);
 
   return (
-<div className="py-12 px-10 flex flex-col lg:flex-row justify-around bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] dark:bg-gray-900">
+<div className="py-12 px-10 flex flex-col lg:flex-row justify-around bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]">
 
 {/* Left Column: Product Image */}
-<div className="p-5 rounded-2xl border-2 border-[#84a123] relative w-full lg:w-1/2 md:p-16 bg-gradient-to-tl from-[#f0f656] to-[#e382fb] dark:bg-gray-800 flex items-center justify-around transition-transform transform hover:scale-105 hover:shadow-xl duration-300 ease-in-out">
+<div className="p-5 rounded-2xl border-2 border-[#84a123] relative w-full lg:w-1/2 md:p-16 bg-gradient-to-tl from-[#f0f656] to-[#e382fb] dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595] flex items-center justify-around transition-transform transform hover:scale-105 hover:shadow-xl duration-300 ease-in-out">
   <ProductImageViewer 
     product={product} 
     className="rounded-3xl transition-transform duration-500 hover:scale-150 hover:shadow-lg product-image"
@@ -29,7 +29,7 @@ async function ProductById({ params }) {
 </div>
 
 {/* Right Column: Product Details */}
-<div className="w-full lg:w-1/2 p-10 md:px-10 bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] dark:bg-gray-700 rounded-2xl border-2 border-[#8b2fa2]">
+<div className="w-full lg:w-1/2 p-10 md:px-10 bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] dark:bg-gray-700 rounded-2xl border-2 border-[#8b2fa2] dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e]">
   <Link
     href={PRODUCTS_ROUTE}
     className="hidden lg:flex items-center dark:text-gray-100 hover:underline font-bold text-[#68217A] py-2 px-2 hover:bg-[#d0fa44] rounded-3xl"
@@ -38,7 +38,7 @@ async function ProductById({ params }) {
   </Link>
 
   {/* Category */}
-  <p className="px-5 py-1 mt-2 font-bold uppercase text-[#68217A] text-center bg-gradient-to-tl from-[#f0f656] to-[#e382fb] rounded-md dark:text-gray-300 fade-in">
+  <p className="px-5 py-1 mt-2 font-bold uppercase text-[#68217A] text-center bg-gradient-to-tl from-[#f0f656] to-[#e382fb] rounded-md dark:text-gray-300 fade-in bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595]">
     {product.category}
   </p>
 

@@ -196,7 +196,7 @@ function FilterProducts({ brands, categories }) {
             </label>
             <div className="grid grid-cols-3 gap-2 w-full">
               {brands.map((brand) => (
-                <div key={brand} className="brand-checkbox">
+                <div key={brand} className="brand-checkbox text-black">
                   <input
                     type="checkbox"
                     name={brand}
