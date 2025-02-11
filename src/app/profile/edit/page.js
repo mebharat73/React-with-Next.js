@@ -63,8 +63,8 @@ function EditProfilePage() {
   }, [router, user]);
 
   return (
-    <div className="py-8 min-h-screen w-auto bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] flex items-center justify-center">
-      <div className="bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9 rounded-2xl shadow-lg p-8 w-full max-w-lg">
+    <div className="py-8 min-h-screen w-auto bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] flex items-center justify-center dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]">
+      <div className="rounded-2xl shadow-lg p-8 w-full max-w-lg dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]">
         <ProfileImage />
         <h2 className="p-4 font-serif text-2xl text-[#68217A] font-bold text-center mb-1">Edit Profile</h2>
         <form onSubmit={handleSubmit(submitForm)}>

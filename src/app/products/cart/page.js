@@ -16,9 +16,9 @@ function ProductsCart() {
   const dispatch = useDispatch();
 
   return (
-    <div className="py-16">
+    <div className="py-32">
       <motion.div
-      className="sm:p-10 bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] rounded-3xl border-4 border-[#C3EF38] border-double shadow-2xl"
+      className="sm:p-10 bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] rounded-3xl border-4 border-[#C3EF38] border-double shadow-2xl dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e]"
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.8 }}
@@ -33,7 +33,7 @@ function ProductsCart() {
       </motion.h2>
 
       <motion.div
-        className="py-6 overflow-hidden shadow-lg bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] dark:bg-gray-800 rounded-xl border-2 border-[#84a123]"
+        className="py-6 overflow-hidden shadow-lg bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] dark:bg-gray-800 rounded-xl border-2 border-[#84a123] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
@@ -60,7 +60,7 @@ function ProductsCart() {
               >
                 <td colSpan={7}>
                   <div className="h-8">
-                    <div className="text-center text-lg font-semibold text-gray-500">
+                    <div className="text-center text-lg font-semibold text-gray-500 dark:text-white">
                       Cart is empty
                     </div>
                   </div>

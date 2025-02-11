@@ -57,7 +57,7 @@ const Hero = () => {
   }
 
   return (
-    <div className="relative bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] border-t-2 border-[#84a123] rounded-3xl">
+    <div className="relative bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595] border-t-2 border-[#84a123] rounded-3xl ">
       {confetti && (
         <Confetti
           width={window.innerWidth}

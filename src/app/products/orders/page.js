@@ -62,19 +62,19 @@ function ProductOrders() {
 
   return (
     <motion.div
-      className="bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] py-8 px-2 sm:p-10 "
+      className="bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] py-8 px-2 sm:p-10 dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595] "
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
       <div className="flex items-center justify-between">
-        <h2 className="px-2 font-serif border-2 rounded-lg bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] text-center md:text-left text-2xl md:text-3xl font-semibold text-[#68217A] dark:text-white">
+        <h2 className="px-2 font-serif border-2 rounded-lg bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595] text-center md:text-left text-2xl md:text-3xl font-semibold text-[#68217A] dark:text-white">
           Your orders
         </h2>
         {user?.roles.includes("ADMIN") && (
           <Link
             href={ALL_ORDERS_ROUTE}
-            className="px-4 py-2 bg-[#68217A] rounded shadow hover:bg-[#68217A] transition-all duration-300"
+            className="px-3 py-1 font-serif font-bold text-[white] dark:text-black bg-[#68217A] dark:bg-white rounded-3xl shadow hover:bg-[#8b2fa2] transition-all duration-300"
           >
             All Orders
           </Link>
@@ -83,7 +83,7 @@ function ProductOrders() {
 
       {/* Tabs Menu with Motion */}
       <motion.div
-        className="flex justify-between items-center w-full my-5 px-3 border-2 border-[#68217A] relative rounded-2xl bg-gradient-to-tl from-[#8e912d] to-[#dd53ff]"
+        className="flex justify-between items-center w-full my-5 px-3 border-2 border-[#68217A] relative rounded-2xl bg-gradient-to-tl from-[#8e912d] to-[#dd53ff] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.3, duration: 0.5 }}
@@ -91,7 +91,7 @@ function ProductOrders() {
         {orderTabs.map((tab, index) => (
           <motion.div
             key={index}
-            className={`py-1 px-2 bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] text-[#68217A] font-serif font-extrabold relative p-2 dark:text-white text-base cursor-pointer border-x-2 rounded-2xl border-[#84a123]`}
+            className={`py-1 px-2 bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] text-[#68217A] font-serif font-extrabold relative p-2 dark:text-white text-base cursor-pointer border-x-2 rounded-2xl border-[#84a123] *:dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]`}
             onClick={() => setStatus(tab.status)}
             whileHover={{ scale: 1.1 }}
             transition={{ type: "spring", stiffness: 300 }}

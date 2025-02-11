@@ -42,7 +42,7 @@ function CheckoutProducts({ disabled }) {
       <button
         disabled={disabled}
         onClick={() => setShowCheckoutPopup(true)}
-        className="float-right font-serif rounded-3xl text-[#d0fa44] hover:text-white bg-[#68217A] hover:bg-[#8b2fa2] px-5 py-1 flex items-center md:text-xl dark:text-white disabled:bg-opacity-75"
+        className="float-right font-serif rounded-3xl text-[#d0fa44] hover:text-white bg-[#68217A] hover:bg-[#8b2fa2] px-5 py-1 flex items-center md:text-xl dark:text-white disabled:bg-opacity-75 dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0] dark:hover:text-black"
       >
         Checkout
       </button>

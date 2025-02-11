@@ -23,9 +23,9 @@ export default function AuthLayout({ children }) {
   }, [user, router]);
 
   return (
-    <div className="bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] dark:bg-gray-800">
+    <div className="bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595]">
       <div className="max-w-screen-xl mx-auto py-1">
-        <div className="border-2 border-dotted border-[#8b2fa2] bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] dark:bg-gray-700 rounded-2xl flex items-center justify-center md:p-5 m-5 lg:m-10">
+        <div className="border-2 border-dotted border-[#8b2fa2] bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0] rounded-2xl flex items-center justify-center md:p-5 lg:m-5">
         <motion.div
             className="w-1/2 mr-7 p-3 hidden md:block"
             initial={{ opacity: 0, scale: 0.8 }}

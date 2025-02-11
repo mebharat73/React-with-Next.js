@@ -50,7 +50,7 @@ function ProfileImage() {
         alt="image"
         height={150}
         width={150}
-        className="p-1 rounded-full border-[#84a123] border-4  h-36 w-36 object-cover bg-gradient-to-tl from-[#C3EF38] to-[#dd53ff]"
+        className="p-1 rounded-full border-[#84a123] border-4  h-36 w-36 object-cover bg-gradient-to-tl from-[#C3EF38] to-[#dd53ff] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]"
       />
 
       <form onSubmit={updateProfile} className="flex items-center mt-3">

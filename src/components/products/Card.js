@@ -62,7 +62,7 @@ function ProductCard({ product, productView }) {
 
   const className =
     productView === PRODUCT_GRID_VIEW
-      ? "bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] m-4 p-3 rounded-3xl border-2 border-[#8e912d] border-double shadow-lg shadow-[#d0fa44] dark:bg-gray-900 hover:bg-gradient-to-br from-[#F5F7FA] to-[#FEEEF9] dark:hover:bg-gray-950"
+      ? "mx-1 my-1 py-1 px-1 md:bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] md:mx-6 md:my-2 md:p-3 rounded-3xl border-2 border-[#8e912d] border-double shadow-lg shadow-[#d0fa44] hover:bg-gradient-to-br from-[#F5F7FA] to-[#FEEEF9] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]"
       : "grid grid-cols-1 sm:grid-cols-[1fr,1fr] md:grid-cols-[1fr,2fr] gap-x-20 bg-gray-50 p-5 sm:p-10 rounded-xl shadow dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-950 transition-all duration-300 ease-in-out";
 
   const descriptionPreview = product.description.substring(0, 60);
@@ -96,16 +96,16 @@ function ProductCard({ product, productView }) {
           <Image
               alt={product.name}
               src={product.imageUrls.length > 0 ? product.imageUrls[0] : placeholder}
-              width={400}
-              height={400}
-              className="h-36 bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] rounded-2xl border-y-2 border-dashed border-[#8b2fa2]"
+              width={500}
+              height={500}
+              className="h-36 bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] rounded-2xl border-y-2 border-dashed border-[#8b2fa2] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]"
           />
 
       </Link>
             
 
       {/* Product Details */}
-      <div className="py-1">
+      <div className="py-0">
         {/* Brand and Category */}
         <div className="flex items-center justify-between">
           <Link href={`${PRODUCTS_ROUTE}/brand/${product.brand}`}>
@@ -125,17 +125,19 @@ function ProductCard({ product, productView }) {
         
 
         {/* Product Description */}
-        <p className="mt-2 text-sm text-zinc-600 dark:text-gray-300 max-h-10 overflow-hidden text-ellipsis">
-          {descriptionPreview}
+        <p className="mt-1 text-sm font-semibold text-zinc-600 dark:text-white max-h-14 overflow-hidden text-ellipsis">
+          {descriptionPreview?.length > 33 ? `${descriptionPreview.slice(0, 33)}...` : descriptionPreview}
           <Link
             href={`${PRODUCTS_ROUTE}/${product.id}`}
-            className="text-[#dc57fd] font-semibold underline hover:text-[#8b2fa2] ml-1 hover:underline transition-all duration-200"
+            className="text-[#dc57fd] font-semibold underline hover:text-[#8b2fa2] ml-1 hover:underline transition-all duration-200 inline-block"
           >
             More details
           </Link>
         </p>
 
-            <div className="flex items-center justify-between pt-3">
+
+
+            <div className="md:flex items-center justify-between pt-1">
               {/* Add to Cart Button */}
                 <div className="mt-0 flex items-center justify-end">
                   <AddToCart product={product} className="w-full md:w-1/2 py-3 bg-[#68217A] text-[#C3EF38] text-lg rounded-2xl transition-all transform hover:scale-105 hover:bg-[#8b2fa2] duration-300 add-to-cart-btn" />
@@ -150,7 +152,7 @@ function ProductCard({ product, productView }) {
 
 
         {/* Star Rating */}
-        <div className="flex items-center justify-center mt-2">
+        <div className="flex items-center justify-center mt-1">
           {[...Array(5)].map((_, index) => (
             <FaStar
               key={index}

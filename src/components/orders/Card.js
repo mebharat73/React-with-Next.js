@@ -6,12 +6,12 @@ import { motion } from "framer-motion";
 function OrdersCard({ order, status }) {
   return (
     <motion.div
-      className="border-4 rounded-3xl border-[#8b2fa2] border-double my-5 bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] dark:bg-gradient-to-r dark:from-indigo-600 dark:via-purple-600 dark:to-pink-500"
+      className="border-4 rounded-3xl border-[#8b2fa2] border-double my-5 bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e]"
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, type: "spring", stiffness: 300 }}
     >
-      <div className="px-10 py-0 rounded-full flex items-center justify-between m-6 bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6]">
+      <div className="px-10 py-0 rounded-full flex items-center justify-between m-6 bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]">
         <div>
           <p className="text-[#68217A] font-extrabold dark:text-gray-200 text-sm">OrderId</p>
           <h5 className="font-semibold dark:text-white">#{order.id}</h5>
@@ -44,7 +44,7 @@ function OrdersCard({ order, status }) {
           return (
             <motion.div
               key={index}
-              className="grid grid-cols-[auto,1fr] gap-5 py-3 px-5 rounded-2xl border-2 border-[#84a123] border-dashed dark:text-white bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9]"
+              className="grid grid-cols-[auto,1fr] gap-5 py-3 px-5 rounded-2xl border-2 border-[#84a123] border-dashed dark:text-white bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]"
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 300 }}
             >

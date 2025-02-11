@@ -41,7 +41,7 @@ function RegisterForm() {
   return (
     <motion.form
       onSubmit={handleSubmit(submitForm)}
-      className="max-w-md mx-auto p-6 border-2 border-[#8e912d] border-dashed bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] dark:bg-gray-800 rounded-lg shadow-lg transform transition-all"
+      className="max-w-md mx-auto p-6 border-2 border-[#8e912d] border-dashed bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e] rounded-lg shadow-lg transform transition-all"
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
