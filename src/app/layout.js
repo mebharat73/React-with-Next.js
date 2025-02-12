@@ -12,7 +12,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="bg-gradient-to-tl from-[#7a7c36] to-[#5f226e] hover:bg-gradient-to-tl from-[#000000] to-[#979595] ">
+    <html lang="en" className="bg-gradient-to-tl from-[#0e0e0e] to-[#939191]">
       <body>
         <Providers>
           <MainLayout>{children}</MainLayout>
