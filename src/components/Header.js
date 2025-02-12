@@ -186,7 +186,7 @@ function Header() {
                   <div
                     className={`${
                       showProfile ? "block" : "hidden"
-                    } w-52 py-3 px-5 rounded-xl border border-[#8e912d] bg-gradient-to-b from-[#faaae0] to-[#bacfef] absolute top-10 right-0 shadow-lg transition-all duration-300 ease-in-out`}
+                    } w-52 py-3 px-5 rounded-xl border border-[#8e912d] bg-gradient-to-b from-[#faaae0] to-[#bacfef] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0] absolute top-10 right-0 shadow-lg transition-all duration-300 ease-in-out`}
                     onClick={() => setShowProfile(false)}
                   >
                     <h3 className="mb-2 font-bold">Hi! {user.name}</h3>
@@ -220,78 +220,121 @@ function Header() {
         </div>
       </div>
 
+
+
+
       <div
-        className={`${
-          showMobileMenu ? "block" : "hidden"
-        } md:hidden absolute top-0 right-0 bottom-0 w-full bg-slate-300  bg-opacity-50 dark:bg-opacity-50 h-screen z-40 transition-all`}
-        onClick={() => setShowMobileMenu(false)}
-      >
-        <div className="w-3/4 h-auto border-2 border-double border-[#68217A] rounded-3xl bg-gradient-to-b from-[#faaae0] to-[#bacfef] float-right p-6 grid grid-cols-1 grid-rows-[auto,1fr,auto] dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595]">
-          <div className="border-b pl-2 pb-3 flex items-center justify-between">
-            {user ? (
-              <div className="flex items-center justify-start ">
-                <Image
+          className={`${
+            showMobileMenu ? "block" : "hidden"
+          } md:hidden absolute top-0 right-0 bottom-0 w-full bg-slate-300 bg-opacity-50 dark:bg-opacity-50 h-screen z-40 transition-all`}
+          onClick={() => setShowMobileMenu(false)} // Close the mobile menu when clicked outside
+        >
+          <div className="w-3/4 h-auto border-2 border-double border-[#68217A] rounded-3xl bg-gradient-to-b from-[#faaae0] to-[#bacfef] float-right p-6 grid grid-cols-1 grid-rows-[auto,1fr,auto] dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595]">
+            <div className="border-b pl-2 pb-3 flex items-center justify-between">
+              {user ? (
+                <div className="flex items-center justify-start ">
+                  <button
+                    className="p-1 border-2 hover:bg-white rounded-3xl hover:dark:bg-gray-800 animate-pulse transition-transform transform hover:scale-105 active:scale-105"
+                    onClick={(e) => {
+                      e.stopPropagation(); // Prevent the click event from propagating to the parent
+                      setShowProfile((prev) => !prev); // Toggle profile container visibility
+                    }}
+                  >
+                    {user.profileImageUrl ? (
+                      <Image
                         src={user.profileImageUrl}
                         alt="profile-img"
-                        width={35}
-                        height={35}
-                        className="h-10 w-10 rounded-full border-2 border-white animate-bounce"
+                        width={28}
+                        height={28}
+                        className="h-7 w-7 rounded-full object-cover"
                       />
-                <h3 className="font-bold font-serif text-lg text-[#68217A] ml-4">Hi! {user.name}</h3>
-              </div>
-            ) : (
-              <h3 className="font-extrabold text-xl font-serif text-[#68217A] dark:text-white">Guest user</h3>
-            )}
+                    ) : (
+                      <ImUser className=" rounded-full border" />
+                    )}
+                  </button>
 
-            <button
-              className="rounded-lg md:hidden focus:outline-none focus:shadow-outline"
-              onClick={() => setShowMobileMenu(false)}
-            >
-              <RxCross2 className="h-7 w-7 rounded-full bg-[#dd53ff] dark: hover:bg-[#8b2fa2] animate-bounce" />
-            </button>
-          </div>
+                  <div
+                    className={`${
+                      showProfile ? "block" : "hidden"
+                    } w-52 py-3 px-5 rounded-xl border border-e-4 border-[#8e912d] bg-gradient-to-b from-[#faaae0] to-[#bacfef] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0] absolute top-7 shadow-lg transition-all duration-300 ease-in-out transform ${
+                      showProfile ? "translate-x-0 translate-y-10" : "translate-x-4 translate-y-0"
+                    }`} // Smooth transition effect
+                    onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside the profile container
+                  >
+                    <h3 className="mb-2 font-bold">Hi! {user.name}</h3>
 
+                    <Link
+                      href={"/profile/edit"}
+                      className="bg-[#dd53ff] text-white font-serif w-full rounded-3xl hover:bg-[#8b2fa2] flex items-center justify-center my-3 transition-transform transform hover:scale-105 active:scale-105"
+                    >
+                      Profile
+                    </Link>
 
-          <nav className="flex flex-col flex-grow p-3 m-1 border-2 border-dashed border-[#8e912d]  md:hidden">
-            {navLinks.map((navlink) => {
-              if (navlink.isAuth && !user)
-                return <div key={navlink.route}></div>;
+                    <button
+                      className="bg-[#68217A] text-[#d0fa44] font-serif hover:bg-[#8b2fa2] hover:text-white w-full rounded-3xl flex items-center justify-center transition-transform transform hover:scale-200 active:scale-105"
+                      onClick={logout}
+                    >
+                      Logout
+                      <MdLogout className="ml-2" />
+                    </button>
+                  </div>
 
-              return (
-                <Link
-                  key={navlink.route}
-                  className="p-1 mt-4 text-sm font-semibold font-serif bg-transparent rounded-3xl md:mt-0 md:ml-4 hover:text-white focus:text-gray-900 hover:bg-white focus:bg-primary-100 focus:outline-none focus:shadow-outline"
-                  href={navlink.route}
-                >
-                  <div className="px-4 py-2 text-[#d0fa44] dark:text-white font-serif font-semibold hover:text-white border-[#dd53ff] rounded-2xl bg-[#dd53ff] dark:dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595]">
-                  {navlink.label}
+                  <h3 className="font-bold font-serif text-lg text-[#68217A] ml-4">Hi! {user.name}</h3>
                 </div>
-                </Link>
-              );
-            })}
-          </nav>
+              ) : (
+                <h3 className="font-extrabold text-xl font-serif text-[#68217A] dark:text-white">Guest user</h3>
+              )}
 
-
-          {user ? (
-            <>
               <button
-                className="bg-[#68217A] text-[#d0fa44] hover:bg-[#8b2fa2] hover:text-white w-full rounded-full py-1 flex items-center justify-center"
-                onClick={logout}
+                className="rounded-lg md:hidden focus:outline-none focus:shadow-outline"
+                onClick={() => setShowMobileMenu(false)} // Close the mobile menu when clicked
               >
-                Logout
-                <MdLogout className="ml-2" />
+                <RxCross2 className="h-7 w-7 rounded-full bg-[#dd53ff] dark:hover:bg-[#8b2fa2] animate-bounce" />
               </button>
-            </>
-          ) : (
-            <Link
-              href={LOGIN_ROUTE}
-              className="px-3 py-1.5 mt-2 text-sm font-semibold font-serif bg-[#68217A] dark:bg-[#b4b0b0] text-center text-[#d0fa44] dark:text-white hover:text-white dark:hover:text-[#d0fa44] rounded-lg md:mt-0 md:ml-4 hover:bg-[#8b2fa2] dark:hover:bg-black focus:bg-primary-600 focus:outline-none focus:shadow-outline"
-            >
-              Login
-            </Link>
-          )}
+            </div>
+
+            <nav className="flex flex-col flex-grow p-3 m-1 border-2 border-dashed border-[#8e912d] md:hidden">
+              {navLinks.map((navlink) => {
+                if (navlink.isAuth && !user) return <div key={navlink.route}></div>;
+
+                return (
+                  <Link
+                    key={navlink.route}
+                    className="p-1 mt-4 text-sm font-semibold font-serif bg-transparent rounded-3xl md:mt-0 md:ml-4 hover:text-white focus:text-gray-900 hover:bg-white focus:bg-primary-100 focus:outline-none focus:shadow-outline"
+                    href={navlink.route}
+                  >
+                    <div className="px-4 py-2 text-[#d0fa44] dark:text-white font-serif font-semibold hover:text-white border-[#dd53ff] rounded-2xl bg-[#dd53ff] dark:dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595]">
+                      {navlink.label}
+                    </div>
+                  </Link>
+                );
+              })}
+            </nav>
+
+            {user ? (
+              <>
+                <button
+                  className="bg-[#68217A] text-[#d0fa44] hover:bg-[#8b2fa2] hover:text-white w-full rounded-full py-1 flex items-center justify-center"
+                  onClick={logout}
+                >
+                  Logout
+                  <MdLogout className="ml-2" />
+                </button>
+              </>
+            ) : (
+              <Link
+                href={LOGIN_ROUTE}
+                className="px-3 py-1.5 mt-2 text-sm font-semibold font-serif bg-[#68217A] dark:bg-[#b4b0b0] text-center text-[#d0fa44] dark:text-white hover:text-white dark:hover:text-[#d0fa44] rounded-lg md:mt-0 md:ml-4 hover:bg-[#8b2fa2] dark:hover:bg-black focus:bg-primary-600 focus:outline-none focus:shadow-outline"
+              >
+                Login
+              </Link>
+            )}
+          </div>
         </div>
-      </div>
+
+
+
+      
     </header>
   );
 }
