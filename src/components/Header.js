@@ -93,8 +93,8 @@ function Header() {
         hideNavbar ? "transform -translate-y-full opacity-0" : "transform translate-y-0 opacity-100"
       } transition-all duration-500 ease-in-out shadow sticky top-0 z-10`}
     >
-      <div className="antialiased bg-gradient-to-r from-[#FD9EFC] to-[#e28ae0]">
-        <div className="h-10 w-full text-gray-700 bg-gradient-to-tr from-[#C3EF38] to-[#dd53ff] dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595]">
+      <div className="antialiased bg-gradient-to-r from-[#FD9EFC] to-[#e28ae0] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]">
+        <div className="h-10 w-full text-[white] bg-gradient-to-tr from-[#C3EF38] to-[#dd53ff] dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595]">
           <div className="flex flex-col max-w-screen-xl mx-auto md:items-center md:justify-between md:flex-row">
               <div className="flex flex-row items-center justify-between">
                 <div className="flex items-center">

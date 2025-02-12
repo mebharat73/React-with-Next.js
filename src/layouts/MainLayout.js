@@ -19,14 +19,18 @@ function MainLayout({ children }) {
       <Header />
    
       {children}
-      <Footer />
+      
 
       
 
-      {/* Button to Show Modal */}
-      <button onClick={handleShowModal} className="fixed bottom-5 right-5 text-[#d0fa44] bg-[#68217A] hover:bg-[#8b2fa2] hover:text-white p-2 rounded-full animate-bounce">
+      <div className="bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]">
+        {/* Button to Show Modal */}
+      <button 
+        onClick={handleShowModal} 
+        className="text-[#d0fa44] dark:text-white bg-[#68217A] hover:bg-[#8b2fa2] hover:text-white p-2 rounded-full ml-5 dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0] animate-bounce ">
         Show Advertisement
       </button>
+
 
       {/* Modal with Advertisement */}
       <Modal
@@ -36,6 +40,12 @@ function MainLayout({ children }) {
         show={showModal}
         setShow={setShowModal}
       />
+
+
+      </div>
+
+
+    <Footer />
     </main>
   );
 }

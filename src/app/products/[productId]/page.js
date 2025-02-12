@@ -38,7 +38,7 @@ async function ProductById({ params }) {
   </Link>
 
   {/* Category */}
-  <p className="px-5 py-1 mt-2 font-bold uppercase text-[#68217A] text-center bg-gradient-to-tl from-[#f0f656] to-[#e382fb] rounded-md dark:text-gray-300 fade-in bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595]">
+  <p className="px-5 py-1 mt-2 font-bold uppercase text-[#68217A] text-center bg-gradient-to-tl from-[#f0f656] to-[#e382fb] rounded-md dark:text-gray-300 fade-in dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595]">
     {product.category}
   </p>
 

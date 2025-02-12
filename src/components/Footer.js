@@ -4,28 +4,28 @@ import React from "react";
 function Footer() {
   return (
    
-      <section className="w-full relative overflow-hidden bg-gradient-to-bl from-[#e382fb] to-[#f0f656] dark:from-gray-900 dark:to-gray-900 rounded shadow-md">
-    <div className="max-w-screen-xl p-2 mx-auto space-y-2 overflow-hidden sm:px-6 lg:px-2">
-      <nav className="flex flex-wrap justify-center -mx-5 -my-2">
+      <section className="w-full  overflow-hidden bg-gradient-to-bl from-[#e382fb] to-[#f0f656] dark:from-gray-900 dark:to-gray-900 shadow-md">
+    <div className="max-w-screen-xl mx-auto overflow-hidden lg:px-2">
+      <nav className="flex flex-wrap justify-center mt-2">
         
-        <div className="px-5 py-2">
+        <div className="mt-2 px-5">
           <a href="https://bharatkarki73.pythonanywhere.com/" className="text-base font-serif font-bold leading-6 text-[#f0f656] hover:text-white">
             Blog
           </a>
         </div>
         
-        <div className="px-5 py-2">
+        <div className="mt-2 px-5">
           <a href={`${CONTACT_ROUTE}`} className="text-base font-serif font-bold leading-6 text-[#f0f656] hover:hover:text-white">
             Contact
           </a>
         </div>
-        <div className="px-5 py-2">
+        <div className="mt-2 px-5">
           <a href="#" className="text-base font-serif font-bold leading-6 text-[#f0f656] hover:hover:text-white">
             Terms
           </a>
         </div>
       </nav>
-      <div className="flex justify-center space-x-4">
+      <div className="flex justify-center space-x-4 mt-3">
         <a href="#" className="text-[#FEEEF9] hover:text-[#76f5f9]">
           <span className="sr-only">Facebook</span>
           <svg className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
@@ -47,7 +47,7 @@ function Footer() {
         
         
       </div>
-      <p className="mt-8 font-serif text-base font-bold leading-6 text-center text-[#8b2fa2]">
+      <p className="mt-3 mb-3 font-serif text-base font-bold leading-6 text-center text-[#8b2fa2]">
         © 2021 Online seller, Inc. All rights reserved.
       </p>
     </div>
