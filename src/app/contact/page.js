@@ -26,7 +26,7 @@ const ContactPage = () => {
       </div>
 
       {/* Contact Form Section */}
-      <div className="z-10 p-5 mt-20 bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] rounded-3xl w-full max-w-md">
+      <div className="z-10 p-5 mt-24 mb-6 bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] rounded-3xl w-full max-w-md">
         <h1 className="text-2xl text-[#C3EF38] font-extrabold text-center">CONTACT FORM</h1>
         <form className="flex flex-col">
           <div className="flex flex-col mb-4">
@@ -57,7 +57,7 @@ const ContactPage = () => {
       </div>
 
       {/* Start Chat Button at the Bottom-Right */}
-      <div className="absolute bottom-40 right-96">
+      <div className="md:ml-96 z-10">
         <Link
           href="/chat"
           onMouseEnter={triggerFireworks}

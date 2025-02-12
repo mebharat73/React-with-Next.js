@@ -37,7 +37,7 @@ function SearchProducts() {
         placeholder="Type name of your desire product..."
         name="name"
         type="search"
-        className="h-8 text-lg font-serif text-black dark:text-white border-b-4 border-[#68217A] bg-[#f1d2f9] dark:bg-gray-950 rounded-xl w-full pl-20" // Added pl-6 for padding-left
+        className="h-8 text-lg font-serif text-black dark:text-white border-b-4 border-[#68217A] bg-[#f1d2f9] dark:bg-gray-950 rounded-xl w-full pl-8" // Added pl-6 for padding-left
         onChange={(e) => setName(e.target.value)}
       />
 

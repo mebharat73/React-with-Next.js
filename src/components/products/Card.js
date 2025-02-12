@@ -62,7 +62,7 @@ function ProductCard({ product, productView }) {
 
   const className =
     productView === PRODUCT_GRID_VIEW
-      ? "mx-1 my-1 py-1 px-1 md:bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] md:mx-6 md:my-2 md:p-3 rounded-3xl border-2 border-[#8e912d] border-double shadow-lg shadow-[#d0fa44] hover:bg-gradient-to-br from-[#F5F7FA] to-[#FEEEF9] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]"
+      ? "mx-1 my-1 py-1 px-1 md:bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] md:mx-6 md:my-2 md:p-2 rounded-3xl border-2 border-[#8e912d] border-double shadow-lg shadow-[#d0fa44] hover:bg-gradient-to-br from-[#F5F7FA] to-[#FEEEF9] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]"
       : "grid grid-cols-1 sm:grid-cols-[1fr,1fr] md:grid-cols-[1fr,2fr] gap-x-20 bg-gray-50 p-5 sm:p-10 rounded-xl shadow dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-950 transition-all duration-300 ease-in-out";
 
   const descriptionPreview = product.description.substring(0, 60);
@@ -74,7 +74,7 @@ function ProductCard({ product, productView }) {
       <Link href={`${PRODUCTS_ROUTE}/${product.id}`}>
         <div className="relative">
           {/* Scrolling Product Name at the Top */}
-          <div className="scale- mb-2 border-1 border-[#8b2fa2] border-solid bg-gradient-to-br rounded-lg from-[#f0f656] to-[#e382fb] text-[#68217A] font-bold whitespace-nowrap overflow-hidden">
+          <div className="mb-2 border-1 border-[#8b2fa2] border-solid bg-gradient-to-br rounded-lg from-[#f0f656] to-[#e382fb] text-[#68217A] font-bold whitespace-nowrap overflow-hidden">
             <motion.div
               className="overflow-hidden"
               animate={{ x: ["100%", "-100%"] }} // Move from right to left
@@ -107,14 +107,14 @@ function ProductCard({ product, productView }) {
       {/* Product Details */}
       <div className="py-0">
         {/* Brand and Category */}
-        <div className="flex items-center justify-between">
+        <div className="flex md:flex items-center justify-between">
           <Link href={`${PRODUCTS_ROUTE}/brand/${product.brand}`}>
             <span className="inline-flex items-center rounded-md bg-[#d76cf2] px-1 py-0 text-xs font-medium text-black hover:text-white ring-1 ring-inset ring-primary-500/10">
               {product.brand}
             </span>
           </Link>
           <Link href={`${PRODUCTS_ROUTE}/category/${product.category}`}>
-            <span className="inline-flex items-center rounded-md bg-[#68217A] hover:bg-[#8b2fa2] px-1 py-0 text-xs font-medium text-[#d0fa44] hover:text-white ring-1 ring-inset ring-red-500/10">
+            <span className="flex md:inline-flex items-center rounded-md bg-[#68217A] hover:bg-[#8b2fa2] px-1 py-0 text-xs font-medium text-[#d0fa44] hover:text-white ring-1 ring-inset ring-red-500/10">
               <MdOutlineCategory className="mr-1" />
               {product.category}
             </span>

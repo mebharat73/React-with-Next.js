@@ -18,7 +18,7 @@ function ProductsCart() {
   return (
     <div className="py-24">
       <motion.div
-        className="p-0 bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] rounded-3xl border-4 border-[#C3EF38] border-double shadow-2xl dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e]"
+        className="px-1 md:p-0 bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] rounded-3xl border-4 border-[#C3EF38] border-double shadow-2xl dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e]"
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8 }}
@@ -33,12 +33,12 @@ function ProductsCart() {
         </motion.h2>
 
         <motion.div
-          className="py-6 overflow-hidden shadow-lg bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] dark:bg-gray-800 rounded-xl border-2 border-[#84a123] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]"
+          className="md:py-6 overflow-hidden shadow-lg bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] dark:bg-gray-800 rounded-xl border-2 border-[#84a123] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
         >
-          <table className="w-full dark:text-white table-auto">
+          <table className="md:w-full dark:text-white table-auto">
             <thead>
               <tr className="border-b-2 border-[#8b2fa2] bg-[#f0b8ff] dark:bg-gray-700">
                 <th className="p-4 text-sm text-left">S.N</th>
