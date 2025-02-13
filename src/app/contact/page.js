@@ -16,17 +16,14 @@ const ContactPage = () => {
   };
 
   return (
-    <div className="relative flex flex-col items-center justify-center h-screen bg-cover bg-center" style={{ backgroundImage: "url('/images/contact.avif')" }}>
+    <div className="md:relative flex flex-col items-center justify-center h-screen bg-cover bg-center" style={{ backgroundImage: "url('/images/contact.avif')" }}>
       {/* Overlay for better text visibility */}
-      <div className="m-20 absolute inset-0 flex flex-col">
+      <div className="m-10 md:m-20 absolute inset-0 flex flex-col">
         <h1 className="text-6xl text-bg font-serif font-extrabold">Let&apos;s Get in Touch!</h1>
-        <p className="text-xl mt-2 ml-10 text-bgBack font-bold">
-          Have a question or need assistance? Reach out via email, phone, or the contact form below. We&apos;re eager to assist you.
-        </p>
       </div>
 
       {/* Contact Form Section */}
-      <div className="z-10 p-5 mt-24 mb-6 bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] rounded-3xl w-full max-w-md">
+      <div className="p-5 mt-24 mb-6 bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] rounded-3xl w-full max-w-md">
         <h1 className="text-2xl text-[#C3EF38] font-extrabold text-center">CONTACT FORM</h1>
         <form className="flex flex-col">
           <div className="flex flex-col mb-4">

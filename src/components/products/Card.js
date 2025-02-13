@@ -62,7 +62,7 @@ function ProductCard({ product, productView }) {
 
   const className =
     productView === PRODUCT_GRID_VIEW
-      ? "mx-1 my-1 py-1 px-1 md:bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] md:mx-6 md:my-2 md:p-2 rounded-3xl border-2 border-[#8e912d] border-double shadow-lg shadow-[#d0fa44] hover:bg-gradient-to-br from-[#F5F7FA] to-[#FEEEF9] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]"
+      ? "mx-0 my-2 py-1 px-2 md:bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] md:mx-5 md:my-2 md:py-2 md:px-2 rounded-3xl border-2 border-[#8e912d] border-double shadow-lg shadow-[#d0fa44] hover:bg-gradient-to-br from-[#F5F7FA] to-[#FEEEF9] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]"
       : "grid grid-cols-1 sm:grid-cols-[1fr,1fr] md:grid-cols-[1fr,2fr] gap-x-20 bg-gray-50 p-5 sm:p-10 rounded-xl shadow dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-950 transition-all duration-300 ease-in-out";
 
   const descriptionPreview = product.description.substring(0, 60);
@@ -105,28 +105,43 @@ function ProductCard({ product, productView }) {
             
 
       {/* Product Details */}
-      <div className="py-0">
-        {/* Brand and Category */}
-        <div className="flex md:flex items-center justify-between">
-          <Link href={`${PRODUCTS_ROUTE}/brand/${product.brand}`}>
-            <span className="inline-flex items-center rounded-md bg-[#d76cf2] px-1 py-0 text-xs font-medium text-black hover:text-white ring-1 ring-inset ring-primary-500/10">
-              {product.brand}
-            </span>
-          </Link>
-          <Link href={`${PRODUCTS_ROUTE}/category/${product.category}`}>
-            <span className="flex md:inline-flex items-center rounded-md bg-[#68217A] hover:bg-[#8b2fa2] px-1 py-0 text-xs font-medium text-[#d0fa44] hover:text-white ring-1 ring-inset ring-red-500/10">
-              <MdOutlineCategory className="mr-1" />
-              {product.category}
-            </span>
-          </Link>
-        </div>
+<div className="py-0">
+  {/* Brand and Category */}
+  <div className="flex md:flex items-center justify-between">
+    <Link href={`${PRODUCTS_ROUTE}/brand/${product.brand}`}>
+      <span className="inline-flex items-center rounded-md bg-[#d76cf2] px-2 py-0.5 text-xs font-medium text-black hover:text-white ring-1 ring-inset ring-primary-500/10 overflow-hidden relative">
+        {product.brand}
+      </span>
+    </Link>
+    
+    <Link href={`${PRODUCTS_ROUTE}/category/${product.category}`}>
+      <span className="flex items-center rounded-md bg-[#68217A] hover:bg-[#8b2fa2] px-0 py-1 text-xs font-medium text-[#d0fa44] hover:text-white ring-1 ring-inset ring-red-500/10 overflow-hidden w-28 relative"> {/* Set a fixed width */}
+        <MdOutlineCategory className="ml-2" />
+        
+        <motion.div
+          className="whitespace-nowrap absolute left-24" // Start scrolling from a certain gap
+          animate={{ x: ["-100%", "100%"] }} // Move from right to left
+          transition={{
+            x: {
+              repeat: Infinity,  // Loop indefinitely
+              repeatType: "loop",  // Make it a continuous loop
+              duration: 10,  // Adjust duration for scrolling speed
+              ease: "linear",  // Smooth linear scroll
+            },
+          }}
+        >
+          {product.category}
+        </motion.div>
+      </span>
+    </Link>
+  </div>
 
         {/* Title and Edit/Delete Buttons */}
         
 
         {/* Product Description */}
         <p className="mt-1 text-sm font-semibold text-zinc-600 dark:text-white max-h-14 overflow-hidden text-ellipsis">
-          {descriptionPreview?.length > 30 ? `${descriptionPreview.slice(0, 30)}...` : descriptionPreview}
+          {descriptionPreview?.length > 30 ? `${descriptionPreview.slice(0, 27)}...` : descriptionPreview}
           <Link
             href={`${PRODUCTS_ROUTE}/${product.id}`}
             className="text-[#dc57fd] font-semibold underline hover:text-[#8b2fa2] ml-1 hover:underline transition-all duration-200 inline-block"
