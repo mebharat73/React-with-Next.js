@@ -76,8 +76,8 @@ function ProductCard({ product, productView }) {
           {/* Scrolling Product Name at the Top */}
           <div className="mb-2 border-1 border-[#8b2fa2] border-solid bg-gradient-to-br rounded-lg from-[#f0f656] to-[#e382fb] text-[#68217A] font-bold whitespace-nowrap overflow-hidden">
             <motion.div
-              className="overflow-hidden"
-              animate={{ x: ["100%", "-100%"] }} // Move from right to left
+              className="whitespace-nowrap overflow-hidden"
+              animate={{ x: ["-100%", "100%"] }} // Move from right to left
               transition={{
                 x: {
                   repeat: Infinity,  // Loop indefinitely
@@ -105,18 +105,18 @@ function ProductCard({ product, productView }) {
             
 
       {/* Product Details */}
-<div className="py-0">
+<div className="py-1">
   {/* Brand and Category */}
-  <div className="flex md:flex items-center justify-between">
+  <div className="flex md:flex justify-evenly">
     <Link href={`${PRODUCTS_ROUTE}/brand/${product.brand}`}>
-      <span className="inline-flex items-center rounded-md bg-[#d76cf2] px-2 py-0.5 text-xs font-medium text-black hover:text-white ring-1 ring-inset ring-primary-500/10 overflow-hidden relative">
+      <span className="px-1 inline-flex items-center rounded-md bg-[#d76cf2] text-xs font-medium text-black hover:text-white ring-1 ring-inset ring-primary-500/10 overflow-hidden relative">
         {product.brand}
       </span>
     </Link>
     
     <Link href={`${PRODUCTS_ROUTE}/category/${product.category}`}>
-      <span className="flex items-center rounded-md bg-[#68217A] hover:bg-[#8b2fa2] px-0 py-1 text-xs font-medium text-[#d0fa44] hover:text-white ring-1 ring-inset ring-red-500/10 overflow-hidden w-28 relative"> {/* Set a fixed width */}
-        <MdOutlineCategory className="ml-2" />
+      <span className="py-0.5 px-1 pb-1 inline-flex items-center rounded-md bg-[#68217A] hover:bg-[#8b2fa2] text-xs font-medium text-[#d0fa44] hover:text-white ring-1 ring-inset ring-red-500/10 overflow-hidden w-28 relative"> {/* Set a fixed width */}
+        <MdOutlineCategory className="ml-1" />
         
         <motion.div
           className="whitespace-nowrap absolute left-24" // Start scrolling from a certain gap

@@ -83,7 +83,7 @@ function ProductOrders() {
 
       {/* Tabs Menu with Motion */}
       <motion.div
-        className="flex justify-between items-center w-full my-5 px-3 border-2 border-[#68217A] relative rounded-2xl bg-gradient-to-tl from-[#8e912d] to-[#dd53ff] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]"
+        className="flex justify-between items-center w-full my-5 px-12 py-0.5 border-2 border-[#68217A] relative rounded-2xl bg-gradient-to-tl from-[#8e912d] to-[#dd53ff] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.3, duration: 0.5 }}

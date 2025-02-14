@@ -5,7 +5,7 @@ import { PRODUCTS_ROUTE } from "@/constants/routes";
 
 function HomeFeaturedProduct() {
   return (
-    <div className="mx-8 md:mx-36 rounded-3xl border-2 border-[#84a123] bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595]">
+    <div className="mx-7 md:mx-36 rounded-3xl border-2 border-[#84a123] bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595]">
       <div className="grid grid-cols-1 gap-10 md:grid-cols-2 px-6 md:px-16 lg:p-5 max-w-screen-xl mx-auto">
         <div className="flex flex-col items-start justify-center dark:text-white">
           <span className="bg-blue-200 text-blue-800 px-4 rounded-xl ml-2">
