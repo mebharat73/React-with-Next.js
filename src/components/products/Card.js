@@ -74,7 +74,7 @@ function ProductCard({ product, productView }) {
       <Link href={`${PRODUCTS_ROUTE}/${product.id}`}>
         <div className="relative">
           {/* Scrolling Product Name at the Top */}
-          <div className="mb-2 border-1 border-[#8b2fa2] border-solid bg-gradient-to-br rounded-lg from-[#f0f656] to-[#e382fb] text-[#68217A] dark:text-[#d0fa44] font-bold whitespace-nowrap overflow-hidden dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595]">
+          <div className="mb-1 border-1 border-[#8b2fa2] border-solid bg-gradient-to-br rounded-lg from-[#f0f656] to-[#e382fb] text-[#68217A] dark:text-[#d0fa44] font-bold whitespace-nowrap overflow-hidden dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595]">
             <motion.div
               className="whitespace-nowrap overflow-hidden"
               animate={{ x: ["-100%", "100%"] }} // Move from right to left
@@ -159,11 +159,11 @@ function ProductCard({ product, productView }) {
         
 
         {/* Product Description */}
-        <p className="mt-1 text-sm font-semibold text-zinc-600 dark:text-white max-h-14 overflow-hidden text-ellipsis">
+        <p className="text-sm font-semibold text-zinc-600 dark:text-white max-h-14 overflow-hidden text-ellipsis">
           {descriptionPreview?.length > 30 ? `${descriptionPreview.slice(0, 27)}...` : descriptionPreview}
           <Link
             href={`${PRODUCTS_ROUTE}/${product.id}`}
-            className="text-[#dc57fd] font-semibold underline hover:text-[#8b2fa2] ml-1 hover:underline transition-all duration-200 inline-block"
+            className="text-[#dc57fd] font-semibold underline hover:text-[#8b2fa2] hover:underline transition-all duration-200 inline-block"
           >
             More details
           </Link>
@@ -171,10 +171,10 @@ function ProductCard({ product, productView }) {
 
 
 
-            <div className="md:flex items-center justify-between pt-1">
+            <div className="md:flex items-center justify-between">
               {/* Add to Cart Button */}
-                <div className="mt-0 flex items-center justify-end">
-                  <AddToCart product={product} className="w-full md:w-1/2 py-3 bg-[#68217A] text-[#C3EF38] text-lg rounded-2xl transition-all transform hover:scale-105 hover:bg-[#8b2fa2] duration-300 add-to-cart-btn" />
+                <div className="flex items-center justify-end">
+                  <AddToCart product={product} />
                 </div>
               {/* Price */}
               <p className="text-right">
@@ -186,11 +186,11 @@ function ProductCard({ product, productView }) {
 
 
         {/* Star Rating */}
-        <div className="flex items-center justify-center mt-1">
+        <div className="flex items-center justify-center gap-1">
           {[...Array(5)].map((_, index) => (
             <FaStar
               key={index}
-              className={`h-5 w-5 ${index < product.rating ? 'text-yellow-400' : 'text-[#8c6496]'}`}
+              className={`h-3 w-3 ${index < product.rating ? 'text-yellow-400' : 'text-[#8c6496]'}`}
             />
           ))}
         </div>

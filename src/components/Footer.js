@@ -1,4 +1,4 @@
-import { CONTACT_ROUTE } from "@/constants/routes";
+import { CONTACT_ROUTE, TERMS_ROUTE } from "@/constants/routes";
 import React from "react";
 
 function Footer() {
@@ -20,7 +20,7 @@ function Footer() {
           </a>
         </div>
         <div className="mt-2 px-5">
-          <a href="#" className="text-base font-serif font-bold leading-6 text-[#f0f656] hover:hover:text-white">
+          <a href={`${TERMS_ROUTE}`} className="text-base font-serif font-bold leading-6 text-[#f0f656] hover:hover:text-white">
             Terms
           </a>
         </div>

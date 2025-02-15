@@ -26,10 +26,10 @@ function AddToCart({ product }) {
   return (
     <button
       onClick={addProductToCart}
-      className="font-serif text-[#d0fa44] hover:text-white bg-[#68217A] hover:bg-[#8b2fa2] px-2 py-0 rounded-2xl flex items-center md:text-base dark:text-white dark:hover:text-black dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e]"
+      className="text-sm font-medium md:font-serif text-[#d0fa44] hover:text-white bg-[#68217A] hover:bg-[#8b2fa2] px-2 py-0 rounded-2xl flex items-center md:text-base dark:text-white dark:hover:text-black dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e] animate-[pulse_1s_linear_infinite]"
     >
       Add to cart
-      <MdOutlineShoppingCart className="ml-2 text-[#dbff65]" />
+      <MdOutlineShoppingCart className="ml-1 text-[#dbff65] dark:text-white" />
       <ToastContainer />
     </button>
   );

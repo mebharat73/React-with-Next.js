@@ -8,3 +8,4 @@ export const ORDERS_ROUTE = "/products/orders";
 export const PRODUCTS_CART_ROUTE = "/products/cart";
 export const PRODUCTS_ROUTE = "/products";
 export const REGISTER_ROUTE = "/register";
+export const TERMS_ROUTE = "/terms";

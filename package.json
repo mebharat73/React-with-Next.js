@@ -10,10 +10,11 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.5.0",
+    "animate.css": "^4.1.1",
     "animejs": "^3.2.2",
     "axios": "^1.7.9",
     "fireworks-js": "^2.10.8",
-    "framer-motion": "^12.4.0",
+    "framer-motion": "^12.4.3",
     "next": "15.1.3",
     "react": "^19.0.0",
     "react-confetti": "^6.2.2",
