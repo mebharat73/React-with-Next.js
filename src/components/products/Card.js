@@ -105,22 +105,41 @@ function ProductCard({ product, productView }) {
             
 
       {/* Product Details */}
-<div className="px-0">
+      <div className="px-0">
   {/* Brand and Category */}
   <div className="flex md:flex justify-start gap-2 ">
     <Link href={`${PRODUCTS_ROUTE}/brand/${product.brand}`}>
       <span className="px-1 inline-flex items-center rounded-md bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] text-xs font-medium text-black hover:text-rose-600 ring-1 ring-inset ring-primary-500/10 overflow-hidden relative ">
-        {product.brand}
+        {/* Limit the displayed brand name to 5 characters */}
+        {product.brand.length > 7 ? `${product.brand.slice(0, 7)}...` : product.brand}
+        
+        {/* Scroll the remaining part of the brand name */}
+        {product.brand.length > 7 && (
+          <motion.div
+            className="whitespace-nowrap absolute left-20" // Adjust left position
+            animate={{ x: ["100%", "-100%"] }} // Move from right to left
+            transition={{
+              x: {
+                repeat: Infinity,  // Loop indefinitely
+                repeatType: "loop",  // Make it a continuous loop
+                duration: 10,  // Adjust duration for scrolling speed
+                ease: "linear",  // Smooth linear scroll
+              },
+            }}
+          >
+            {product.brand.slice(7)} {/* Show the remaining part of the brand name */}
+          </motion.div>
+        )}
       </span>
     </Link>
     
     <Link href={`${PRODUCTS_ROUTE}/category/${product.category}`}>
-      <span className="px-1 inline-flex items-center rounded-md bg-[#68217A] hover:bg-[#8b2fa2] text-xs font-medium text-[#d0fa44] hover:text-white ring-1 ring-inset ring-red-500/10 overflow-hidden w-28 h-4 relative"> {/* Set a fixed width */}
-        <MdOutlineCategory className="mb-1" />
+      <span className="mt-1.5 inline-flex items-center rounded-md bg-[#68217A] hover:bg-[#8b2fa2] text-xs font-medium text-[#d0fa44] hover:text-white ring-1 ring-inset ring-red-500/10 overflow-hidden w-24 h-4 relative"> {/* Set a fixed width */}
+        
         
         <motion.div
-          className="whitespace-nowrap absolute left-24" // Start scrolling from a certain gap
-          animate={{ x: ["-100%", "100%"] }} // Move from right to left
+          className="whitespace-nowrap absolute left-20" // Start scrolling from a certain gap
+          animate={{ x: ["80%", "-100%"] }} // Move from right to left
           transition={{
             x: {
               repeat: Infinity,  // Loop indefinitely
@@ -135,8 +154,8 @@ function ProductCard({ product, productView }) {
       </span>
     </Link>
   </div>
-
-        {/* Title and Edit/Delete Buttons */}
+</div>
+              {/* Title and Edit/Delete Buttons */}
         
 
         {/* Product Description */}
@@ -193,7 +212,7 @@ function ProductCard({ product, productView }) {
             </button>
           )}
         </div>
-      </div>
+    
 
 
             
