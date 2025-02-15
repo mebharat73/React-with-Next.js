@@ -74,7 +74,7 @@ function ProductCard({ product, productView }) {
       <Link href={`${PRODUCTS_ROUTE}/${product.id}`}>
         <div className="relative">
           {/* Scrolling Product Name at the Top */}
-          <div className="mb-2 border-1 border-[#8b2fa2] border-solid bg-gradient-to-br rounded-lg from-[#f0f656] to-[#e382fb] text-[#68217A] font-bold whitespace-nowrap overflow-hidden">
+          <div className="mb-2 border-1 border-[#8b2fa2] border-solid bg-gradient-to-br rounded-lg from-[#f0f656] to-[#e382fb] text-[#68217A] dark:text-[#d0fa44] font-bold whitespace-nowrap overflow-hidden dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595]">
             <motion.div
               className="whitespace-nowrap overflow-hidden"
               animate={{ x: ["-100%", "100%"] }} // Move from right to left
@@ -105,18 +105,18 @@ function ProductCard({ product, productView }) {
             
 
       {/* Product Details */}
-<div className="py-1">
+<div className="px-0">
   {/* Brand and Category */}
-  <div className="flex md:flex justify-evenly">
+  <div className="flex md:flex justify-start gap-2 ">
     <Link href={`${PRODUCTS_ROUTE}/brand/${product.brand}`}>
-      <span className="px-1 inline-flex items-center rounded-md bg-[#d76cf2] text-xs font-medium text-black hover:text-white ring-1 ring-inset ring-primary-500/10 overflow-hidden relative">
+      <span className="px-1 inline-flex items-center rounded-md bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] text-xs font-medium text-black hover:text-rose-600 ring-1 ring-inset ring-primary-500/10 overflow-hidden relative ">
         {product.brand}
       </span>
     </Link>
     
     <Link href={`${PRODUCTS_ROUTE}/category/${product.category}`}>
-      <span className="py-0.5 px-1 pb-1 inline-flex items-center rounded-md bg-[#68217A] hover:bg-[#8b2fa2] text-xs font-medium text-[#d0fa44] hover:text-white ring-1 ring-inset ring-red-500/10 overflow-hidden w-28 relative"> {/* Set a fixed width */}
-        <MdOutlineCategory className="ml-1" />
+      <span className="px-1 inline-flex items-center rounded-md bg-[#68217A] hover:bg-[#8b2fa2] text-xs font-medium text-[#d0fa44] hover:text-white ring-1 ring-inset ring-red-500/10 overflow-hidden w-28 h-4 relative"> {/* Set a fixed width */}
+        <MdOutlineCategory className="mb-1" />
         
         <motion.div
           className="whitespace-nowrap absolute left-24" // Start scrolling from a certain gap

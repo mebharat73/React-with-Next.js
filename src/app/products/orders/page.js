@@ -68,7 +68,7 @@ function ProductOrders() {
       transition={{ duration: 0.5 }}
     >
       <div className="flex items-center justify-between">
-        <h2 className="px-2 font-serif border-2 rounded-lg bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595] text-center md:text-left text-2xl md:text-3xl font-semibold text-[#68217A] dark:text-white">
+        <h2 className="px-4 py-0 font-serif border-2 rounded-lg bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595] text-center md:text-left text-2xl md:text-3xl font-semibold text-[#68217A] dark:text-white">
           Your orders
         </h2>
         {user?.roles.includes("ADMIN") && (
@@ -83,7 +83,7 @@ function ProductOrders() {
 
       {/* Tabs Menu with Motion */}
       <motion.div
-        className="flex justify-between items-center w-full my-5 px-12 py-0.5 border-2 border-[#68217A] relative rounded-2xl bg-gradient-to-tl from-[#8e912d] to-[#dd53ff] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]"
+        className="md:flex justify-between items-center w-full my-5 px-5 py-0.5 border-2 border-[#68217A] relative rounded-2xl bg-gradient-to-tl from-[#8e912d] to-[#dd53ff] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.3, duration: 0.5 }}
