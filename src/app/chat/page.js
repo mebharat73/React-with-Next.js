@@ -22,7 +22,9 @@ const ChatRoom = () => {
 
   // Scroll to the bottom of the message list whenever new messages are added
   useEffect(() => {
-    messageListRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (messageListRef.current) {
+      messageListRef.current.scrollTop = messageListRef.current.scrollHeight;
+    }
   }, [messages]);
 
   // Handle Enter key for line breaks
@@ -41,31 +43,30 @@ const ChatRoom = () => {
   };
 
   return (
-    <div className="p-10 bg-gradient-to-tl from-[#C3EF38] to-[#dd53ff] border-1 border-t-4 border-[#84a123] rounded-3xl shadow-2xl shadow-[#C3EF38] max-w-4xl mt-5 mb-10">
-      <h1 className="font-serif text-4xl text-center font-bold text-purple-800 pb-6">Chat Room</h1>
+    <div className="w-11/12 md:mt-5 mb-5 py-5 px-7 md:w-5/12 bg-gradient-to-tl from-[#C3EF38] to-[#dd53ff] border-1 border-t-4 border-[#84a123] rounded-3xl shadow-2xl shadow-[#C3EF38] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]">
+      <h1 className="font-serif text-4xl text-center font-bold text-purple-800 pb-5">Chat Room</h1>
 
-      <ul ref={messageListRef} className="space-y-4 max-h-[600px] overflow-y-auto mb-3 px-10 py-6 bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] rounded-2xl shadow-stone-400">
+      <ul ref={messageListRef} className="md:space-y-2 max-h-[500px] overflow-y-auto px-3 py-3 bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] rounded-2xl shadow-stone-400 dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e]">
         {messages.map((msg, index) => (
           <li
             key={index}
-            className={`flex items-start space-x-3 mt-2 px-1 py-1 rounded-xl shadow-md transition-transform duration-300 ease-in-out ${
-              index % 2 === 0 ? 'bg-gradient-to-tl from-[#f0f656] to-[#e382fb]' : 'bg-gradient-to-tl from-[#8e912d] to-[#dd53ff] opacity-95'
+            className={`flex items-start space-x-8 px-2 py-1 rounded-xl shadow-md transition-transform duration-300 ease-in-out ${
+              index % 2 === 0 ? 'bg-gradient-to-tl from-[#f0f656] to-[#e382fb] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]' : 'bg-gradient-to-tl from-[#8e912d] to-[#dd53ff] dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e] opacity-95'
             }`}
+            style={{ display: 'block', maxWidth: '100%', width: 'fit-content', wordWrap: 'break-word', marginLeft: '0' }} // Center the message
           >
-            {/* Check if user exists before accessing profileImageUrl */}
             <img 
               src={user ? user.profileImageUrl : 'https://via.placeholder.com/40'} 
-              alt="User Avatar" 
-              className="w-10 h-10 rounded-full border-2 border-white shadow-md" 
+              alt="User  Avatar" 
+              className="w-7 h-7 rounded-full border-2 border-white shadow-md" 
             />
-            <div className="flex-1">
-              <span className="font-semibold font-serif text-[#d7fe54]">{msg.user}</span>
-              <p className="text-[#68217A] mt-1 font-semibold break-words">{msg.text}</p>
+            <div className="flex-1 -mt-6">
+              <span className="font-serif font-semibold text-[#315b19]">{msg.user}</span>
+              <p className="text-black dark:text-[#d0fa44] text-sm font-semibold font-sans break-words">{msg.text}</p>
             </div>
           </li>
         ))}
       </ul>
-
       <form onSubmit={sendMessage} className="flex space-x-2">
         <textarea
           ref={textareaRef}
@@ -78,7 +79,7 @@ const ChatRoom = () => {
         />
         <button
           type="submit"
-          className="mt-3 px-2 py-1 bg-[#8b2fa2] text-[#d0fa44] rounded-lg hover:bg-purple-700 transition-colors duration-300"
+          className="mt-3 px-2 py-1 bg-[#68217A] text-[#d0fa44] dark:text-white rounded-lg hover:bg-[#8b2fa2] transition-colors duration-300"
         >
           Send
         </button>
