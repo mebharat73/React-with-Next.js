@@ -1,6 +1,6 @@
 "use client";
 
-import Footer from "@/components/Footer";
+
 import Header from "@/components/Header";
 import Modal from "@/components/Advertise.js"; // Import your Modal component
 import { useSelector } from "react-redux";
@@ -32,7 +32,7 @@ function MainLayout({ children }) {
       */}
 
         
-    <Footer />
+
     </main>
   );
 }

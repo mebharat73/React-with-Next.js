@@ -3,6 +3,7 @@ import PopularBrand from "@/components/home/Brand";
 import HomeCategories from "@/components/home/Categories";
 import HomeFeaturedProduct from "@/components/home/Featured";
 import Hero from "@/components/home/Hero";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -21,6 +22,7 @@ export default function Home() {
       <div className="py-7 px-7 max-w-screen-xl mx-auto">
         <PopularBrand />
       </div>
+      <Footer />
     </div>
   );
 }

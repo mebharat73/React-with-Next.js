@@ -4,7 +4,7 @@ import React from "react";
 function Footer() {
   return (
    
-      <section className="w-full  overflow-hidden bg-gradient-to-bl from-[#e382fb] to-[#f0f656] dark:from-gray-900 dark:to-gray-900 shadow-md">
+      <section className="absolute w-full  overflow-hidden bg-gradient-to-bl from-[#e382fb] to-[#f0f656] dark:from-gray-900 dark:to-gray-900 shadow-md">
     <div className="max-w-screen-xl mx-auto overflow-hidden lg:px-2">
       <nav className="flex flex-wrap justify-center mt-2">
         

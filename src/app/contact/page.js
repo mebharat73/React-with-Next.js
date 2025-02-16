@@ -23,7 +23,7 @@ const ContactPage = () => {
       </div>
 
       {/* Contact Form Section */}
-      <div className="p-5 mt-24 mb-6 bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] rounded-3xl w-full max-w-md">
+      <div className="p-5 mt-20 mb-5 bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] rounded-3xl w-full max-w-md">
         <h1 className="text-2xl text-[#C3EF38] font-extrabold text-center">CONTACT FORM</h1>
         <form className="flex flex-col">
           <div className="flex flex-col mb-4">
@@ -49,6 +49,8 @@ const ContactPage = () => {
             <div className={styles.firework} />
             <div className={styles.firework} />
             <div className={styles.firework} />
+            <div className={styles.firework} />
+            <div className={styles.firework} />
           </div>
         )}
       </div>
@@ -58,7 +60,7 @@ const ContactPage = () => {
         <Link
           href="/chat"
           onMouseEnter={triggerFireworks}
-          className="px-3 py-1 border-2 border-[#68217A] bg-gradient-to-tl from-[#C3EF38] to-[#dd53ff] rounded-full text-2xl font-bold text-white animate-pulse cursor-pointer hover:text-[#68217A]"
+          className="px-3 py-1 border-2 border-[#68217A] bg-gradient-to-tl from-[#C3EF38] to-[#dd53ff] rounded-full text-xl font-bold text-white animate-pulse cursor-pointer hover:text-[#68217A]"
         >
           Start Chat
         </Link>

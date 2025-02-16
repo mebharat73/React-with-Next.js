@@ -16,9 +16,9 @@ function ProductsCart() {
   const dispatch = useDispatch();
 
   return (
-    <div className="bg-gradient-to-tl from-[#000000] to-[#979595]">
+    <div>
       <motion.div
-        className="p-4 md:p-6 bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] rounded-3xl border-4 border-[#C3EF38] border-double shadow-2xl dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e]"
+        className="p-4 md:p-6 mt-20 mb-20 bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] rounded-3xl border-4 border-[#C3EF38] border-double shadow-2xl dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e]"
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8 }}

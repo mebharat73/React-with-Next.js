@@ -44,9 +44,9 @@ const ChatRoom = () => {
 
   return (
     <div className="w-11/12 md:mt-5 mb-5 py-5 px-7 md:w-5/12 bg-gradient-to-tl from-[#C3EF38] to-[#dd53ff] border-1 border-t-4 border-[#84a123] rounded-3xl shadow-2xl shadow-[#C3EF38] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]">
-      <h1 className="font-serif text-4xl text-center font-bold text-purple-800 pb-5">Chat Room</h1>
+      <h1 className="font-serif text-4xl text-center font-bold text-purple-800 pb-2">Chat Room</h1>
 
-      <ul ref={messageListRef} className="md:space-y-2 max-h-[500px] overflow-y-auto px-3 py-3 bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] rounded-2xl shadow-stone-400 dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e]">
+      <ul ref={messageListRef} className=" space-y-1 md:space-y-2 max-h-[500px] overflow-y-auto px-3 py-3 bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] rounded-2xl shadow-stone-400 dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e] border-y-2 border-[#68217A] border-double">
         {messages.map((msg, index) => (
           <li
             key={index}
@@ -58,11 +58,11 @@ const ChatRoom = () => {
             <img 
               src={user ? user.profileImageUrl : 'https://via.placeholder.com/40'} 
               alt="User  Avatar" 
-              className="w-7 h-7 rounded-full border-2 border-white shadow-md" 
+              className="w-6 h-6 rounded-full border-2 border-white shadow-md" 
             />
-            <div className="flex-1 -mt-6">
-              <span className="font-serif font-semibold text-[#315b19]">{msg.user}</span>
-              <p className="text-black dark:text-[#d0fa44] text-sm font-semibold font-sans break-words">{msg.text}</p>
+            <div className="flex-1 -mt-7">
+              <span className="font-serif text-sm font-semibold text-[#315b19]">{msg.user}</span>
+              <p className="px-3 text-black dark:text-[#d0fa44] text-sm font-semibold font-sans break-words">{msg.text}</p>
             </div>
           </li>
         ))}
