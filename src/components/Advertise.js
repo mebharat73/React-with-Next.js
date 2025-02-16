@@ -10,7 +10,7 @@ function ModalAdvertise({ title, show = false, setShow }) {
           <div className="flex flex-col p-10 rounded-3xl bg-gradient-to-tl from-[#f0f656] to-[#e382fb] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0] text-textColor dark:text-white">
             {/* Modal Header */}
             <div className="flex justify-between items-center mb-5">
-              <h2 className="ml-20 text-2xl font-semibold text-[#C3EF38] dark:text-[#d0fa44] animate-[ping_5s_linear_infinite]">
+              <h2 className="ml-20 text-2xl font-semibold text-[#C3EF38] dark:text-[#d0fa44] ">
                 {title}
               </h2>
               {/* Close Button */}

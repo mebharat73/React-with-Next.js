@@ -18,13 +18,13 @@ function ProductsCart() {
   return (
     <div>
       <motion.div
-        className="p-4 md:p-6 mt-20 mb-20 bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] rounded-3xl border-4 border-[#C3EF38] border-double shadow-2xl dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e]"
+        className="h-[94vh] md:h-[94vh] px-5 bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] rounded-3xl border-4 border-[#C3EF38] border-double shadow-2xl dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e]"
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8 }}
       >
         <motion.h2
-          className="font-serif text-center md:text-left text-3xl font-bold text-[#8b2fa2] dark:text-white mb-4 ml-5 mt-2"
+          className="font-serif text-center md:text-left text-3xl font-bold text-[#8b2fa2] dark:text-white mb-4 ml-5 -mt-20"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
@@ -33,12 +33,12 @@ function ProductsCart() {
         </motion.h2>
 
         <motion.div
-          className="p-2 md:py-5 px-8 md:ml-4 overflow-hidden shadow-lg bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] dark:bg-gray-800 rounded-xl border-2 border-[#84a123] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]"
+          className="py-16 h-[80vh] md:py-24 px-5 md:ml-4 mt-20 overflow-hidden shadow-lg bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] dark:bg-gray-800 rounded-xl border-2 border-[#84a123] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
         >
-          <div className="overflow-x-auto border-2 border-[#68217A] rounded-xl">
+          <div className="h-[50vh] overflow-x-auto border-2 border-[#68217A] rounded-xl">
             <table className="min-w-full border-2 rounded-2xl dark:text-white">
               <thead>
                 <tr className="rounded-2xl border-b-2 border-[#8b2fa2] bg-[#f0b8ff] dark:bg-gray-700">
@@ -176,7 +176,7 @@ function ProductsCart() {
         </motion.div>
 
         <motion.div
-          className="mt-8 flex justify-end"
+          className="mt-3 flex justify-end"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8 }}

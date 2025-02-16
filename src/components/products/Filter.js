@@ -194,14 +194,14 @@ function FilterProducts({ brands, categories }) {
             <label htmlFor="brand" className="text-nowrap mr-3 font-semibold">
               Brand:
             </label>
-            <div className="grid grid-cols-3 gap-2 w-full">
+            <div className="grid grid-cols-2 md:grid md:grid-cols-3 gap-2 w-full">
               {brands.map((brand) => (
-                <div key={brand} className="brand-checkbox text-black">
+                <div key={brand} className="font-medium text-xs md:font-semibold md:text-sm brand-checkbox text-black">
                   <input
                     type="checkbox"
                     name={brand}
                     id={brand}
-                    className="mr-2"
+                    className="mr-1"
                     checked={brandsFilter.includes(brand)}
                     onChange={() => handleBrandsFilterChange(brand)}
                   />

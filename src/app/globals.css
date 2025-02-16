@@ -44,3 +44,13 @@
   font-family: "Poppins-Bold";
   src: url('/fonts/Poppins-Bold.ttf') format("truetype");
 }
+
+/* ----- chat scrollbar hide option--*/
+ul::-webkit-scrollbar {
+  display: none; /* Hide scrollbar in webkit-based browsers */
+}
+
+ul {
+  -ms-overflow-style: none; /* Hide scrollbar in IE and Edge */
+  scrollbar-width: none; /* Hide scrollbar in Firefox */
+}
