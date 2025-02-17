@@ -9,7 +9,7 @@ function ProductList({ products }) {
 
   const className =
     productView === PRODUCT_GRID_VIEW
-      ? `grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-1 md:gap-0 md:py-2`
+      ? `grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-1 md:gap-0 md:py-1`
       : `grid grid-cols-1 gap-1 py-5 px-3`;
 
   return (

@@ -45,7 +45,7 @@ function ProductsPage() {
     <div>
       <div className="p-1 md:py-1 px-5 flex items-center justify-between">
         <h1 className="font-serif text-center md:text-left text-2xl md:text-4xl font-semibold text-[#68217A] dark:text-white">
-          Products....
+          Make a wish..
         </h1>
 
         <Image

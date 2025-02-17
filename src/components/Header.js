@@ -114,7 +114,7 @@ function Header() {
                   </motion.div>
                   <Link
                     href={HOME_ROUTE}
-                    className="text-xl font-extrabold font-serif tracking-widest text-[#68217A] hover:text-white uppercase rounded-lg  focus:outline-none focus:shadow-outline dark:text-white"
+                    className="text-extrabold md:font-bold font-serif tracking-widest text-[#68217A] hover:text-white uppercase rounded-lg  focus:outline-none focus:shadow-outline dark:text-white lg:text-xl font-extrabold"
                   >
                     {config.appName}
                   </Link>
