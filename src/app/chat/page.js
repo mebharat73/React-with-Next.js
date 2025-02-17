@@ -56,8 +56,8 @@ const ChatRoom = () => {
               key={index}
               className={`flex items-start space-x-8 px-2 py-1 rounded-xl shadow-md transition-transform duration-300 ease-in-out ${
                 index % 2 === 0
-                  ? 'bg-gradient-to-tl from-[#f0f656] to-[#e382fb] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]'
-                  : 'bg-gradient-to-tl from-[#8e912d] to-[#dd53ff] dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e] opacity-95'
+                  ? 'bg-gradient-to-tl from-[#f0f656] to-[#e382fb] dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#e0c6e5]'
+                  : 'bg-gradient-to-tl from-[#8e912d] to-[#dd53ff] dark:bg-gradient-to-tl dark:from-[#f6dcdc] dark:to-[#504e4e] opacity-95'
               }`}
               style={{
                 display: 'block',
