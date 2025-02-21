@@ -11,7 +11,7 @@ function OrdersCard({ order, status }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, type: "spring", stiffness: 300 }}
     >
-      <div className="px-10 py-0 rounded-full flex items-center justify-between m-6 bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]">
+      <div className="lg:px-10 py-0 rounded-full flex items-center justify-between m-6 bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]">
         <div>
           <p className="text-[#68217A] font-extrabold dark:text-gray-200 text-sm">OrderId</p>
           <h5 className="font-semibold dark:text-white">#{order.id}</h5>
@@ -37,7 +37,7 @@ function OrdersCard({ order, status }) {
         </motion.span>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 m-6">
+      <div className="lg:grid grid-cols-1 md:grid-cols-2 gap-10 m-6">
         {order.orderItems.map((item, index) => {
           if (!item?.product) return null;
 

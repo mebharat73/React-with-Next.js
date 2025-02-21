@@ -134,11 +134,11 @@ function ProductCard({ product, productView }) {
     </Link>
     
     <Link href={`${PRODUCTS_ROUTE}/category/${product.category}`}>
-      <span className="mt-1.5 inline-flex items-center rounded-md bg-[#68217A] hover:bg-[#8b2fa2] text-xs font-medium text-[#d0fa44] hover:text-white ring-1 ring-inset ring-red-500/10 overflow-hidden w-24 h-4 relative"> {/* Set a fixed width */}
+      <span className="mt-1.5 md:mt-1.5 inline-flex items-center rounded-md bg-[#68217A] hover:bg-[#8b2fa2] text-xs font-medium text-[#d0fa44] hover:text-white ring-1 ring-inset ring-red-500/10 overflow-hidden w-24 h-4 relative"> {/* Set a fixed width */}
         
         
         <motion.div
-          className="whitespace-nowrap absolute left-20" // Start scrolling from a certain gap
+          className="whitespace-nowrap absolute left-10" // Start scrolling from a certain gap
           animate={{ x: ["80%", "-100%"] }} // Move from right to left
           transition={{
             x: {
@@ -171,7 +171,7 @@ function ProductCard({ product, productView }) {
 
 
 
-            <div className="md:flex items-center justify-between">
+            <div className="flex items-center justify-between">
               {/* Add to Cart Button */}
                 <div className="flex items-center justify-end">
                   <AddToCart product={product} />

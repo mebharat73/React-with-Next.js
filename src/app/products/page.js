@@ -44,7 +44,7 @@ function ProductsPage() {
   return (
     <div>
       <div className="p-1 md:py-1 px-5 flex items-center justify-between">
-        <h1 className="font-serif text-center md:text-left text-2xl md:text-4xl font-semibold text-[#68217A] dark:text-white">
+        <h1 className="font-serif text-center md:text-left text-2xl lg:text-4xl font-semibold text-[#68217A] dark:text-white">
           Make a wish..
         </h1>
 
@@ -53,7 +53,7 @@ function ProductsPage() {
           alt="Logo"
           width={200}
           height={200}
-          className="h-20 w-20 border-2 rounded-full border-[#8b2fa2] transition-all hover:scale-150 scroll-smooth"
+          className="hidden md:block md:h-10 md:w-10 lg:h-20 lg:w-20 border-2 rounded-full border-[#8b2fa2] transition-all hover:scale-150 scroll-smooth"
         />
 
         <div className="flex items-center py-0">
@@ -62,7 +62,7 @@ function ProductsPage() {
           {user?.roles.includes('ADMIN') && (
             <Link
               href={`${PRODUCTS_ROUTE}/add`}
-              className="font-serif font-semibold rounded-xl bg-gradient-to-tl from-[#8e912d] to-[#dd53ff] px-3 py-0 border-2 border-[#84a123] border-solid text-[#41144c] hover:text-[white] dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e]"
+              className="px-2 py-0 font-normal lg:font-serif lg:font-semibold rounded-xl bg-gradient-to-tl from-[#8e912d] to-[#dd53ff] lg:px-3 lg:py-0 border-2 border-[#84a123] border-solid text-[#41144c] hover:text-[white] dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e]"
             >
               Add Product
             </Link>
@@ -70,7 +70,7 @@ function ProductsPage() {
         </div>
       </div>
 
-      <div className="md:grid grid-cols-[1fr,auto] gap-2 items-center justify-between px-5">
+      <div className="lg:grid grid-cols-[1fr,auto] gap-2 items-center justify-between px-5">
         <SearchProducts />
         <FilterProducts brands={brands} categories={categories} />
       </div>

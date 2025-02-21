@@ -68,7 +68,7 @@ function ProductOrders() {
       transition={{ duration: 0.5 }}
     >
       <div className="flex items-center justify-between">
-        <h2 className="px-4 py-0 font-serif border-2 rounded-lg bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595] text-center md:text-left text-2xl md:text-3xl font-semibold text-[#68217A] dark:text-white">
+        <h2 className="lg:px-4 py-0 font-serif border-2 rounded-lg bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595] text-center md:text-left text-2xl md:text-3xl font-semibold text-[#68217A] dark:text-white">
           Your orders
         </h2>
         {user?.roles.includes("ADMIN") && (

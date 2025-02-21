@@ -102,7 +102,7 @@ function Header() {
                     initial={{ scale: 1 }}
                     animate={{ scale: 0.8 }}
                     transition={{ duration: 1, delay: 2 }} // Adjust delay and duration as needed
-                    className="mr-2"
+                    className="mr-0"
                   >
                     <Image
                       src={dokanLogo}
@@ -114,7 +114,7 @@ function Header() {
                   </motion.div>
                   <Link
                     href={HOME_ROUTE}
-                    className="text-extrabold md:font-bold font-serif tracking-widest text-[#68217A] hover:text-white uppercase rounded-lg  focus:outline-none focus:shadow-outline dark:text-white lg:text-xl font-extrabold"
+                    className="font-serif font-extrabold animate-pulse text-[#68217A] lg:text-xl "
                   >
                     {config.appName}
                   </Link>

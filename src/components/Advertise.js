@@ -7,7 +7,7 @@ function ModalAdvertise({ title, show = false, setShow }) {
         show ? "block opacity-100" : "hidden opacity-0"
       } transition-opacity duration-500`}
     >
-      <div className="bg-transparent fixed top-36 left-0 flex items-center justify-center">
+      <div className="bg-transparent fixed top-36 left-0 flex items-center justify-center z-50">
         {/* Modal Background */}
         <div className="min-h-fit w-11/12 sm:w-3/4 md:w-1/2 lg:w-1/3 bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0] rounded-3xl shadow-2xl transform transition duration-500 scale-95 hover:scale-100">
           {/* Modal Container */}
