@@ -171,7 +171,7 @@ function ProductCard({ product, productView }) {
 
 
 
-            <div className="flex items-center justify-between">
+            <div className=" md:flex items-center justify-between">
               {/* Add to Cart Button */}
                 <div className="flex items-center justify-end">
                   <AddToCart product={product} />
