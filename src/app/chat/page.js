@@ -43,13 +43,13 @@ const ChatRoom = () => {
   };
 
   return (
-    <div className="p-2 flex items-center justify-center bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e]"> 
-      <div className="w-11/12 px-3 md:px-5 md:w-9/12 h-[94vh] bg-gradient-to-tl from-[#C3EF38] to-[#dd53ff] border-1 border-t-4 border-[#84a123] rounded-3xl shadow-2xl shadow-[#C3EF38] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0] lg:w-5/12 flex flex-col">
+    <div className="flex items-center justify-center bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e]"> 
+      <div className="w-11/12 px-3 md:px-5 md:w-9/12 h-[94vh] bg-gradient-to-tl from-[#C3EF38] to-[#dd53ff] border-1 border-y-4 border-[#84a123] rounded-3xl shadow-2xl shadow-[#C3EF38] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0] lg:w-5/12 flex flex-col">
         <h1 className="mt-5 mb-3 font-serif text-4xl text-center font-bold text-purple-800">Chat Room</h1>
 
         <ul
           ref={messageListRef}
-          className="space-y-1 md:space-y-1 max-h-[600px] overflow-y-auto px-3 py-3 bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] rounded-2xl shadow-stone-400 dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e] border-y-2 border-[#68217A] border-double no-scrollbar flex-grow"
+          className="space-y-1 md:space-y-1 max-h-[600px] overflow-y-auto px-3 py-3 mb-1 bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] rounded-2xl shadow-stone-400 dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e] border-y-2 border-[#68217A] border-double no-scrollbar flex-grow"
         >
           {messages.map((msg, index) => (
             <li
@@ -85,7 +85,7 @@ const ChatRoom = () => {
           ))}
         </ul>
 
-        <form onSubmit={sendMessage} className="flex space-x-1 mt-auto">
+        <form onSubmit={sendMessage} className="flex space-x-1">
           <textarea
             ref={textareaRef}
             value={input}
@@ -93,7 +93,7 @@ const ChatRoom = () => {
             onKeyDown={handleInputKeyDown} // Listen for Enter key press
             placeholder="Type a message..."
             rows="1"
-            className="flex-1 border border-[#8b2fa2] rounded-2xl text-gray-800 font-semibold text-lg focus:outline-none focus:ring-2 focus:ring-purple-600 transition-all duration-300 px-5 mt-2 bg-gradient-to-r from-green-100 to-purple-100 resize-none overflow-hidden"
+            className="flex-1 border border-[#8b2fa2] rounded-2xl text-gray-800 font-semibold text-lg focus:outline-none focus:ring-1 focus:ring-[#9e47b4] transition-all duration-300 px-5 bg-gradient-to-r from-green-100 to-purple-100 resize-none overflow-hidden"
             style={{ 
               resize: 'none',  // Disable resizing
               overflowY: 'auto', // Allow vertical scrolling
