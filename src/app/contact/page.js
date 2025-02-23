@@ -18,7 +18,7 @@ const ContactPage = () => {
   return (
     <div className="md:relative flex flex-col items-center justify-center h-screen bg-cover bg-center" style={{ backgroundImage: "url('/images/contact.avif')" }}>
       {/* Overlay for better text visibility */}
-      <div className="m-10 md:m-20 absolute inset-0 flex flex-col">
+      <div className="m-10 absolute inset-0 flex flex-col">
         <h1 className="text-6xl text-bg font-serif font-extrabold">Let&apos;s Get in Touch!</h1>
       </div>
 

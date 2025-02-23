@@ -5,16 +5,16 @@ function ModalAdvertise({ title, show = false, setShow }) {
     <div
       className={`${
         show ? "block opacity-100" : "hidden opacity-0"
-      } transition-opacity duration-500`}
+      } fixed inset-0 bg-black bg-opacity-50 transition-opacity duration-300`}
     >
-      <div className="bg-transparent fixed top-36 left-0 flex items-center justify-center z-50">
+      <div className="flex justify-center items-center min-h-screen">
         {/* Modal Background */}
-        <div className="min-h-fit w-11/12 sm:w-3/4 md:w-1/2 lg:w-1/3 bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0] rounded-3xl shadow-2xl transform transition duration-500 scale-95 hover:scale-100">
+        <div className="bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0] rounded-3xl shadow-2xl w-11/12 sm:w-3/4 md:w-1/2 lg:w-1/3 transform transition duration-500 scale-95 hover:scale-100">
           {/* Modal Container */}
           <div className="flex flex-col p-10 rounded-3xl bg-gradient-to-tl from-[#f0f656] to-[#e382fb] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0] text-textColor dark:text-white">
             {/* Modal Header */}
             <div className="flex justify-between items-center mb-5">
-              <h2 className="ml-10 sm:ml-20 text-2xl sm:text-3xl font-semibold text-[#C3EF38] dark:text-[#d0fa44] tracking-wide">
+              <h2 className="text-2xl sm:text-3xl font-semibold text-[#C3EF38] dark:text-[#d0fa44] tracking-wide">
                 {title}
               </h2>
               {/* Close Button */}

@@ -10,27 +10,46 @@ import { PRODUCTS_ROUTE } from "@/constants/routes";
 import { decreaseQuantity, increaseQuantity } from "@/redux/cart/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import CheckoutProducts from "@/components/products/Checkout";
+import { useRouter, useSearchParams } from 'next/navigation';
 
 function ProductsCart() {
   const { products, totalPrice } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
+  const router = useRouter();  // Create router instance
 
   return (
     <div>
+
+      
+
       <motion.div
         className="px-3 h-[94vh] md:h-screen bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] rounded-3xl border-4 border-[#C3EF38] border-double shadow-2xl dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e]"
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8 }}
       >
-        <motion.h2
-          className="mt-10 mb-5  md:mb-4 ml-5 md:mt-10 font-serif text-center md:text-left text-3xl font-bold text-[#8b2fa2] dark:text-white"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-        >
-          Your Cart ({products.length} items)
-        </motion.h2>
+        <div className="flex justify-between">
+          <motion.h2
+            className="mt-10 mb-5  md:mb-4 ml-5 md:mt-10 font-serif text-center md:text-left text-3xl font-bold text-[#8b2fa2] dark:text-white"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1 }}
+          >
+            Your Cart ({products.length} items)
+          </motion.h2>
+
+          {/* Back Button */}
+          <motion.button
+              className="bg-[#8b2fa2] text-white hover:text-[#C3EF38] h-6 px-3 mt-8 mr-6  rounded-lg hover:bg-[#68217A] transition-colors animate-bounce "
+              onClick={() => router.back()}  // Handle the back navigation
+            >
+              Back
+            </motion.button>
+
+        </div>
+
+        
+        
 
         <motion.div
           className="p-2 md:py-5 h-[65vh] px-5 md:ml-4 overflow-hidden shadow-lg bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] dark:bg-gray-800 rounded-xl border-2 border-[#84a123] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]"
@@ -125,53 +144,50 @@ function ProductsCart() {
                     </motion.tr>
                   ))
                 )}
-
-                
               </tbody>
-              
             </table>
             {products.length > 0 && (
-                  <div className="grid items-center justify-center">
-                    <motion.tr
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ duration: 0.5 }}
-                      className="border-t-4 border-[#68217A]"
-                    >
-                      <td colSpan={4}></td>
-                      <td className="font-serif font-extrabold text-lg text-[#68217A] ">
-                        Sub total:
-                      </td>
-                      <td className="text-lg font-bold">${totalPrice}</td>
-                    </motion.tr>
+              <div className="grid items-center justify-center">
+                <motion.tr
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5 }}
+                  className="border-t-4 border-[#68217A]"
+                >
+                  <td colSpan={4}></td>
+                  <td className="font-serif font-extrabold text-lg text-[#68217A] ">
+                    Sub total:
+                  </td>
+                  <td className="text-lg font-bold">${totalPrice}</td>
+                </motion.tr>
 
-                    <motion.tr
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ duration: 0.5 }}
-                      className="border-1 border-[#68217A]"
-                    >
-                      <td colSpan={4}></td>
-                      <td className="font-serif font-extrabold text-lg text-[#68217A]">
-                        Discount:
-                      </td>
-                      <td className="text-lg text-[#d0fa44]">${Math.floor(totalPrice * 0.1)}</td>
-                    </motion.tr>
+                <motion.tr
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5 }}
+                  className="border-1 border-[#68217A]"
+                >
+                  <td colSpan={4}></td>
+                  <td className="font-serif font-extrabold text-lg text-[#68217A]">
+                    Discount:
+                  </td>
+                  <td className="text-lg text-[#d0fa44]">${Math.floor(totalPrice * 0.1)}</td>
+                </motion.tr>
 
-                    <motion.tr
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ duration: 0.5 }}
-                      className="border-b-4 border-[#68217A]"
-                    >
-                      <td colSpan={4}></td>
-                      <td className="font-serif font-extrabold text-lg text-[#68217A]">Grand total:</td>
-                      <td className="text-xl font-bold text-green-500">
-                        ${Math.floor(totalPrice * 0.9)}
-                      </td>
-                    </motion.tr>
-                  </div>
-                )}
+                <motion.tr
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5 }}
+                  className="border-b-4 border-[#68217A]"
+                >
+                  <td colSpan={4}></td>
+                  <td className="font-serif font-extrabold text-lg text-[#68217A]">Grand total:</td>
+                  <td className="text-xl font-bold text-green-500">
+                    ${Math.floor(totalPrice * 0.9)}
+                  </td>
+                </motion.tr>
+              </div>
+            )}
           </div>
         </motion.div>
 

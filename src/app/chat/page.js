@@ -102,7 +102,7 @@ const ChatRoom = () => {
           />
           <button
             type="submit"
-            className="mt-2 px-2 py-0 bg-[#68217A] text-[#d0fa44] font-semibold dark:text-white rounded-2xl hover:bg-[#8b2fa2] transition-colors duration-300"
+            className="mt-0 px-2 py-0 bg-[#68217A] text-[#d0fa44] font-semibold dark:text-white rounded-2xl hover:bg-[#8b2fa2] transition-colors duration-300"
           >
             Send
           </button>
