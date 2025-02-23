@@ -159,8 +159,8 @@ function ProductCard({ product, productView }) {
         
 
         {/* Product Description */}
-        <p className="text-sm font-semibold text-zinc-600 dark:text-white max-h-14 overflow-hidden text-ellipsis">
-          {descriptionPreview?.length > 30 ? `${descriptionPreview.slice(0, 27)}...` : descriptionPreview}
+        <p className="text-sm font-semibold text-zinc-600 dark:text-white max-h-10 overflow-hidden text-ellipsis">
+          {descriptionPreview?.length > 23 ? `${descriptionPreview.slice(0, 23)}...` : descriptionPreview}
           <Link
             href={`${PRODUCTS_ROUTE}/${product.id}`}
             className="text-[#dc57fd] font-semibold underline hover:text-[#8b2fa2] hover:underline transition-all duration-200 inline-block"
