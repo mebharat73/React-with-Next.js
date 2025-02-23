@@ -101,7 +101,7 @@ function LoginForm() {
       <motion.button
         type="submit"
         disabled={loading}
-        className="h-8 w-full mt-3 font-serif font-bold bg-[#68217A] text-[#d0fa44] hover:text-white py-3 rounded-lg disabled:bg-primary-300 disabled:cursor-not-allowed hover:bg-[#8b2fa2] transition duration-200 flex justify-center items-center dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]"
+        className="h-8 w-full mt-3 font-serif font-bold bg-[#68217A] text-[#d0fa44] hover:text-white py-3 rounded-lg disabled:bg-[#6a6b65] disabled:cursor-not-allowed hover:bg-[#8b2fa2] transition duration-200 flex justify-center items-center dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
       >

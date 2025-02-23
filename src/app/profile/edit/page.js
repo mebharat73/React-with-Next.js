@@ -64,6 +64,14 @@ function EditProfilePage() {
 
   return (
     <div className="py-8 min-h-screen w-auto bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] flex items-center justify-center dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]">
+      {/* Back Button */}
+      <button
+        className="absolute top-14 right-5 bg-[#8b2fa2] text-white hover:text-[#C3EF38] h-6 px-3 mt-1 mr-6 rounded-lg hover:bg-[#68217A] transition-colors md:absolute md:top-16 md:right-32 animate-bounce"
+        onClick={() => router.back()}  // Handle the back navigation
+      >
+        Back
+      </button>
+
       <div className="rounded-2xl shadow-lg p-8 w-full max-w-lg dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]">
         <ProfileImage />
         <h2 className="p-4 font-serif text-2xl text-[#68217A] font-bold text-center mb-1">Edit Profile</h2>
