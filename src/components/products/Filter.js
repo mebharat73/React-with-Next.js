@@ -158,8 +158,8 @@ function FilterProducts({ brands, categories }) {
             <label htmlFor="price" className="text-nowrap mr-3 font-semibold">
               Price:
             </label>
-            <div className="grid grid-cols-2 gap-5 items-center justify-between max:w-4/5">
-              <div>
+            <div className="w-full md:grid grid-cols-2 gap-4">
+              <div className="mb-3 md:mb-0">
                 <label htmlFor="minPrice" className="mr-2">
                   Min:
                 </label>
@@ -167,7 +167,7 @@ function FilterProducts({ brands, categories }) {
                   type="number"
                   id="minPrice"
                   defaultValue={minPrice}
-                  className="border bg-gray-50 dark:bg-gray-950 rounded py-1 px-2"
+                  className="border bg-gray-50 dark:bg-gray-950 rounded py-1 px-1 w-full"
                   name="minPrice"
                   min={0}
                   onChange={(e) => setMinPrice(e.target.value)}
@@ -181,7 +181,7 @@ function FilterProducts({ brands, categories }) {
                   type="number"
                   id="maxPrice"
                   defaultValue={maxPrice}
-                  className="border bg-gray-50 dark:bg-gray-950 rounded py-1 px-2"
+                  className="border bg-gray-50 dark:bg-gray-950 rounded py-1 px-1 w-full"
                   name="maxPrice"
                   min={0}
                   onChange={(e) => setMaxPrice(e.target.value)}
@@ -189,6 +189,7 @@ function FilterProducts({ brands, categories }) {
               </div>
             </div>
           </div>
+
 
           <div className="flex items-center justify-between py-2">
             <label htmlFor="brand" className="text-nowrap mr-3 font-semibold">

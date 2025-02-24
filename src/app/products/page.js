@@ -43,7 +43,7 @@ function ProductsPage() {
 
   return (
     <div>
-      <div className="p-1 md:py-1 px-5 flex items-center justify-between">
+      <div className="px-0 md:py-1 md:px-5 flex items-center justify-between">
         <h1 className="font-serif text-center md:text-left text-2xl lg:text-4xl font-semibold text-[#68217A] dark:text-white">
           Make a wish..
         </h1>
@@ -70,7 +70,7 @@ function ProductsPage() {
         </div>
       </div>
 
-      <div className="lg:grid grid-cols-[1fr,auto] gap-2 items-center justify-between px-5">
+      <div className="px-0 lg:grid grid-cols-[1fr,auto] gap-2 items-center justify-between md:px-5">
         <SearchProducts />
         <FilterProducts brands={brands} categories={categories} />
       </div>

@@ -18,19 +18,17 @@ function ProductsCart() {
   const router = useRouter();  // Create router instance
 
   return (
-    <div>
-
-      
+    <div className="px-4 sm:px-8 lg:px-12 py-6 max-w-screen-xl mx-auto">
 
       <motion.div
-        className="px-3 h-[94vh] md:h-screen bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] rounded-3xl border-4 border-[#C3EF38] border-double shadow-2xl dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e]"
+        className="bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] rounded-3xl border-4 border-[#C3EF38] border-double shadow-2xl dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e]"
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8 }}
       >
-        <div className="flex justify-between">
+        <div className="flex justify-between items-center">
           <motion.h2
-            className="mt-10 mb-5  md:mb-4 ml-5 md:mt-10 font-serif text-center md:text-left text-3xl font-bold text-[#8b2fa2] dark:text-white"
+            className="mt-10 mb-5 md:mb-4 px-5 font-serif text-center md:text-left text-3xl font-bold text-[#8b2fa2] dark:text-white"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
@@ -40,24 +38,21 @@ function ProductsCart() {
 
           {/* Back Button */}
           <motion.button
-              className="bg-[#8b2fa2] text-white hover:text-[#C3EF38] h-6 px-3 mt-8 mr-6  rounded-lg hover:bg-[#68217A] transition-colors animate-bounce "
+              className="bg-[#8b2fa2] text-white hover:text-[#C3EF38] h-8 px-5 md:px-6 mt-8 mr-6 rounded-lg hover:bg-[#68217A] transition-colors"
               onClick={() => router.back()}  // Handle the back navigation
             >
               Back
             </motion.button>
-
         </div>
 
-        
-        
-
+        {/* Cart Details */}
         <motion.div
-          className="p-2 md:py-5 h-[65vh] px-5 md:ml-4 overflow-hidden shadow-lg bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] dark:bg-gray-800 rounded-xl border-2 border-[#84a123] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]"
+          className="p-4 md:py-5 overflow-hidden shadow-lg bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] dark:bg-gray-800 rounded-xl border-2 border-[#84a123] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
         >
-          <div className="overflow-x-auto h-[50vh] border-x-2 border-[#68217A] rounded-xl">
+          <div className="overflow-x-auto h-[50vh] md:h-[60vh] border-x-2 border-[#68217A] rounded-xl">
             <table className="min-w-full border-2 rounded-2xl dark:text-white">
               <thead>
                 <tr className="rounded-2xl border-b-2 border-[#8b2fa2] bg-[#f0b8ff] dark:bg-gray-700">
@@ -146,8 +141,9 @@ function ProductsCart() {
                 )}
               </tbody>
             </table>
+
             {products.length > 0 && (
-              <div className="grid items-center justify-center">
+              <div className="grid items-center justify-center mt-4">
                 <motion.tr
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -155,7 +151,7 @@ function ProductsCart() {
                   className="border-t-4 border-[#68217A]"
                 >
                   <td colSpan={4}></td>
-                  <td className="font-serif font-extrabold text-lg text-[#68217A] ">
+                  <td className="font-serif font-extrabold text-lg text-[#68217A]">
                     Sub total:
                   </td>
                   <td className="text-lg font-bold">${totalPrice}</td>

@@ -1,47 +1,58 @@
-/* Fireworks.module.css */
 .firework-container {
   position: absolute;
-  top: -50px; /* Adjust as needed to position it above the button */
-  left: 50%; /* Center the container horizontally */
+  bottom: 20px; /* Adjust for bottom position */
+  left: 50%;
   transform: translateX(-50%);
-  pointer-events: none;
-  z-index: 10; /* Ensure it appears above the button */
+  z-index: 20;
+  pointer-events: none; /* Prevent fireworks from interfering with other elements */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px; /* Adjust gap between each firework bubble */
 }
 
 .firework {
-  position: absolute;
-  width: 120px;
-  height: 120px;
-  background-color: #c863d3;
+  width: 60px;
+  height: 60px;
+  background-color: #ff0;
   border-radius: 50%;
-  animation: fireworkAnimation 2.5s ease-out forwards;
+  opacity: 0;
+  animation: firework-up 3.5s ease-in-out infinite;
+  box-shadow: 0 0 10px #ff0, 0 0 20px #ff0, 0 0 30px #ff0;
 }
 
 .firework:nth-child(1) {
   animation-delay: 0s;
-  left: 50%;
-  top: 50%;
 }
 
 .firework:nth-child(2) {
-  animation-delay: 0.2s;
-  left: 55%;
-  top: 50%;
+  animation-delay: 0.2s; /* Delay the second firework */
 }
 
 .firework:nth-child(3) {
-  animation-delay: 0.4s;
-  left: 45%;
-  top: 50%;
+  animation-delay: 0.4s; /* Delay the third firework */
 }
 
-@keyframes fireworkAnimation {
+.firework:nth-child(4) {
+  animation-delay: 0.6s; /* Delay the fourth firework */
+}
+
+.firework:nth-child(5) {
+  animation-delay: 0.8s; /* Delay the fifth firework */
+}
+
+/* Animation to make fireworks go upwards and grow */
+@keyframes firework-up {
   0% {
-    transform: scale(1);
     opacity: 1;
+    transform: translateY(0) scale(0.8); /* Start small at the bottom */
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-100px) scale(2.5); /* Go upwards and grow */
   }
   100% {
-    transform: scale(5) translateY(-200px);
     opacity: 0;
+    transform: translateY(-200px) scale(4); /* Fade out as it goes further */
   }
 }
