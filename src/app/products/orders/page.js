@@ -62,7 +62,7 @@ function ProductOrders() {
 
   return (
     <motion.div
-      className="bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] py-8 px-2 sm:p-10 dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595] "
+      className="h-screen bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] py-8 px-2 sm:p-10 dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595] "
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}

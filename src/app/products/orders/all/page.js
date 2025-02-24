@@ -20,7 +20,7 @@ function AllOrders() {
         All Orders
       </h2>
       <motion.button
-        className="bg-[#8b2fa2] text-white hover:text-[#C3EF38] h-6 px-3 mt-1 mr-6 rounded-lg hover:bg-[#68217A] transition-colors absolute top-24 right-32 animate-bounce"
+        className="bg-[#8b2fa2] text-white hover:text-[#C3EF38] h-8 px-5 md:px-6 mt-5 mr-6 rounded-lg hover:bg-[#68217A] transition-colors"
         onClick={() => router.back()}  // Handle the back navigation
       >
         Back
