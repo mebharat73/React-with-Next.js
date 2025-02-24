@@ -8,7 +8,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 28px; /* Adjust gap between each firework bubble */
+  gap: 20px; /* Adjust gap between each firework bubble */
 }
 
 .firework {
@@ -18,7 +18,7 @@
   border-radius: 50%;
   opacity: 0;
   animation: firework-up 3.5s ease-in-out infinite;
-  box-shadow: 0 0 10px #ff0, 0 0 20px #ff0, 0 0 30px #ff0;
+  box-shadow: 0 0 20px #ff0, 0 0 30px #ff0, 0 0 50px #ff0;
 }
 
 .firework:nth-child(1) {
@@ -49,10 +49,10 @@
   }
   50% {
     opacity: 1;
-    transform: translateY(-100px) scale(2.5); /* Go upwards and grow */
+    transform: translateY(-100px) scale(2.0); /* Go upwards and grow */
   }
   100% {
     opacity: 0;
-    transform: translateY(-200px) scale(4); /* Fade out as it goes further */
+    transform: translateY(-200px) scale(3); /* Fade out as it goes further */
   }
 }

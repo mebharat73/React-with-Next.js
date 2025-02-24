@@ -5,7 +5,7 @@ function ModalAdvertise({ title, show = false, setShow }) {
     <div
       className={`${
         show ? "block opacity-100" : "hidden opacity-0"
-      } fixed inset-0 bg-black bg-opacity-50 transition-opacity duration-300`}
+      } fixed inset-0 bg-black bg-opacity-50 transition-opacity duration-300 z-20`}
     >
       <div className="flex justify-center items-center min-h-screen">
         {/* Modal Background */}
