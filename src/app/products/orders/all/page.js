@@ -15,12 +15,12 @@ function AllOrders() {
   }, [user]);
 
   return (
-    <div className="py-8 px-2 sm:p-10">
-      <h2 className="text-center md:text-left text-2xl md:text-3xl font-semibold text-textColor dark:text-white">
+    <div className="py-8 px-2 sm:p-10 ">
+      <h2 className="text-center -mt-5 md:text-left text-2xl md:text-3xl font-semibold text-textColor dark:text-white">
         All Orders
       </h2>
       <motion.button
-        className="bg-[#8b2fa2] text-white hover:text-[#C3EF38] h-8 px-5 md:px-6 mt-5 mr-6 rounded-lg hover:bg-[#68217A] transition-colors"
+        className="bg-[#8b2fa2] text-white hover:text-[#C3EF38] h-8 px-1 -mb-8 md:px-6 md:mt-5 mr-6 rounded-lg hover:bg-[#68217A] transition-colors"
         onClick={() => router.back()}  // Handle the back navigation
       >
         Back

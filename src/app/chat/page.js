@@ -6,6 +6,7 @@ import styles from './ChatRoom.module.css'; // Import the styles
 const ChatRoom = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
+  const [replyTo, setReplyTo] = useState(null); // State to track the message being replied to
   const messageListRef = useRef(null); // Reference for the message list to scroll
   const textareaRef = useRef(null); // Reference for the textarea
   const { user } = useSelector((state) => state.auth);
@@ -15,9 +16,16 @@ const ChatRoom = () => {
     if (input.trim()) {
       setMessages((prevMessages) => [
         ...prevMessages,
-        { text: input, user: 'User', avatar: 'https://via.placeholder.com/40' }, // Placeholder image
+        {
+          text: input,
+          user: user ? user.name : 'User',
+          avatar: user ? user.profileImageUrl : 'https://via.placeholder.com/40',
+          replyTo, // Include the replyTo information (message being replied to)
+          attachment: null, // Add the attachment here if there is one
+        },
       ]);
       setInput('');
+      setReplyTo(null); // Reset reply after sending
     }
   };
 
@@ -43,10 +51,31 @@ const ChatRoom = () => {
     textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`; // Set height to scrollHeight
   };
 
+  // Handle reply to a message
+  const handleReply = (msg) => {
+    setReplyTo(msg); // Set the message being replied to
+    // We don't need to set input here since we don't want the reply's text in the input
+  };
+
   return (
     <div className="flex items-center justify-center bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e]">
       <div className="w-11/12 px-3 md:px-5 md:w-9/12 h-[94vh] bg-gradient-to-tl from-[#C3EF38] to-[#dd53ff] border-1 border-y-4 border-[#84a123] rounded-3xl shadow-2xl shadow-[#C3EF38] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0] lg:w-5/12 flex flex-col">
         <h1 className="mt-5 mb-3 font-serif text-4xl text-center font-bold text-purple-800">Chat Room</h1>
+
+        {replyTo && ( // Display the reply information if a message is being replied to
+          <div className="flex items-start bg-gray-200 p-2 rounded-lg mb-2 border border-gray-300">
+            <img
+              src={replyTo.avatar}
+              alt="Replying User Avatar"
+              className="w-6 h-6 rounded-full border-2 border-white shadow-md mr-2"
+            />
+            <div className="flex-1">
+              <span className="font-semibold">{replyTo.user}</span>
+              <p className="text-sm">{replyTo.text}</p>
+            </div>
+            <button onClick={() => setReplyTo(null)} className="ml-2 text-red-500">Cancel</button>
+          </div>
+        )}
 
         <ul
           ref={messageListRef}
@@ -55,6 +84,7 @@ const ChatRoom = () => {
           {messages.map((msg, index) => (
             <li
               key={index} // This key will trigger re-render and animation
+              onClick={() => handleReply(msg)} // Add click handler for reply
               className={`flex items-start space-x-7 px-1 py-1 rounded-xl shadow-md transition-transform duration-500 ease-in-out ${styles.fadeInMessage} ${
                 index % 2 === 0
                   ? 'bg-gradient-to-tl from-[#f0f656] to-[#e382fb] dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#e0c6e5]'
@@ -68,19 +98,47 @@ const ChatRoom = () => {
                 marginLeft: '0',
               }}
             >
+              {msg.replyTo && ( // Check if the message is a reply
+                <div className="flex items-start bg-gray-200 px-2 py-1 rounded-lg mb-2 border border-gray-300">
+                  <img
+                    src={msg.replyTo.avatar}
+                    alt="Replying User Avatar"
+                    className="w-6 h-6 rounded-full border-2 border-black shadow-md mr-1"
+                  />
+                  <div className="flex-1 -mt-1">
+                    <span className="font-normal">{msg.replyTo.user}</span>
+                    <p className="-mt-1 text-sm">{msg.replyTo.text}</p>
+                  </div>
+                </div>
+              )}
+
+            <div className="flex-1 -mt-3 p-2">
+              <span className="font-serif text-xs font-semibold text-[#315b19] animate-pulse">{msg.user}</span>
               <img
                 src={user ? user.profileImageUrl : 'https://via.placeholder.com/40'}
                 alt="User Avatar"
                 className="w-6 h-6 rounded-full border-2 border-white shadow-md"
               />
-              <div className="flex-1 -mt-8">
-                <span className="font-serif text-sm font-semibold text-[#315b19]">{msg.user}</span>
+              
+                
                 <p
-                  className="px-3 -mt-1 text-black dark:text-[#d0fa44] text-sm font-semibold font-sans break-words"
+                  className="-mt-6 px-7 text-black dark:text-[#d0fa44] text-sm font-semibold font-sans break-words"
                   style={{ whiteSpace: 'pre-wrap' }}
                 >
                   {msg.text}
                 </p>
+                
+
+                {/* Attachments */}
+                {msg.attachment && (
+                  <div className="mt-2">
+                    <img
+                      src={msg.attachment}
+                      alt="Attachment"
+                      className="max-w-full rounded-lg shadow-md"
+                    />
+                  </div>
+                )}
               </div>
             </li>
           ))}

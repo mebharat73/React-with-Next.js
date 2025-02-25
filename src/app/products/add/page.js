@@ -14,7 +14,7 @@ function AddProductPage() {
 
       {/* Back Button */}
       <motion.button
-        className="bg-[#8b2fa2] text-white hover:text-[#C3EF38] h-6 px-3 mt-5 mr-[350px] rounded-lg hover:bg-[#68217A] transition-colors absolute md:top-1 md:-right-80 lg:top-1 lg:-right-14 animate-bounce"
+        className="bg-[#8b2fa2] text-white hover:text-[#C3EF38] h-6 px-3 mt-5 mr-[300px] rounded-lg hover:bg-[#68217A] transition-colors absolute md:top-1 md:-right-80 lg:top-1 lg:-right-14 animate-bounce"
         onClick={() => router.back()}  // Handle the back navigation
       >
         Back

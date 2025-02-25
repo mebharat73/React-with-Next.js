@@ -91,7 +91,7 @@ function Header() {
     <header
       className={`${
         hideNavbar ? "transform -translate-y-full opacity-0" : "transform translate-y-0 opacity-100"
-      } transition-all duration-500 ease-in-out shadow sticky top-0 z-10`}
+      } transition-all duration-500 ease-in-out shadow sticky top-0 z-50`}
     >
       <div className="antialiased bg-gradient-to-r from-[#FD9EFC] to-[#e28ae0] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]">
         <div className="h-10 w-full text-[white] bg-gradient-to-tr from-[#C3EF38] to-[#dd53ff] dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595]">

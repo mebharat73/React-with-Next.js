@@ -98,7 +98,7 @@ function ProductCard({ product, productView }) {
               src={product.imageUrls.length > 0 ? product.imageUrls[0] : placeholder}
               width={500}
               height={500}
-              className="h-36 bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] rounded-2xl border-y-2 border-dashed border-[#8b2fa2] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]"
+              className="h-36 bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] rounded-2xl border-y-2 border-dashed border-[#8b2fa2] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0] object-fill"
           />
 
       </Link>

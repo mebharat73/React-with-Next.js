@@ -21,7 +21,7 @@ const ContactPage = () => {
       <div className="absolute inset-0 bg-black opacity-40" />
       <div className="relative z-10 flex flex-col items-center justify-center text-white min-h-screen">
         {/* Header Section */}
-        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-extrabold text-center px-6 sm:px-10">
+        <h1 className="-mt-20 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-extrabold text-center px-6 sm:px-10">
           Let's Get in Touch!
         </h1>
 
@@ -41,7 +41,7 @@ const ContactPage = () => {
               <label className="text-lg font-semibold">Message:</label>
               <textarea className="p-3 border-2 border-gray-300 rounded min-h-[100px] focus:outline-none focus:ring-2 focus:ring-[#68217A]" placeholder="Enter your message" />
             </div>
-            <button type="submit" className="mt-4 py-2 px-6 rounded-full bg-[#68217A] font-semibold text-[#d0fa44] hover:bg-[#8b2fa2] transition-all">
+            <button type="submit" className="mt-4 py-1 px-6 rounded-full bg-[#68217A] font-semibold text-[#d0fa44] hover:bg-[#8b2fa2] transition-all">
               Submit
             </button>
           </form>
@@ -60,11 +60,11 @@ const ContactPage = () => {
         </div>
 
         {/* Start Chat Button */}
-        <div className="absolute bottom-10 right-10 z-20">
+        <div className="absolute bottom-16 right-10 z-20">
           <Link
             href="/chat"
             onMouseEnter={triggerFireworks}
-            className="px-6 py-3 text-xl font-semibold text-white bg-gradient-to-tl from-[#C3EF38] to-[#dd53ff] rounded-full shadow-lg transform transition-transform hover:scale-105 hover:from-[#68217A] hover:to-[#C3EF38] hover:text-[#68217A] animate-pulse"
+            className="px-4 py-2 text-xl font-semibold text-white bg-gradient-to-tl from-[#C3EF38] to-[#dd53ff] rounded-full shadow-lg transform transition-transform hover:scale-105 hover:from-[#68217A] hover:to-[#C3EF38] hover:text-[#68217A] animate-pulse"
           >
             Start Chat
           </Link>
