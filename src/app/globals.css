@@ -54,3 +54,26 @@ ul {
   -ms-overflow-style: none; /* Hide scrollbar in IE and Edge */
   scrollbar-width: none; /* Hide scrollbar in Firefox */
 }
+
+
+/* Flashing animation for the "satta-patta" text */
+@keyframes flash {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.animate-flash {
+  animation: flash 12.5s linear infinite;
+}
+
+
+/* Custom CSS to hide the scrollbar */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Hide scrollbar in webkit-based browsers */
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* Hide scrollbar in IE and Edge */
+  scrollbar-width: none;     /* Hide scrollbar in Firefox */
+}

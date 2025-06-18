@@ -20,7 +20,7 @@ function EditOrderStatus({ order, setIsStatusUpdated }) {
   function editStatus(data) {
     setLoading(true);
 
-    updateStatus(order.id, data)
+    updateStatus(order._id, data)
       .then(() => {
         setIsStatusUpdated(true);
         toast.success("Status update successful.", { autoClose: 1500 });

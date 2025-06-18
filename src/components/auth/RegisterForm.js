@@ -7,7 +7,7 @@ import { LOGIN_ROUTE } from "@/constants/routes";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { PASSWORD_REGEX } from "@/constants/regex";
 import { RiUser3Fill } from "react-icons/ri";
-import { registerUser } from "@/redux/auth/authActions";
+import { registerUser  } from "@/redux/auth/authActions";
 import { toast, ToastContainer } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -28,9 +28,25 @@ function RegisterForm() {
 
   const dispatch = useDispatch();
 
-  function submitForm(data) {
-    dispatch(registerUser(data));
-  }
+    function submitForm(data) {
+      const formattedData = {
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+        password: data.password,
+        confirmPassword: data.confirmPassword,
+        address: {
+          city: data.city,
+          province: data.province,
+        },
+      };
+
+      console.log("Submitting formatted data:", formattedData); // ✅ Add this for debug
+      dispatch(registerUser(formattedData));
+    }
+
+
+   
 
   useEffect(() => {
     if (error) {
@@ -55,6 +71,7 @@ function RegisterForm() {
         </p>
       </div>
 
+      {/* Name Field */}
       <div className="py-2">
         <div className="flex items-center border-b border-gray-300 dark:border-gray-600">
           <RiUser3Fill className="text-gray-500 dark:text-gray-200 text-lg mr-2" />
@@ -71,6 +88,7 @@ function RegisterForm() {
         <p className="text-red-600 text-sm m-1">{errors.name?.message}</p>
       </div>
 
+      {/* Email Field */}
       <div className="py-1">
         <div className="flex items-center border-b border-gray-300 dark:border-gray-600">
           <MdOutlineMailOutline className="text-gray-500 dark:text-gray-200 text-lg mr-2" />
@@ -87,6 +105,50 @@ function RegisterForm() {
         <p className="text-red-600 text-sm m-1">{errors.email?.message}</p>
       </div>
 
+      {/* Phone Field */}
+      <div className="py-2">
+           <input
+     type="text" // Change from type="number" to type="text"
+     id="phone"
+     className="h-8 px-4 py-2 w-full border bg-gradient-to-b from-[#faaae0] to-[#bacfef] focus:outline-none focus:ring-1 focus:ring-primary-500 rounded-md text-gray-800 dark:text-white"
+     placeholder="Your phone number"
+     {...register("phone", {
+       required: "Phone number is required.",
+     })}
+   />
+   
+        <p className="text-red-600 text-sm m-1">{errors.phone?.message}</p>
+      </div>
+
+      {/* Address City Field */}
+      <div className="py-2">
+        <input
+          type="text"
+          id="city"
+          className="h-8 px-4 py-2 w-full border bg-gradient-to-b from-[#faaae0] to-[#bacfef] focus:outline-none focus:ring-1 focus:ring-primary-500 rounded-md text-gray-800 dark:text-white"
+          placeholder="City"
+          {...register("city", {
+            required: "City is required.",
+          })}
+        />
+        <p className="text-red-600 text-sm m-1">{errors.city?.message}</p>
+      </div>
+
+      {/* Address Province Field */}
+      <div className="py-2">
+        <input
+          type="text"
+          id="province"
+          className="h-8 px-4 py-2 w-full border bg-gradient-to-b from-[#faaae0] to-[#bacfef] focus:outline-none focus:ring-1 focus:ring-primary-500 rounded-md text-gray-800 dark:text-white"
+          placeholder="Province"
+          {...register("province", {
+            required: "Province is required.",
+          })}
+        />
+        <p className="text-red-600 text-sm m-1">{errors.province?.message}</p>
+      </div>
+
+      {/* Password Field */}
       <div className="py-2">
         <PasswordField
           id="password"
@@ -108,6 +170,7 @@ function RegisterForm() {
         <p className="text-red-600 text-sm m-1">{errors.password?.message}</p>
       </div>
 
+      {/* Confirm Password Field */}
       <div className="py-2">
         <PasswordField
           id="confirmPassword"
@@ -116,7 +179,7 @@ function RegisterForm() {
           {...register("confirmPassword", {
             required: "Confirm password is required.",
             validate: (value) => {
-              return value == password || "Passwords do not match.";
+              return value === password || "Passwords do not match.";
             },
           })}
         />
@@ -125,6 +188,7 @@ function RegisterForm() {
         </p>
       </div>
 
+      {/* Submit Button */}
       <motion.button
         type="submit"
         disabled={loading}

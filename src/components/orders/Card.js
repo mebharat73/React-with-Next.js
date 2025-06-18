@@ -23,11 +23,11 @@ function OrdersCard({ order, status }) {
           transition={{ type: "spring", stiffness: 300, delay: 0.3 }}
           style={{
             backgroundColor:
-              order.status === "Pending"
+              order.status === "PENDING"
                 ? "#68217A"
-                : order.status === "Confirmed"
+                : order.status === "CONFIRMED"
                 ? "#8b2fa2"
-                : order.status === "Shipped"
+                : order.status === "SHIPPED"
                 ? "#3B82F6"
                 : "#9333EA",
             color: "white",

@@ -22,19 +22,19 @@ import { motion } from "framer-motion";
 
 const orderTabs = [
   {
-    label: "Pending",
+    label: "PENDING",
     status: ORDER_PENDING,
   },
   {
-    label: "Confirmed",
+    label: "CONFIRMED",
     status: ORDER_CONFIRMED,
   },
   {
-    label: "Shipped",
+    label: "SHIPPED",
     status: ORDER_SHIPPED,
   },
   {
-    label: "Delivered",
+    label: "DELIVERED",
     status: ORDER_DELIVERED,
   },
 ];

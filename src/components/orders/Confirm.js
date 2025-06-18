@@ -25,8 +25,8 @@ function ConfirmOrder({ order }) {
   async function confirmOrder() {
     setLoading(true);
     try {
-      const data = await checkoutOrder(order.id, {
-        returnUrl: `${config.appUrl}/products/orders/${order.id}/payment`,
+      const data = await checkoutOrder(order._id, {
+        returnUrl: `${config.appUrl}/products/orders/${order._id}/payment`,
         websiteUrl: config.appUrl,
         totalAmount: order.totalPrice,
         orderName: order.orderItems[0].product.name,

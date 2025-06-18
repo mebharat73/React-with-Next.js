@@ -2,23 +2,21 @@ import { formatSearchParams } from "@/helpers/formatParams";
 import api from "./api";
 import authToken from "@/constants/authToken";
 
-async function getAllProducts(searchParams) {
-  const query = formatSearchParams(searchParams);
-
-  const response = await api.get(`/api/products?${query}`);
-
+async function getAllProducts() {
+  const response = await api.get(`/products`); // ✅ not /api/products
   return response.data;
 }
 
+
 // baseUrl/api/products/:id
 async function getProductById(id) {
-  const response = await api.get(`/api/products/${id}`);
+  const response = await api.get(`/products/${id}`);
 
   return response.data;
 }
 
 async function addProduct(data) {
-  const response = await api.post(`/api/products`, data, {
+  const response = await api.post(`/products`, data, {
     headers: {
       Authorization: `Bearer ${authToken}`,
     },
@@ -28,7 +26,7 @@ async function addProduct(data) {
 }
 
 async function editProduct(id, data) {
-  const response = await api.put(`/api/products/${id}`, data, {
+  const response = await api.put(`/products/${id}`, data, {
     headers: {
       Authorization: `Bearer ${authToken}`,
     },
@@ -38,31 +36,31 @@ async function editProduct(id, data) {
 }
 
 async function getProductsByCategory(category) {
-  const response = await api.get(`/api/products/category/${category}`);
+  const response = await api.get(`/products/category/${category}`);
 
   return response.data;
 }
 
 async function getProductsByBrand(brand) {
-  const response = await api.get(`/api/products/brand/${brand}`);
+  const response = await api.get(`/products/brand/${brand}`);
 
   return response.data;
 }
 
 async function getBrands() {
-  const response = await api.get(`/api/products/brands`);
+  const response = await api.get(`/products/brands`);
 
   return response.data;
 }
 
 async function getCategories() {
-  const response = await api.get(`/api/products/categories`);
+  const response = await api.get(`/products/categories`);
 
   return response.data;
 }
 
 async function deleteProduct(id) {
-  const response = await api.delete(`/api/products/${id}`, {
+  const response = await api.delete(`/products/${id}`, {
     headers: {
       Authorization: `Bearer ${authToken}`,
     },

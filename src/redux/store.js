@@ -5,10 +5,11 @@ import rootReducer from "./rootReducer";
 import persistStore from "redux-persist/es/persistStore";
 import { PERSIST } from "redux-persist";
 
+
 const persistConfig = {
   key: "aria",
   storage,
-  whitelist: ["auth", "userPreferences", "cart"],
+  whitelist: ["auth", "userPreferences", "cart", "exchangeCart", "products"],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

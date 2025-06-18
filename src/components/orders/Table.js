@@ -62,12 +62,12 @@ function OrdersTable() {
         >
           {orders.map((order) => (
             <motion.tr
-              key={order.id}
+              key={order._id}
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.3 }}
               className="hover:bg-primary-50"
             >
-              <td className="text-xs px-3 py-2 border border-slate-400">{order.id}</td>
+              <td className="text-xs px-3 py-2 border border-slate-400">{order._id}</td>
               <td className="text-xs text-blue-600 px-3 py-2 border border-slate-400 hover:underline">
                 <Link href={`/users/${order.userId}`}>{order.userId}</Link>
               </td>

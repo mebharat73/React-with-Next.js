@@ -11,8 +11,14 @@ function ProductCard({ product, onClick }) {
       onClick={onClick}
       className="bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] shadow-lg rounded-2xl border-t-2 border-[#84a123] p-4 dark:bg-gray-800 dark:text-white cursor-pointer"
     >
-      <img src={product.imageUrls} alt={product.name} className="w-auto h-20 object-fill rounded-lg" />
-      <h3 className="text-xl mt-2 font-semibold text-[#68217A] hover:underline ">{product.name}</h3>
+      <img
+        src={product.imageUrls}
+        alt={product.name}
+        className="w-auto h-20 object-fill rounded-lg"
+      />
+      <h3 className="text-xl mt-2 font-semibold text-[#68217A] hover:underline ">
+        {product.name}
+      </h3>
       <p className="text-lg text-[#84a123] font-bold">${product.price}</p>
     </div>
   );
@@ -21,12 +27,11 @@ function ProductCard({ product, onClick }) {
 function PopularBrand() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [currentIndex, setCurrentIndex] = useState(0); // Manage current index of products
-  const [intervalIds, setIntervalIds] = useState([]); // Store individual interval IDs for each product
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [intervalIds, setIntervalIds] = useState([]);
   const router = useRouter();
 
   useEffect(() => {
-    // Fetch products from API
     const fetchProducts = async () => {
       try {
         const data = await getProductsByBrand("Apple");
@@ -42,41 +47,38 @@ function PopularBrand() {
   }, []);
 
   useEffect(() => {
-    // Set up different intervals for each product
+    if (products.length === 0) return;
+
     const intervals = products.slice(0, 4).map((_, idx) => {
       return setInterval(() => {
         setCurrentIndex((prevIndex) => {
-          // Change product index by 1
           const nextIndex = prevIndex + 1;
-          return nextIndex >= products.length ? 0 : nextIndex; // Wrap around to start if end is reached
+          return nextIndex >= products.length ? 0 : nextIndex;
         });
-      }, 6000 * (idx + 1)); // Different interval for each product (6, 12, 18, etc.)
+      }, 6000 * (idx + 1));
     });
 
     setIntervalIds(intervals);
 
-    // Cleanup intervals when component unmounts
     return () => {
       intervals.forEach(clearInterval);
     };
   }, [products]);
 
-  // Display products based on the current index
-  const displayProducts = [
-    products[currentIndex % products.length],
-    products[(currentIndex + 1) % products.length],
-    products[(currentIndex + 2) % products.length],
-    products[(currentIndex + 3) % products.length],
-  ]; // Always show 4 products with rotation
+  const displayProducts = [];
+  for (let i = 0; i < 4; i++) {
+    if (products.length > 0) {
+      displayProducts.push(products[(currentIndex + i) % products.length]);
+    }
+  }
 
-  // Pause the interval when the mouse hovers over the products
   const handleMouseEnter = () => {
-    intervalIds.forEach(clearInterval); // Stop all intervals when hovering
+    intervalIds.forEach(clearInterval);
   };
 
-  // Resume the interval when the mouse leaves the products
   const handleMouseLeave = () => {
-    // Reset the intervals for each product
+    if (products.length === 0) return;
+
     const newIntervals = products.slice(0, 4).map((_, idx) => {
       return setInterval(() => {
         setCurrentIndex((prevIndex) => {
@@ -88,7 +90,6 @@ function PopularBrand() {
     setIntervalIds(newIntervals);
   };
 
-  // Redirect to the product detail page when a product is clicked
   const handleProductClick = (productId) => {
     router.push(`/products/${productId}`);
   };
@@ -105,19 +106,27 @@ function PopularBrand() {
         </h1>
       </div>
 
-      {/* Render the products with independent timing */}
       <div className="overflow-hidden">
         <div className="grid grid-cols-2 px-2 py-4 md:grid-cols-4 gap-5 transition-transform duration-1000 ease-in-out">
           {loading ? (
-            <p className="text-center text-lg text-gray-500">Loading products...</p>
+            <p className="text-center text-lg text-gray-500 col-span-4">
+              Loading products...
+            </p>
+          ) : products.length === 0 ? (
+            <p className="text-center text-lg text-gray-500 col-span-4">
+              No products available to display.
+            </p>
           ) : (
-            displayProducts.map((product, index) => (
-              <ProductCard
-                key={product.id || index} // Unique key for each product, using index as fallback
-                product={product}
-                onClick={() => handleProductClick(product.id)} // Handle product click
-              />
-            ))
+            displayProducts.map(
+              (product, index) =>
+                product && (
+                  <ProductCard
+                    key={product.id || index}
+                    product={product}
+                    onClick={() => handleProductClick(product.id)}
+                  />
+                )
+            )
           )}
         </div>
       </div>

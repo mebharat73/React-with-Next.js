@@ -5,7 +5,7 @@ import axios from "axios";
 async function createOrder(data) {
   const response = await axios.post(`${config.apiUrl}/api/orders`, data, {
     headers: {
-      Authorization: `Bearer ${authToken}`,
+      Authorization: `Bearer ${authToken()}`, // ✅ FIXED
     },
   });
 
@@ -15,7 +15,7 @@ async function createOrder(data) {
 async function getOrders() {
   const response = await axios.get(`${config.apiUrl}/api/orders`, {
     headers: {
-      Authorization: `Bearer ${authToken}`,
+      Authorization: `Bearer ${authToken()}`, // ✅ FIXED
     },
   });
 
@@ -24,10 +24,10 @@ async function getOrders() {
 
 async function getOrdersByUser(status, userId) {
   const response = await axios.get(
-    `${config.apiUrl}/api/orders/users/${userId}?status=${status}`,
+    `${config.apiUrl}/api/orders/user/${userId}?status=${status}`,
     {
       headers: {
-        Authorization: `Bearer ${authToken}`,
+        Authorization: `Bearer ${authToken()}`, // ✅ FIXED
       },
     }
   );
@@ -41,7 +41,7 @@ async function checkoutOrder(id, data) {
     data,
     {
       headers: {
-        Authorization: `Bearer ${authToken}`,
+        Authorization: `Bearer ${authToken()}`, // ✅ FIXED
       },
     }
   );
@@ -49,19 +49,20 @@ async function checkoutOrder(id, data) {
   return response.data;
 }
 
-async function confirmOrder(id, status) {
+async function confirmOrder(id, data) {
   const response = await axios.put(
-    `${config.apiUrl}/api/orders/${id}/confirm?status=${status}`,
-    {},
+    `${config.apiUrl}/api/orders/${id}/confirm`,
+    data, // ✅ include status and transactionId in the body
     {
       headers: {
-        Authorization: `Bearer ${authToken}`,
+        Authorization: `Bearer ${authToken()}`, // ✅ FIXED
       },
     }
   );
-
   return response.data;
 }
+
+
 
 async function updateStatus(id, data) {
   const response = await axios.put(
@@ -69,7 +70,7 @@ async function updateStatus(id, data) {
     data,
     {
       headers: {
-        Authorization: `Bearer ${authToken}`,
+        Authorization: `Bearer ${authToken()}`, // ✅ FIXED
       },
     }
   );

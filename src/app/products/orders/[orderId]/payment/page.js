@@ -12,21 +12,27 @@ function OrderPayment({ params, searchParams }) {
   const router = useRouter();
 
   async function getOrderConfirmation() {
-    try {
-      const orderId = (await params).orderId;
-      const status = (await searchParams).status;
+  try {
+    const orderId = params.orderId;
+    const status = searchParams.status; // From payment gateway URL
 
-      await confirmOrder(orderId, status);
-    } catch (error) {
-      setError(error.response.data);
-    } finally {
-      setLoading(false);
-
-      setTimeout(() => {
-        router.replace("/products/orders");
-      }, 2500);
-    }
+    // Send structured payload
+    await confirmOrder(orderId, {
+      status: status?.toLowerCase() || "completed", // adapt if needed
+      transactionId: searchParams.transaction_id || searchParams.txnId,
+      paymentMethod: "khalti", // optional
+    });
+  } catch (error) {
+    setError(error?.response?.data || "Failed to confirm order.");
+  } finally {
+    setLoading(false);
+    setTimeout(() => {
+      router.replace("/products/orders");
+    }, 2500);
   }
+}
+
+
 
   useEffect(() => {
     getOrderConfirmation();

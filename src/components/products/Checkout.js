@@ -18,24 +18,36 @@ function CheckoutProducts({ disabled }) {
   const dispatch = useDispatch();
 
   async function confirmCheckoutProduct() {
-    if (!user) return router.push(LOGIN_ROUTE);
+  console.log("Checkout clicked"); // ✅ Log here
 
-    try {
-      await createOrder({
-        orderItems: products.map((product) => ({
-          product: product.id,
-          quantity: product.quantity,
-        })),
-        totalPrice: Math.floor(totalPrice * 0.9),
-      });
-
-      dispatch(clearCart());
-
-      router.push(ORDERS_ROUTE);
-    } catch (error) {
-      toast.error(error.response?.data);
-    }
+  if (!user) {
+    console.log("User not logged in"); // ✅ Log if redirected
+    return router.push(LOGIN_ROUTE);
   }
+
+  try {
+    const payload = {
+      orderItems: products.map((product) => ({
+        product: product.id,
+        quantity: product.quantity,
+      })),
+      totalPrice: Math.floor(totalPrice * 0.9),
+    };
+
+    console.log("Sending order:", payload); // ✅ Check payload
+
+    await createOrder(payload);
+
+    console.log("Order created successfully");
+
+    dispatch(clearCart());
+    router.push(ORDERS_ROUTE);
+  } catch (error) {
+    console.error("Order error:", error); // ✅ Log any error
+    toast.error(error?.response?.data || "Something went wrong");
+  }
+}
+
 
   return (
     <>

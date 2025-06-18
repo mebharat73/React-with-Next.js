@@ -3,9 +3,10 @@ import authToken from "@/constants/authToken";
 import axios from "axios";
 
 async function getUserById(id) {
+  const token = authToken();
   const response = await axios.get(`${config.apiUrl}/api/users/${id}`, {
     headers: {
-      Authorization: `Bearer ${authToken}`,
+      Authorization: `Bearer ${token}`,
     },
   });
 
@@ -13,12 +14,13 @@ async function getUserById(id) {
 }
 
 async function uploadProfileImage(id, data) {
+  const token = authToken();
   const response = await axios.put(
     `${config.apiUrl}/api/users/${id}/profile-image`,
     data,
     {
       headers: {
-        Authorization: `Bearer ${authToken}`,
+        Authorization: `Bearer ${token}`,
       },
     }
   );
@@ -27,9 +29,10 @@ async function uploadProfileImage(id, data) {
 }
 
 async function updateUser(id, data) {
+  const token = authToken();
   const response = await axios.put(`${config.apiUrl}/api/users/${id}`, data, {
     headers: {
-      Authorization: `Bearer ${authToken}`,
+      Authorization: `Bearer ${token}`,
     },
   });
 
