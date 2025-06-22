@@ -6,7 +6,7 @@ import ReceivedOffers from '@/app/sattapatta/ReceivedOffers'; // Adjust path if 
 const OffersPage = () => {
   return (
     <div className="container px-5">
-      <h1 className="text-2xl font-bold text-[#68217A] text-center my-4">Received Exchange Offers</h1>
+      <h1 className="text-2xl font-bold text-[#68217A] text-center my-4">Sattapatta Offer's Page</h1>
       <ReceivedOffers />
     </div>
   );

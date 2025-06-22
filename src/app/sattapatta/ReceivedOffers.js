@@ -12,7 +12,8 @@ const ReceivedOffers = () => {
     const fetchOffers = async () => {
       try {
         const res = await api.get('/exchange-offers/received');
-        setOffers(res.data);
+        const sorted = res.data.sort((a, b) => b._id.localeCompare(a._id));
+        setOffers(sorted);
       } catch (err) {
         console.error('Failed to fetch offers', err);
       } finally {
@@ -25,30 +26,43 @@ const ReceivedOffers = () => {
   const handleAccept = async (offerId) => {
     try {
       await api.post(`/exchange-offers/${offerId}/accept`);
-      setOffers((prev) =>
-        prev.map((offer) =>
-          offer._id === offerId ? { ...offer, status: 'accepted' } : offer
+      setOffers(prev =>
+        prev.map(o =>
+          o._id === offerId ? { ...o, status: 'accepted' } : o
         )
       );
       alert('Offer accepted!');
     } catch (err) {
       console.error('Accept failed', err);
-      alert('Failed to accept offer. Please try again.');
+      alert('Failed to accept offer. You might not have permission.');
     }
   };
 
   const handleDecline = async (offerId) => {
     try {
       await api.post(`/exchange-offers/${offerId}/reject`);
-      setOffers((prev) =>
-        prev.map((offer) =>
-          offer._id === offerId ? { ...offer, status: 'rejected' } : offer
+      setOffers(prev =>
+        prev.map(o =>
+          o._id === offerId ? { ...o, status: 'rejected' } : o
         )
       );
       alert('Offer declined!');
     } catch (err) {
       console.error('Decline failed', err);
       alert('Failed to decline offer. Please try again.');
+    }
+  };
+
+  const handleDelete = async (offerId) => {
+    if (!window.confirm('Are you sure you want to delete this offer?')) return;
+
+    try {
+      await api.delete(`/exchange-offers/${offerId}`);
+      setOffers(prev => prev.filter(o => o._id !== offerId));
+      alert('Offer deleted!');
+    } catch (err) {
+      console.error('Delete failed', err);
+      alert('Failed to delete offer. Please try again.');
     }
   };
 
@@ -64,18 +78,39 @@ const ReceivedOffers = () => {
 
   return (
     <div className="mb-6 p-4 bg-purple-100 rounded shadow">
-      <h2 className="text-xl font-bold text-[#68217A] mb-2">Exchange Offers</h2>
-      {offers.map((offer) => {
+      <h2 className="text-xl font-bold text-[#68217A] mb-4">Exchange Offers</h2>
+
+      {offers.map(offer => {
         const isRequester = String(offer.fromUserId) === String(userId);
         const isOfferedItemOwner = String(offer.offeredItemOwnerId) === String(userId);
 
         return (
           <div
             key={offer._id}
-            className="mb-3 p-3 bg-white rounded shadow flex justify-between items-center"
+            className="mb-4 p-4 bg-white rounded shadow flex flex-col md:flex-row justify-between gap-4"
           >
-            <div>
-              {/* Show role note */}
+            {/* Image Preview Section */}
+            <div className="flex gap-4 items-center justify-center md:w-1/3">
+              <div className="text-center">
+                <img
+                  src={offer.offeredItemImage || '/placeholder.jpg'}
+                  alt="Your Item"
+                  className="w-28 h-28 object-cover rounded border"
+                />
+                <p className="text-sm mt-1 text-gray-600">Requested Item</p>
+              </div>
+              <div className="text-center">
+                <img
+                  src={offer.requestedItemImage || '/placeholder.jpg'}
+                  alt="Requested Item"
+                  className="w-28 h-28 object-cover rounded border"
+                />
+                <p className="text-sm mt-1 text-gray-600">Proposed Item</p>
+              </div>
+            </div>
+
+            {/* Offer Details Section */}
+            <div className="flex-1">
               <p className="text-sm mb-1">
                 {isRequester && offer.status === 'pending' && (
                   <span className="text-blue-600">You made this offer.</span>
@@ -86,45 +121,54 @@ const ReceivedOffers = () => {
               </p>
 
               <p><strong>From:</strong> {offer.fromUserName}</p>
-              <p><strong>Product Offered:</strong> {offer.offeredProductTitle}</p>
-              <p><strong>For Your Product:</strong> {offer.requestedProductTitle}</p>
+              <p><strong>Requested Item:</strong> {offer.offeredProductTitle}</p>
+              <p><strong>Offered Item:</strong> {offer.requestedProductTitle}</p>
               <p><strong>Additional Price:</strong> ${offer.additionalPrice}</p>
               <p><strong>Status:</strong> {offer.status}</p>
 
-              {/* Contact info if accepted */}
+              {/* Contact Info if Accepted */}
               {offer.status === 'accepted' && isRequester && (
                 <div className="mt-2 p-2 bg-green-100 rounded">
-                  <p>🎉 Your offer was accepted! You can now contact the item owner:</p>
-                  <p><strong>Email:</strong> {offer.requestedItemOwnerEmail || 'N/A'}</p>
-                  <p><strong>Phone:</strong> {offer.requestedItemOwnerPhone || 'N/A'}</p>
+                  <p>🎉 Your offer was accepted! Contact the item owner:</p>
+                  <p><strong>Email:</strong> {offer.offeredItemOwnerEmail || 'N/A'}</p>
+                  <p><strong>Phone:</strong> {offer.offeredItemOwnerPhone || 'N/A'}</p>
                 </div>
               )}
 
-              {/* Rejection message */}
+              {/* Rejection Message */}
               {offer.status === 'rejected' && isRequester && (
-                <p className="mt-2 text-red-600">
-                  ❌ Your offer was declined.
-                </p>
+                <p className="mt-2 text-red-600">❌ Your offer was declined.</p>
               )}
-            </div>
 
-            {/* Accept/Decline buttons — only visible to offered item owner */}
-            {isOfferedItemOwner && offer.status === 'pending' && (
-              <div className="flex gap-2">
-                <button
-                  onClick={() => handleAccept(offer._id)}
-                  className="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600"
-                >
-                  Accept
-                </button>
-                <button
-                  onClick={() => handleDecline(offer._id)}
-                  className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
-                >
-                  Decline
-                </button>
+              {/* Action Buttons */}
+              <div className="mt-3 flex gap-3 flex-wrap">
+                {isRequester && (
+                  <button
+                    onClick={() => handleDelete(offer._id)}
+                    className="px-3 py-1 bg-gray-500 text-white rounded hover:bg-gray-600"
+                  >
+                    Delete
+                  </button>
+                )}
+
+                {isOfferedItemOwner && offer.status === 'pending' && (
+                  <>
+                    <button
+                      onClick={() => handleAccept(offer._id)}
+                      className="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600"
+                    >
+                      Accept
+                    </button>
+                    <button
+                      onClick={() => handleDecline(offer._id)}
+                      className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+                    >
+                      Decline
+                    </button>
+                  </>
+                )}
               </div>
-            )}
+            </div>
           </div>
         );
       })}

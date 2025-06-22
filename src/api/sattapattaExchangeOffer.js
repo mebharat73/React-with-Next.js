@@ -44,10 +44,13 @@ async function updateExchangeOffer(id, data) {
 }
 
 // Delete exchange offer
-async function deleteExchangeOffer(id) {
-  const response = await api.delete(`${BASE_URL}/${id}`);
-  return response.data;
+
+
+async function deleteExchangeOffer(offerId) {
+  const response = await api.delete(`/exchange-offers/${offerId}`);
+  return response.data; // or simply `return response;` if no data is returned
 }
+
 
 // Reject exchange offer
 async function rejectExchangeOffer(id) {
