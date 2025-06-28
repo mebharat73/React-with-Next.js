@@ -4,6 +4,7 @@ import { addToCart } from "@/redux/cart/cartSlice";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"; // Don't forget the styles
 
 function AddToCart({ product }) {
   const dispatch = useDispatch();
@@ -24,14 +25,16 @@ function AddToCart({ product }) {
   }
 
   return (
-    <button
-      onClick={addProductToCart}
-      className="text-sm font-medium md:font-serif text-[#d0fa44] hover:text-white bg-[#68217A] hover:bg-[#8b2fa2] px-2 py-0 rounded-2xl flex items-center dark:text-white dark:hover:text-black dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e] animate-[pulse_1s_linear_infinite]"
-    >
-      Add to cart
-      <MdOutlineShoppingCart className="ml-1 text-[#dbff65] dark:text-white" />
+    <>
+      <button
+        onClick={addProductToCart}
+        className="text-sm font-medium md:font-serif text-[#d0fa44] hover:text-white bg-[#68217A] hover:bg-[#8b2fa2] px-2 py-0 rounded-2xl flex items-center dark:text-white dark:hover:text-black dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e] animate-[pulse_1s_linear_infinite]"
+      >
+        Add to cart
+        <MdOutlineShoppingCart className="ml-1 text-[#dbff65] dark:text-white" />
+      </button>
       <ToastContainer />
-    </button>
+    </>
   );
 }
 

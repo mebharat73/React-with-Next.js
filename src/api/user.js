@@ -13,6 +13,18 @@ async function getUserById(id) {
   return response.data;
 }
 
+// api/user.js or wherever your API helpers are
+async function getAllUsers() {
+  const token = authToken();
+  const response = await axios.get(`${config.apiUrl}/api/users`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data;
+}
+
+
 async function uploadProfileImage(id, data) {
   const token = authToken();
   const response = await axios.put(
@@ -39,4 +51,4 @@ async function updateUser(id, data) {
   return response.data;
 }
 
-export { uploadProfileImage, updateUser, getUserById };
+export { uploadProfileImage, updateUser, getUserById, getAllUsers };

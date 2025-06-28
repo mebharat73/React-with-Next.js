@@ -62,9 +62,13 @@ const ReceivedOffers = () => {
       alert('Offer deleted!');
     } catch (err) {
       console.error('Delete failed', err);
-      alert('Failed to delete offer. Please try again.');
+      
+      // ✅ Show backend message if available
+      const errorMessage = err?.response?.data?.message || 'Failed to delete offer. Please try again.';
+      alert(errorMessage);
     }
   };
+
 
   if (loading) return <div>Loading offers...</div>;
 

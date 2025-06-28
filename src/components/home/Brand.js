@@ -66,11 +66,16 @@ function PopularBrand() {
   }, [products]);
 
   const displayProducts = [];
-  for (let i = 0; i < 4; i++) {
-    if (products.length > 0) {
-      displayProducts.push(products[(currentIndex + i) % products.length]);
+    const seenIds = new Set();
+
+    for (let i = 0; displayProducts.length < 4 && i < products.length * 2; i++) {
+      const product = products[(currentIndex + i) % products.length];
+      if (!seenIds.has(product.id)) {
+        displayProducts.push(product);
+        seenIds.add(product.id);
+      }
     }
-  }
+
 
   const handleMouseEnter = () => {
     intervalIds.forEach(clearInterval);
@@ -121,10 +126,11 @@ function PopularBrand() {
               (product, index) =>
                 product && (
                   <ProductCard
-                    key={product.id || index}
+                    key={product.id || `${product.name}-${index}`} // ✅ using the formatted `id`
                     product={product}
-                    onClick={() => handleProductClick(product.id)}
+                    onClick={() => handleProductClick(product.id)} // ✅ using `product.id`, not `_id`
                   />
+
                 )
             )
           )}

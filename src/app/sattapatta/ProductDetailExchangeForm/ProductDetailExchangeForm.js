@@ -17,7 +17,9 @@ const ProductDetailExchangeForm = React.forwardRef(
       additionalPrice,
       setAdditionalPrice,
       updateProductStatus,
+      inExchangeItemIds, // 👈 add this
     },
+
     ref
   ) => {
     const [selectedExchangeProduct, setSelectedExchangeProduct] = useState(null);
@@ -96,14 +98,16 @@ const ProductDetailExchangeForm = React.forwardRef(
     };
 
     const exchangeOptions = products.filter((product) => {
-      if (!userId) return selectedProduct && product._id !== selectedProduct._id;
+      if (!userId) return false;
 
       const ownerId = typeof product.owner === 'object' ? product.owner?._id : product.owner;
       const isDifferentOwner = String(ownerId) !== String(userId);
       const isNotSelectedProduct = selectedProduct && product._id !== selectedProduct._id;
+      const isNotInExchange = !inExchangeItemIds?.has(product._id); // ✅ new condition
 
-      return isDifferentOwner && isNotSelectedProduct;
+      return isDifferentOwner && isNotSelectedProduct && isNotInExchange;
     });
+
 
     useEffect(() => {
       console.log('Filtered exchange options:');

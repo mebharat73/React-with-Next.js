@@ -59,7 +59,7 @@ function ProductsPage() {
         <div className="flex items-center py-0">
           <ProductViewSwitcher />
           {/* Conditionally render Add Product button for ADMIN role */}
-          {user?.roles.includes('ADMIN') && (
+          {user?.roles.some((role) => role === 'ADMIN' || role === 'MERCHANT') && (
             <Link
               href={`${PRODUCTS_ROUTE}/add`}
               className="px-2 py-0 font-normal lg:font-serif lg:font-semibold rounded-xl bg-gradient-to-tl from-[#8e912d] to-[#dd53ff] lg:px-3 lg:py-0 border-2 border-[#84a123] border-solid text-[#41144c] hover:text-[white] dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e]"
@@ -67,6 +67,7 @@ function ProductsPage() {
               Add Product
             </Link>
           )}
+
         </div>
       </div>
 

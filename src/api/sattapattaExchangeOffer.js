@@ -37,6 +37,12 @@ async function getExchangeOfferById(id) {
   return response.data;
 }
 
+async function getActiveExchangeItemIds() {
+  const response = await api.get('/exchange-offers/active-items');
+  return response.data; // This will be an array of item IDs
+}
+
+
 // Update exchange offer
 async function updateExchangeOffer(id, data) {
   const response = await api.put(`${BASE_URL}/${id}`, data);
@@ -69,5 +75,6 @@ export {
   getReceivedOffers,
   // If these exist:
   getOffersByOfferedBy,
+  getActiveExchangeItemIds,
   getOffersByItem,
 };
