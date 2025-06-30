@@ -5,6 +5,24 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 import { useGlobalSocket } from '@/context/SocketContext';
 
+// Helper to render file icons based on file extension
+const renderFileIcon = (ext) => {
+  ext = (ext || '').toLowerCase();
+  if (ext === 'pdf') return <span className="text-red-500 text-xl">📄</span>;
+  if (['doc', 'docx'].includes(ext)) return <span className="text-blue-500 text-xl">📝</span>;
+  if (['xls', 'xlsx'].includes(ext)) return <span className="text-green-600 text-xl">📊</span>;
+  if (['ppt', 'pptx'].includes(ext)) return <span className="text-orange-500 text-xl">📽️</span>;
+  if (['zip', 'rar'].includes(ext)) return <span className="text-gray-600 text-xl">🗜️</span>;
+  if (['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'].includes(ext)) return <span>🖼️</span>;
+  return <span className="text-gray-500 text-xl">📎</span>;
+};
+
+// Helper to check if file is image
+const isImage = (attachment) => {
+  const ext = (attachment?.format || attachment?.original_filename?.split('.').pop() || '').toLowerCase();
+  return ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'].includes(ext);
+};
+
 const ChatRoomPrivate = ({ selectedUser }) => {
   const { user } = useSelector((state) => state.auth);
   const socket = useGlobalSocket();
@@ -28,46 +46,44 @@ const ChatRoomPrivate = ({ selectedUser }) => {
       .catch(console.error);
   }, [user, selectedUser]);
 
-  // Mark messages as seen when selectedUser is opened
+  // Mark messages as seen
   useEffect(() => {
     if (!user || !selectedUser) return;
 
-    const markAsSeen = async () => {
-      try {
-        await axios.post('http://localhost:5000/api/chat/mark-seen', {
-          senderId: selectedUser.id,
-          receiverId: user.id,
-        });
-      } catch (err) {
-        console.error('Failed to mark messages as seen', err);
-      }
-    };
-
-    markAsSeen();
+    axios.post('http://localhost:5000/api/chat/mark-seen', {
+      senderId: selectedUser.id,
+      receiverId: user.id,
+    }).catch(console.error);
   }, [user, selectedUser]);
 
-  // Handle socket events
+  // Socket event handlers
   useEffect(() => {
     if (!socket) return;
 
     const handleNewMessage = (msg) => {
-      if (!user || !selectedUser) return;
+  if (!user || !selectedUser) return;
 
-      const isRelevant =
-        (msg.senderId === user.id && msg.to === selectedUser.id) ||
-        (msg.senderId === selectedUser.id && msg.to === user.id);
+  const msgSenderId = String(msg.senderId);
+  const msgToId = String(msg.to);
+  const userId = String(user.id);
+  const selectedUserId = String(selectedUser.id);
 
-      if (isRelevant) {
-        setMessages((prev) => [...prev, msg]);
-      }
-    };
+  if (
+    (msgSenderId === userId && msgToId === selectedUserId) ||
+    (msgSenderId === selectedUserId && msgToId === userId)
+  ) {
+    setMessages((prev) => [...prev, msg]);
+  }
+};
+
 
     const handleTyping = ({ from, isTyping }) => {
-      if (!selectedUser) return;
-      if (from === selectedUser.id) {
-        setTypingStatus(isTyping ? 'Typing...' : null);
-      }
-    };
+  if (!selectedUser || !selectedUser.id) return; // guard clause
+  if (from === selectedUser.id) {
+    setTypingStatus(isTyping ? 'Typing...' : null);
+  }
+};
+
 
     socket.on('newMessage', handleNewMessage);
     socket.on('typing', handleTyping);
@@ -78,7 +94,7 @@ const ChatRoomPrivate = ({ selectedUser }) => {
     };
   }, [socket, selectedUser, user]);
 
-  // Scroll to bottom when messages update
+  // Auto scroll on new message
   useEffect(() => {
     messageListRef.current?.scrollTo({
       top: messageListRef.current.scrollHeight,
@@ -114,7 +130,15 @@ const ChatRoomPrivate = ({ selectedUser }) => {
 
       try {
         const res = await axios.post('http://localhost:5000/api/chat/upload', formData);
-        attachment = res.data.url;
+
+        const originalFilename = res.data.original_filename || selectedFile.name;
+
+        attachment = {
+          url: res.data.url,
+          format: res.data.format,
+          original_filename: originalFilename,
+          resource_type: res.data.resource_type,
+        };
       } catch (err) {
         console.error('File upload failed', err);
       }
@@ -152,26 +176,66 @@ const ChatRoomPrivate = ({ selectedUser }) => {
 
       <div
         ref={messageListRef}
-        className="flex-1 overflow-y-auto bg-gray-100 p-3 rounded-lg space-y-2"
+        className="overflow-y-auto bg-gray-100 p-3 rounded-lg space-y-2 grow min-h-[60%] max-h-[90%]"
       >
         {messages.map((msg, idx) => (
           <div
             key={idx}
-            className={`max-w-xs p-2 rounded-lg ${
+            className={`max-w-[70%] sm:max-w-[75%] md:max-w-[60%] p-2 rounded-lg break-words ${
+
               msg.senderId === user.id ? 'ml-auto bg-green-200' : 'mr-auto bg-purple-200'
             }`}
           >
             <div className="font-semibold">{msg.senderName}</div>
-            {msg.attachment && (
-              <img
-                src={msg.attachment}
-                alt="attachment"
-                className="w-40 h-auto rounded-md mt-1"
-              />
+
+            {/* Attachment Display */}
+            {msg.attachment?.url && (
+              <div className="mt-2">
+                {isImage(msg.attachment) ? (
+                  <>
+                    <img
+                      src={msg.attachment.url}
+                      alt={msg.attachment.original_filename}
+                      className="w-40 h-auto rounded-md"
+                    />
+                    <a
+                      href={msg.attachment.url}
+                      download
+                      className="text-blue-600 text-sm underline"
+                    >
+                      Download Image
+                    </a>
+                  </>
+                ) : (
+                  <div className="flex items-center gap-2 bg-white rounded p-2 shadow-sm border border-gray-300">
+                    {renderFileIcon(
+                      msg.attachment.format ||
+                        msg.attachment.original_filename?.split('.').pop()
+                    )}
+                    <span className="text-sm font-medium text-gray-800 break-words">
+                      {msg.attachment.original_filename || 'Unnamed File'}
+                    </span>
+                    <a
+                      href={msg.attachment.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      download
+                      className="ml-auto text-blue-600 text-sm underline"
+                    >
+                      Download
+                    </a>
+                  </div>
+                )}
+              </div>
             )}
-            <div>{msg.message}</div>
+
+            <div className="mt-1 whitespace-pre-wrap">{msg.message}</div>
+
+            {/* Seen status */}
             {msg.senderId === user.id && (
-              <div className="text-xs text-gray-600 mt-1">{msg.seen ? 'Seen' : 'Sent'}</div>
+              <div className="text-xs text-gray-600 mt-1">
+                {msg.seen ? 'Seen' : 'Sent'}
+              </div>
             )}
           </div>
         ))}
@@ -181,21 +245,30 @@ const ChatRoomPrivate = ({ selectedUser }) => {
         )}
       </div>
 
+      {/* File preview before sending */}
+      {selectedFile && (
+        <div className="flex items-center space-x-3 bg-gray-200 p-2 rounded-md mt-2 max-w-xs">
+          {renderFileIcon(selectedFile.name.split('.').pop())}
+          <span className="break-words font-medium">{selectedFile.name}</span>
+          <button
+            type="button"
+            onClick={() => setSelectedFile(null)}
+            className="text-red-600 font-bold"
+            title="Remove file"
+          >
+            ×
+          </button>
+        </div>
+      )}
+
       <form onSubmit={sendMessage} className="mt-2 space-y-2">
         <textarea
           value={input}
           onChange={handleInputChange}
           className="w-full p-2 border rounded-md"
           placeholder="Type a message..."
+          rows={3}
         />
-        {selectedFile && (
-          <div className="flex items-center justify-between bg-gray-200 p-2 rounded">
-            <span>{selectedFile.name}</span>
-            <button type="button" onClick={() => setSelectedFile(null)}>
-              ❌
-            </button>
-          </div>
-        )}
         <div className="flex items-center space-x-2">
           <input
             type="file"
@@ -207,10 +280,14 @@ const ChatRoomPrivate = ({ selectedUser }) => {
             type="button"
             onClick={() => fileRef.current?.click()}
             className="bg-yellow-400 px-2 py-1 rounded"
+            title="Attach a file"
           >
             📎
           </button>
-          <button type="submit" className="bg-purple-600 text-white px-4 py-1 rounded">
+          <button
+            type="submit"
+            className="bg-purple-600 text-white px-4 py-1 rounded"
+          >
             Send
           </button>
         </div>
@@ -219,4 +296,4 @@ const ChatRoomPrivate = ({ selectedUser }) => {
   );
 };
 
-export default ChatRoomPrivate;
+export default ChatRoomPrivate;                           

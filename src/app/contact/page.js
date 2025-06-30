@@ -1,34 +1,32 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-
 import Link from 'next/link';
-import { submitContactForm } from '@/api/contactApi'; // ✅ axios helper
-import styles from './Fireworks.module.css'; // Ensure this exists
-import { getUnseenMessageCount } from '@/api/chat'; // ✅ make sure it's defined
-import { useSelector } from 'react-redux'; // ✅ for current user
-
+import { useSelector } from 'react-redux';
+import { submitContactForm } from '@/api/contactApi';
+import { getUnseenMessageCount } from '@/api/chat';
+import { useGlobalSocket } from '@/context/SocketContext';
+import styles from './Fireworks.module.css';
 
 const ContactPage = () => {
   const [fireworksVisible, setFireworksVisible] = useState(false);
-  const fireworksRef = useRef(null);
-  const buttonRef = useRef(null);
-
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-
-  const { user } = useSelector((state) => state.auth);
   const [unseenCount, setUnseenCount] = useState(0);
 
+  const fireworksRef = useRef(null);
+  const buttonRef = useRef(null);
+
+  const { user } = useSelector((state) => state.auth);
+  const socket = useGlobalSocket();
 
   const triggerFireworks = () => {
     setFireworksVisible(true);
-    setTimeout(() => {
-      setFireworksVisible(false);
-    }, 4000);
+    setTimeout(() => setFireworksVisible(false), 4000);
   };
 
+  // Fetch unseen count and refresh every 30 seconds (fallback)
   useEffect(() => {
     const fetchUnseenCount = async () => {
       if (!user?.id) return;
@@ -42,12 +40,24 @@ const ContactPage = () => {
     };
 
     fetchUnseenCount();
-    const interval = setInterval(fetchUnseenCount, 30000); // every 30s
-
+    const interval = setInterval(fetchUnseenCount, 30000);
     return () => clearInterval(interval);
   }, [user]);
 
+  // Real-time update with socket when new message arrives
+  useEffect(() => {
+    if (!socket || !user?.id) return;
 
+    const handleNewMessage = (msg) => {
+      const isIncoming = msg.senderId !== user.id;
+      if (isIncoming) {
+        setUnseenCount((prev) => prev + 1);
+      }
+    };
+
+    socket.on('newMessage', handleNewMessage);
+    return () => socket.off('newMessage', handleNewMessage);
+  }, [socket, user?.id]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -64,8 +74,6 @@ const ContactPage = () => {
       setErrorMessage(errorMsg);
     }
   };
-
-  
 
   return (
     <div
@@ -159,7 +167,6 @@ const ContactPage = () => {
             )}
           </Link>
         </div>
-
       </div>
     </div>
   );

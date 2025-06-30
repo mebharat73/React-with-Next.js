@@ -49,19 +49,23 @@ export default function ChatPage() {
     };
 
     const handleNewMessage = (msg) => {
-      const currentUser = userRef.current;
-      const selected = selectedUserRef.current;
+  const currentUser = userRef.current;
+  const selected = selectedUserRef.current;
 
-      const isIncoming = msg.senderId !== currentUser?.id;
-      const isFromSelectedUser = selected?.id === msg.senderId;
+  const msgSenderId = String(msg.senderId);
+  const currentUserId = String(currentUser?.id);
+  const selectedUserId = String(selected?.id);
 
-      if (isIncoming && !isFromSelectedUser) {
-        setUnseenMessages((prev) => ({
-          ...prev,
-          [msg.senderId]: (prev[msg.senderId] || 0) + 1,
-        }));
-      }
-    };
+  const isIncoming = msgSenderId !== currentUserId;
+  const isFromSelectedUser = msgSenderId === selectedUserId;
+
+  if (isIncoming && !isFromSelectedUser) {
+    setUnseenMessages((prev) => ({
+      ...prev,
+      [msgSenderId]: (prev[msgSenderId] || 0) + 1,
+    }));
+  }
+};
 
     socket.on('presence', handlePresence);
     socket.on('newMessage', handleNewMessage);
