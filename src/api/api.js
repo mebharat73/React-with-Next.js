@@ -3,6 +3,7 @@ import authToken from "@/constants/authToken";
 
 const api = axios.create({
   baseURL: `${process.env.NEXT_PUBLIC_API_URL}/api`,
+  withCredentials: true, // ✅ Necessary for sending cookies/auth headers cross-origin
   
 });
 
