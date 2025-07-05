@@ -61,7 +61,6 @@ async function getItemsByOwner() {
 }
 
 export {
-  createSattapattaItem,
   getAllSattapattaItems,
   getSattapattaItemById,
   updateSattapattaItem,

@@ -74,7 +74,5 @@ export {
   rejectExchangeOffer,
   getReceivedOffers,
   // If these exist:
-  getOffersByOfferedBy,
   getActiveExchangeItemIds,
-  getOffersByItem,
 };
