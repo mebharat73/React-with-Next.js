@@ -122,121 +122,222 @@ const ProductDetailExchangeForm = React.forwardRef(
 
     if (!selectedProduct || !exchangeFormVisibility) {
       return (
-        <div className="w-full mt-1 lg:w-1/3 lg:fixed lg:top-10 lg:right-0 lg:h-[90vh]">
+        <div className="w-full mt-4 px-3 lg:px-0 lg:w-1/3 lg:fixed lg:top-24 lg:right-0 lg:h-[90vh]">
           <motion.div
-            className="mt-10 md:mr-8 p-5 max-h-[85vh] overflow-y-auto scrollbar-hide shadow-lg border-2 border-[#656dff] bg-gradient-to-tl from-[#8e912d] to-[#dd53ff] rounded-xl"
+            className="mt-6 md:mr-4 lg:mr-10 py-6 px-4 max-h-[85vh] overflow-y-auto scrollbar-hide shadow-lg border-2 border-[#656dff] bg-gradient-to-tl from-[#8e912d] to-[#dd53ff] dark:from-[#2d2d30] dark:to-[#3c3c41] rounded-xl transition-colors"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 50 }}
             transition={{ duration: 0.5 }}
           >
-            <div className="mt-5 mb-5 px-3 rounded-lg shadow-lg border-[#d8fd72] border-4 border-double bg-gradient-to-tl from-[#C3EF38] to-[#dd53ff]">
-              <div className="text-center py-10">
-                <h2 className="mt-20 mb-20 text-3xl font-semibold text-[#68217A]">Preparing Exchange Offer...</h2>
-                <p className="text-xl text-gray-600">Please click in "Exchange Offer" in your selected product to do sattapatta</p>
-                <div className="mt-4">
-                  <div className="animate-spin border-t-4 border-[#68217A] rounded-full h-40 w-12 mx-auto border-b-4 border-transparent"></div>
+            <div className="max-h-[75vh] px-2 -mt-4 rounded-lg shadow-lg border-[#d8fd72] border-4 border-double bg-gradient-to-tl from-[#C3EF38] to-[#dd53ff] dark:from-[#444c3a] dark:to-[#673877] transition-colors">
+              <div className="text-center py-0 px-4 sm:px-6">
+                <h2 className="text-2xl font-bold text-[#f5ec39] dark:text-[#fafc86]">
+                  How to Exchange a Product 🪙
+                </h2>
+
+                <ol className="text-left text-base sm:text-lg text-gray-700 dark:text-gray-300 list-decimal space-y-2 max-w-3xl mx-auto mt-4">
+                  <li>
+                    In order to exchange a product, first you need to{' '}
+                    <span className="font-semibold text-[#68217A] dark:text-[#c4a8fa]">add your product</span>. If you
+                    haven’t added one yet, simply add any product using the{' '}
+                    <span className="font-semibold text-[#68217A] dark:text-[#c4a8fa]">
+                      "Add New Sattapatta Item"
+                    </span>{' '}
+                    button.
+                  </li>
+                  <li>
+                    You will then see an{' '}
+                    <span className="font-semibold text-[#68217A] dark:text-[#c4a8fa]">"Exchange Offer"</span> button on
+                    your added product. Click it.
+                  </li>
+                  <li>
+                    In the form that appears, select your desired product and specify the{' '}
+                    <span className="font-semibold text-[#68217A] dark:text-[#c4a8fa]">price you offer</span> to the
+                    other user.
+                  </li>
+                  <li>
+                    Once done, click the{' '}
+                    <span className="font-semibold text-[#68217A] dark:text-[#c4a8fa]">"Confirm"</span> button to place
+                    your exchange request.
+                  </li>
+                  <li>
+                    You’ll see a{' '}
+                    <span className="font-semibold text-[#68217A] dark:text-[#c4a8fa]">notification</span> in the
+                    products section indicating your product and selected product status.
+                  </li>
+                </ol>
+
+                {/* Optional Spinner */}
+                <div className="mt-10 flex justify-center">
+                  <div className="animate-spin border-t-4 border-[#68217A] dark:border-[#c4a8fa] rounded-full h-12 w-12 border-b-4 border-transparent"></div>
                 </div>
               </div>
             </div>
           </motion.div>
         </div>
+
       );
     }
 
     return (
-      <div ref={ref} className="w-full mt-1 lg:w-1/3 lg:fixed lg:top-10 lg:right-0 lg:h-[90vh]">
-        <motion.div
-          className="mt-10 md:mr-8 p-5 max-h-[85vh] overflow-y-auto scrollbar-hide shadow-lg border-2 border-[#656dff] bg-gradient-to-tl from-[#8e912d] to-[#dd53ff] rounded-xl"
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 50 }}
-          transition={{ duration: 0.5 }}
-        >
-          <div className="px-3 rounded-lg shadow-lg border-[#d8fd72] border-4 border-double bg-gradient-to-tl from-[#C3EF38] to-[#dd53ff]">
-            {!isFormSubmitted ? (
-              <form onSubmit={handleExchangeSubmit}>
-                <h2 className="mt-3 text-3xl text-[#eef13c] font-bold text-center">Let's begin with Exchange</h2>
+      <div
+  ref={ref}
+  className="w-full px-3 py-2 mt-6 lg:mt-14 lg:w-1/3 lg:fixed lg:top-20 lg:right-8 lg:h-[88vh] font-poppins z-30"
+>
+  <motion.div
+    className="px-4 py-6 max-h-[85vh] overflow-y-auto scrollbar-hide shadow-2xl border-2 border-[#656dff] bg-gradient-to-tl from-[#8e912d] to-[#dd53ff] dark:from-[#2c2c2f] dark:to-[#4a2e58] rounded-2xl transition-colors"
+    initial={{ opacity: 0, y: 60 }}
+    animate={{ opacity: 1, y: 0 }}
+    exit={{ opacity: 0, y: 50 }}
+    transition={{ duration: 0.5 }}
+  >
+    <div className="max-h-[80vh] px-4 py-1 border-[#d8fd72] border-4 border-double rounded-xl shadow-xl bg-gradient-to-br from-[#C3EF38] to-[#f37dff] dark:from-[#434d2b] dark:to-[#6a3e74] transition-colors">
+      {!isFormSubmitted ? (
+        <form onSubmit={handleExchangeSubmit}>
+          <h2 className="text-2xl text-[#68217A] dark:text-[#f3d3ff] font-extrabold text-center">
+            ✨ Start Exchange
+          </h2>
 
-                {/* Selected Product */}
-                <div className="flex justify-center items-center bg-gradient-to-tl from-[#C3EF38] to-[#dd53ff] p-8 mt-2 mb-2 rounded-xl shadow-2xl max-w-lg mx-auto">
-                  <div className="text-center flex flex-col items-center -mt-12">
-                    <p className="text-xl font-serif font-semibold text-[#500b57fa] mt-5">
-                      Selected Product: {selectedProduct.title}
-                    </p>
-                    <Image
-                      src={selectedProduct.imageUrls?.[0] || '/placeholder.jpg'}
-                      alt={selectedProduct.title}
-                      width={200}
-                      height={200}
-                      className="rounded-xl mt-2"
-                    />
-                    <p className="mt-2">{truncateDescription(selectedProduct.description, maxLength)}</p>
-                    <p className="mt-3 font-semibold text-[#68217A]">Price: ${selectedProduct.estimatedValue}</p>
-                  </div>
-                </div>
+          {/* Selected & Exchange Product */}
+          <div className="flex justify-center items-start gap-4 flex-wrap bg-white/30 dark:bg-white/10 p-3 mt-2 mb-4 rounded-xl shadow-inner max-w-full">
+            {/* Selected Product */}
+            <div className="flex flex-col items-center bg-white/70 dark:bg-[#2e2e31] p-2 rounded-xl shadow-md border-2 border-[#68217A] w-[160px]">
+              <p className="text-sm font-semibold text-[#500b57] dark:text-purple-200 text-center mb-1">
+                Selected Product
+              </p>
+              <div className="w-[140px] h-[140px] flex items-center justify-center overflow-hidden rounded-md bg-white dark:bg-[#1e1e20]">
+                <Image
+                  src={selectedProduct.imageUrls?.[0] || '/placeholder.jpg'}
+                  alt={selectedProduct.title}
+                  width={140}
+                  height={140}
+                  className="object-contain max-w-full max-h-full"
+                />
+              </div>
+              <p className="mt-2 text-xs text-center font-medium text-[#68217A] dark:text-purple-200">
+                {selectedProduct.title}
+              </p>
+              <p className="text-sm font-bold text-[#3e125a] dark:text-green-300">
+                💰 ${selectedProduct.estimatedValue}
+              </p>
+            </div>
 
-                {/* Dropdown */}
-                <div className="mb-2">
-                  <label className="block text-sm font-medium text-gray-700">Choose Exchange Product</label>
-                  <select
-                    value={selectedExchangeProduct?._id || ''}
-                    onChange={(e) => {
-                      const selectedId = e.target.value;
-                      const selected = products.find((product) => product._id === selectedId);
-                      setSelectedExchangeProduct(selected);
-                    }}
-                    className="mt-1 px-2 border border-gray-300 rounded-lg w-full"
-                  >
-                    <option value="" disabled>Select exchange product</option>
-                    {exchangeOptions.map((product) => (
-                      <option key={product._id} value={product._id}>
-                        {product.title}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                {/* Extra Price */}
-                <div className="mt-2">
-                  <label className="block text-sm font-medium text-gray-700">Additional Price as offer</label>
-                  <input
-                    type="number"
-                    value={additionalPrice}
-                    onChange={(e) => setAdditionalPrice(e.target.value)}
-                    className="mt-1 px-2 border border-gray-300 rounded-lg w-full"
-                    placeholder="Enter additional price"
+            {/* Exchange Product */}
+            {selectedExchangeProduct && (
+              <div className="flex flex-col items-center bg-white/70 dark:bg-[#2e2e31] p-2 rounded-xl shadow-md border-2 border-[#68217A] w-[160px]">
+                <p className="text-sm font-semibold text-[#500b57] dark:text-purple-200 text-center mb-1">
+                  Exchange Product
+                </p>
+                <div className="w-[140px] h-[140px] flex items-center justify-center overflow-hidden rounded-md bg-white dark:bg-[#1e1e20]">
+                  <Image
+                    src={selectedExchangeProduct.imageUrls?.[0] || '/placeholder.jpg'}
+                    alt={selectedExchangeProduct.title}
+                    width={140}
+                    height={140}
+                    className="object-contain max-w-full max-h-full"
                   />
                 </div>
-
-                <div className="mt-3 mb-2 text-center">
-                  <button
-                    type="submit"
-                    className="py-1 px-2 bg-[#68217A] text-white font-semibold rounded-3xl w-full hover:bg-[#8b2fa2] transition-all duration-300 transform hover:scale-105"
-                    disabled={!selectedExchangeProduct}
-                  >
-                    Confirm Exchange
-                  </button>
-                </div>
-              </form>
-            ) : (
-              <div className="text-center">
-                <h3 className="text-2xl text-[#68217A] font-semibold">Exchange Confirmed!</h3>
-                {/* Display selected + exchange products here as in your original */}
-                {/* Omitted for brevity but you can plug that part back in directly */}
-                <div className="mt-3 mb-2 text-center">
-                  <button
-                    onClick={resetForm}
-                    className="py-1 px-2 bg-[#68217A] text-white font-semibold rounded-3xl w-full hover:bg-[#8b2fa2] transition-all duration-300 transform hover:scale-105"
-                  >
-                    Choose Next
-                  </button>
-                </div>
+                <p className="mt-2 text-xs text-center font-medium text-[#68217A] dark:text-purple-200">
+                  {selectedExchangeProduct.title}
+                </p>
+                <p className="text-sm font-bold text-[#3e125a] dark:text-green-300">
+                  💰 ${selectedExchangeProduct.estimatedValue}
+                </p>
               </div>
             )}
           </div>
-        </motion.div>
-      </div>
+
+          {/* Dropdown */}
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-[#333] dark:text-gray-300 mb-1">
+              Select your exchange product
+            </label>
+            <select
+              value={selectedExchangeProduct?._id || ''}
+              onChange={(e) => {
+                const selectedId = e.target.value;
+                const selected = products.find((p) => p._id === selectedId);
+                setSelectedExchangeProduct(selected);
+              }}
+              className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-[#2a2a2d] text-[#333] dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-[#68217A]"
+            >
+              <option value="" disabled>
+                -- Choose Product --
+              </option>
+              {exchangeOptions.map((product) => (
+                <option key={product._id} value={product._id}>
+                  {product.title}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Additional Price Input */}
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-[#333] dark:text-gray-300 mb-1">
+              Additional Price (optional)
+            </label>
+            <input
+              type="number"
+              value={additionalPrice}
+              onChange={(e) => setAdditionalPrice(e.target.value)}
+              className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-[#2a2a2d] text-[#333] dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-[#68217A]"
+              placeholder="Enter additional price"
+            />
+          </div>
+
+          {/* Submit */}
+          <div className="mt-3">
+            <button
+              type="submit"
+              className="w-full p-1 bg-[#f5e72a] text-[#051206] font-semibold rounded-full hover:bg-[#8b2fa2] transition duration-300 transform hover:scale-105 disabled:opacity-50"
+              disabled={!selectedExchangeProduct}
+            >
+              🔁 Confirm Exchange
+            </button>
+          </div>
+        </form>
+      ) : (
+        <div className="text-center">
+          <h3 className="text-2xl text-[#68217A] dark:text-[#f3d3ff] font-semibold mb-3 mt-4">
+            ✅ Exchange Confirmed!
+          </h3>
+
+          <div className="text-left text-sm text-[#333] dark:text-gray-200 bg-white/60 dark:bg-white/10 rounded-xl p-4 mb-4 shadow-inner border border-[#68217A]">
+            <ol className="font-semibold list-decimal list-inside space-y-4">
+              <li>
+                <span className="font-semibold text-[#500b57] dark:text-purple-300">Your order is confirmed.</span>{' '}
+                You can view it in the <strong>"View Received Offers"</strong> section by clicking the button provided there.
+              </li>
+              <li>
+                You can <strong>delete your offer</strong> if you no longer want it — otherwise, wait for the exchange product owner's response.
+              </li>
+              <li>
+                If the exchange product owner <strong>accepts or declines</strong> your request, you’ll receive an email and can also view the status (Name, Email, Contact) in the "View Received Order" page.
+              </li>
+              <li>
+                You can <strong>chat directly</strong> with the owner via the Contact page by clicking the <strong>"Start Chat"</strong> button.
+              </li>
+              <li>
+                For any extra questions, just send us a message and your email through the <strong>Contact</strong> page. Thank you!
+              </li>
+            </ol>
+          </div>
+
+          <button
+            onClick={resetForm}
+            className="py-2 px-4 bg-[#68217A] text-white font-semibold rounded-full w-full hover:bg-[#8b2fa2] transition duration-300 transform hover:scale-105"
+          >
+            ➕ Start Another Exchange
+          </button>
+        </div>
+      )}
+    </div>
+  </motion.div>
+</div>
+
+
     );
   }
 );

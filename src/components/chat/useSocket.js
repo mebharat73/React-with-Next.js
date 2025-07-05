@@ -11,7 +11,7 @@ export default function useSocket(userId) {
 
     // Prevent duplicate connections
     if (!socketInstance) {
-      socketInstance = io('http://localhost:5000', {
+      socketInstance = io(process.env.NEXT_PUBLIC_API_URL, {
         query: { userId }, // ✅ This makes `socket.handshake.query.userId` work
       });
     }

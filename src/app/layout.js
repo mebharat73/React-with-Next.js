@@ -14,7 +14,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="h-screen bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9]">
+      <body className="h-screen bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]">
         <Providers>
           <MainLayout>{children}</MainLayout>
           <ToastContainer

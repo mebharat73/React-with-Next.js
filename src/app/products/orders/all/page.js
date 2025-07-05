@@ -25,7 +25,7 @@ function AllOrders() {
             className="bg-[#8b2fa2] text-white hover:text-[#C3EF38] h-8 px-1 md:px-6 md:mt-0 rounded-lg hover:bg-[#68217A] transition-colors"
             onClick={() => router.back()}
           >
-            BACK
+            Back
           </motion.button>
         </div>
 

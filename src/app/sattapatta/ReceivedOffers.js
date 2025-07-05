@@ -81,102 +81,107 @@ const ReceivedOffers = () => {
   }
 
   return (
-    <div className="mb-6 p-4 bg-purple-100 rounded shadow">
-      <h2 className="text-xl font-bold text-[#68217A] mb-4">Exchange Offers</h2>
+   <div className="mb-6 p-4 bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e] rounded shadow">
+  <h2 className="text-xl font-bold text-[#68217A] dark:text-white mb-4">Exchange Offers</h2>
 
-      {offers.map(offer => {
-        const isRequester = String(offer.fromUserId) === String(userId);
-        const isOfferedItemOwner = String(offer.offeredItemOwnerId) === String(userId);
+  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 justify-items-center">
+    {offers.map(offer => {
+      const isRequester = String(offer.fromUserId) === String(userId);
+      const isOfferedItemOwner = String(offer.offeredItemOwnerId) === String(userId);
 
-        return (
-          <div
-            key={offer._id}
-            className="mb-4 p-4 bg-white rounded shadow flex flex-col md:flex-row justify-between gap-4"
-          >
-            {/* Image Preview Section */}
-            <div className="flex gap-4 items-center justify-center md:w-1/3">
-              <div className="text-center">
-                <img
-                  src={offer.offeredItemImage || '/placeholder.jpg'}
-                  alt="Your Item"
-                  className="w-28 h-28 object-cover rounded border"
-                />
-                <p className="text-sm mt-1 text-gray-600">Requested Item</p>
-              </div>
-              <div className="text-center">
-                <img
-                  src={offer.requestedItemImage || '/placeholder.jpg'}
-                  alt="Requested Item"
-                  className="w-28 h-28 object-cover rounded border"
-                />
-                <p className="text-sm mt-1 text-gray-600">Proposed Item</p>
-              </div>
+      return (
+        <div
+          key={offer._id}
+          className="w-full max-w-sm bg-gradient-to-tl from-[#8e912d] to-[#dd53ff] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0] text-sm text-black dark:text-white rounded-lg shadow p-4 hover:shadow-md transition"
+        >
+          {/* Image Section */}
+          <div className="flex justify-center gap-3 mb-3">
+            <div className="flex flex-col items-center">
+              <img
+                src={offer.offeredItemImage || '/placeholder.jpg'}
+                alt="Requested Item"
+                className="w-24 h-24 object-cover rounded-md border dark:border-gray-600"
+              />
+              <p className="text-sm font-semibold text-[#f2f75d] dark:text-gray-300 mt-1">Requested</p>
             </div>
-
-            {/* Offer Details Section */}
-            <div className="flex-1">
-              <p className="text-sm mb-1">
-                {isRequester && offer.status === 'pending' && (
-                  <span className="text-blue-600">You made this offer.</span>
-                )}
-                {isOfferedItemOwner && offer.status === 'pending' && (
-                  <span className="text-green-600">Offer made on your item.</span>
-                )}
-              </p>
-
-              <p><strong>From:</strong> {offer.fromUserName}</p>
-              <p><strong>Requested Item:</strong> {offer.offeredProductTitle}</p>
-              <p><strong>Offered Item:</strong> {offer.requestedProductTitle}</p>
-              <p><strong>Additional Price:</strong> ${offer.additionalPrice}</p>
-              <p><strong>Status:</strong> {offer.status}</p>
-
-              {/* Contact Info if Accepted */}
-              {offer.status === 'accepted' && isRequester && (
-                <div className="mt-2 p-2 bg-green-100 rounded">
-                  <p>🎉 Your offer was accepted! Contact the item owner:</p>
-                  <p><strong>Email:</strong> {offer.offeredItemOwnerEmail || 'N/A'}</p>
-                  <p><strong>Phone:</strong> {offer.offeredItemOwnerPhone || 'N/A'}</p>
-                </div>
-              )}
-
-              {/* Rejection Message */}
-              {offer.status === 'rejected' && isRequester && (
-                <p className="mt-2 text-red-600">❌ Your offer was declined.</p>
-              )}
-
-              {/* Action Buttons */}
-              <div className="mt-3 flex gap-3 flex-wrap">
-                {isRequester && (
-                  <button
-                    onClick={() => handleDelete(offer._id)}
-                    className="px-3 py-1 bg-gray-500 text-white rounded hover:bg-gray-600"
-                  >
-                    Delete
-                  </button>
-                )}
-
-                {isOfferedItemOwner && offer.status === 'pending' && (
-                  <>
-                    <button
-                      onClick={() => handleAccept(offer._id)}
-                      className="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600"
-                    >
-                      Accept
-                    </button>
-                    <button
-                      onClick={() => handleDecline(offer._id)}
-                      className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
-                    >
-                      Decline
-                    </button>
-                  </>
-                )}
-              </div>
+            <span className="text-gray-400 dark:text-gray-300 text-xl self-center">⇄</span>
+            <div className="flex flex-col items-center">
+              <img
+                src={offer.requestedItemImage || '/placeholder.jpg'}
+                alt="Proposed Item"
+                className="w-24 h-24 object-cover rounded-md border dark:border-gray-600"
+              />
+              <p className="text-sm font-semibold text-[#6a1f7b] dark:text-gray-300 mt-1">Offered</p>
             </div>
           </div>
-        );
-      })}
-    </div>
+
+          {/* Info Section */}
+          <div>
+            <div className="mb-2">
+              {isRequester && offer.status === 'pending' && (
+                <span className="text-[#541a61] font-semibold dark:text-blue-400 text-xs">You made this offer</span>
+              )}
+              {isOfferedItemOwner && offer.status === 'pending' && (
+                <span className="text-green-600 dark:text-green-400 text-xs">Offer on your item</span>
+              )}
+            </div>
+
+            <p><strong>From:</strong> {offer.fromUserName}</p>
+            <p><strong>Requested:</strong> {offer.offeredProductTitle}</p>
+            <p><strong>Offered:</strong> {offer.requestedProductTitle}</p>
+            <p><strong>Extra Price:</strong> ${offer.additionalPrice}</p>
+            <p><strong>Status:</strong> <span className="capitalize">{offer.status}</span></p>
+
+            {/* Accepted Contact */}
+            {offer.status === 'accepted' && isRequester && (
+              <div className="mt-2 p-2 bg-green-100 dark:bg-green-900 rounded text-xs">
+                🎉 Accepted! Contact:
+                <div><strong>Email:</strong> {offer.offeredItemOwnerEmail || 'N/A'}</div>
+                <div><strong>Phone:</strong> {offer.offeredItemOwnerPhone || 'N/A'}</div>
+              </div>
+            )}
+
+            {/* Rejected Message */}
+            {offer.status === 'rejected' && isRequester && (
+              <p className="mt-2 text-red-600 dark:text-red-400 text-sm">❌ Offer declined.</p>
+            )}
+
+            {/* Action Buttons */}
+            <div className="mt-3 flex flex-wrap gap-2">
+              {isRequester && (
+                <button
+                  onClick={() => handleDelete(offer._id)}
+                  className="px-3 py-1 text-xs bg-gray-500 text-white rounded hover:bg-gray-600"
+                >
+                  Delete
+                </button>
+              )}
+
+              {isOfferedItemOwner && offer.status === 'pending' && (
+                <>
+                  <button
+                    onClick={() => handleAccept(offer._id)}
+                    className="px-3 py-1 text-xs bg-green-500 text-white rounded hover:bg-green-600"
+                  >
+                    Accept
+                  </button>
+                  <button
+                    onClick={() => handleDecline(offer._id)}
+                    className="px-3 py-1 text-xs bg-red-500 text-white rounded hover:bg-red-600"
+                  >
+                    Decline
+                  </button>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      );
+    })}
+  </div>
+</div>
+
+
   );
 };
 

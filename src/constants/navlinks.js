@@ -13,6 +13,14 @@ const navLinks = [
     isAuth: false,
     notification: false,
   },
+  
+  {
+    label: "Sattapatta",
+    route: SATTAPATTA_ROUTE,
+    isAuth: false,
+    notification: false,
+  },
+
   {
     label: "Products",
     route: PRODUCTS_ROUTE,
@@ -31,12 +39,7 @@ const navLinks = [
     isAuth: true,
     notification: false,
   },
-  {
-    label: "Sattapatta",
-    route: SATTAPATTA_ROUTE,
-    isAuth: false,
-    notification: false,
-  },
+  
 ];
 
 export default navLinks;

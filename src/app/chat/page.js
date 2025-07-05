@@ -14,9 +14,20 @@ export default function ChatPage() {
   const [selectedUser, setSelectedUser] = useState(null);
   const [onlineUsers, setOnlineUsers] = useState({});
   const [unseenMessages, setUnseenMessages] = useState({});
+  const [isMobileView, setIsMobileView] = useState(false); // 🌟 used instead of showSidebar
 
   const selectedUserRef = useRef(null);
   const userRef = useRef(null);
+
+  // Track window width to determine mobile/desktop
+  useEffect(() => {
+    const checkView = () => {
+      setIsMobileView(window.innerWidth < 640); // sm breakpoint
+    };
+    checkView();
+    window.addEventListener('resize', checkView);
+    return () => window.removeEventListener('resize', checkView);
+  }, []);
 
   useEffect(() => {
     userRef.current = user;
@@ -26,19 +37,14 @@ export default function ChatPage() {
     selectedUserRef.current = selectedUser;
   }, [selectedUser]);
 
-  // 1. Fetch unseen message counts on load
   useEffect(() => {
     if (!user?.id) return;
-
     axios
-      .get(`http://localhost:5000/api/chat/unseen-count/${user.id}`)
-      .then((res) => {
-        setUnseenMessages(res.data); // {senderId: count, ...}
-      })
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/api/chat/unseen-count/${user.id}`)
+      .then((res) => setUnseenMessages(res.data))
       .catch(console.error);
   }, [user?.id]);
 
-  // 2. Socket listeners for presence and new messages
   useEffect(() => {
     if (!user?.id || !socket) return;
 
@@ -49,32 +55,31 @@ export default function ChatPage() {
     };
 
     const handleNewMessage = (msg) => {
-  const currentUser = userRef.current;
-  const selected = selectedUserRef.current;
+      const currentUser = userRef.current;
+      const selected = selectedUserRef.current;
 
-  const msgSenderId = String(msg.senderId);
-  const currentUserId = String(currentUser?.id);
-  const selectedUserId = String(selected?.id);
+      const msgSenderId = String(msg.senderId);
+      const currentUserId = String(currentUser?.id);
+      const selectedUserId = String(selected?.id);
 
-  const isIncoming = msgSenderId !== currentUserId;
-  const isFromSelectedUser = msgSenderId === selectedUserId;
+      const isIncoming = msgSenderId !== currentUserId;
+      const isFromSelectedUser = msgSenderId === selectedUserId;
 
-  if (isIncoming && !isFromSelectedUser) {
-    setUnseenMessages((prev) => ({
-      ...prev,
-      [msgSenderId]: (prev[msgSenderId] || 0) + 1,
-    }));
-  }
-};
+      if (isIncoming && !isFromSelectedUser) {
+        setUnseenMessages((prev) => ({
+          ...prev,
+          [msgSenderId]: (prev[msgSenderId] || 0) + 1,
+        }));
+      }
+    };
 
     socket.on('presence', handlePresence);
     socket.on('newMessage', handleNewMessage);
+
     if (socket.connected) {
       socket.emit('getPresence');
     } else {
-      socket.once('connect', () => {
-        socket.emit('getPresence');
-      });
+      socket.once('connect', () => socket.emit('getPresence'));
     }
 
     return () => {
@@ -83,7 +88,6 @@ export default function ChatPage() {
     };
   }, [user?.id, socket]);
 
-  // 3. Mark selected chat as seen
   useEffect(() => {
     if (!user?.id || !selectedUser) return;
 
@@ -93,7 +97,7 @@ export default function ChatPage() {
     }));
 
     axios
-      .post('http://localhost:5000/api/chat/mark-seen', {
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/api/chat/mark-seen`, {
         senderId: selectedUser.id,
         receiverId: user.id,
       })
@@ -101,24 +105,43 @@ export default function ChatPage() {
   }, [selectedUser, user?.id]);
 
   if (!user) {
-    return (
-      <div className="text-center mt-10 text-gray-600">
-        Please log in to use chat.
-      </div>
-    );
+    return <div className="text-center mt-10 text-gray-600">Please log in to use chat.</div>;
   }
 
+  // ✅ Responsive behavior
+  const showUserList = isMobileView && !selectedUser;
+  const showChatRoom = isMobileView ? !!selectedUser : true;
+
   return (
-    <div className="flex h-screen">
-      <UserListSidebar
-        currentUserId={user.id}
-        onSelectUser={setSelectedUser}
-        onlineUsers={onlineUsers}
-        unseenMessages={unseenMessages}
-      />
-      <div className="flex-1">
-        <ChatRoomPrivate selectedUser={selectedUser} />
-      </div>
+    <div className="flex flex-col sm:flex-row h-screen bg-white dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e] text-gray-900 dark:text-white">
+      {/* Sidebar */}
+      {showUserList || !isMobileView ? (
+        <div className="w-full sm:w-60 border-b sm:border-b-0 sm:border-r dark:border-gray-600">
+          <UserListSidebar
+            currentUserId={user.id}
+            onSelectUser={setSelectedUser}
+            onlineUsers={onlineUsers}
+            unseenMessages={unseenMessages}
+          />
+        </div>
+      ) : null}
+
+      {/* Chat Area */}
+      {showChatRoom && (
+        <div className="flex-1 overflow-hidden relative">
+          {isMobileView && (
+            <div className="p-2">
+              <button
+                onClick={() => setSelectedUser(null)}
+                className="text-sm text-blue-600 underline"
+              >
+                ← Back to Users
+              </button>
+            </div>
+          )}
+          <ChatRoomPrivate selectedUser={selectedUser} />
+        </div>
+      )}
     </div>
   );
 }

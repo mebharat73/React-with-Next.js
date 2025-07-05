@@ -9,37 +9,48 @@ const UserListSidebar = ({
   onSelectUser,
   onlineUsers = {},
   unseenMessages = {},
+  showSidebar = true,
+  onCloseSidebar = () => {},
 }) => {
   const [users, setUsers] = useState([]);
   const socket = useGlobalSocket();
 
-  // Fetch all users on mount
   useEffect(() => {
     getAllUsers()
       .then(setUsers)
       .catch(console.error);
   }, []);
 
-  // Listen for presence events (optional, mainly handled in parent)
   useEffect(() => {
     if (!socket) return;
 
     const handlePresence = () => {
-      // Optional logging or triggering something else
       console.log('Presence event received in sidebar');
     };
 
     socket.on('presence', handlePresence);
-
-    return () => {
-      socket.off('presence', handlePresence);
-    };
+    return () => socket.off('presence', handlePresence);
   }, [socket]);
 
   return (
-    <div className="w-60 p-3 border-r h-screen overflow-y-auto bg-white">
-      <h2 className="text-xl font-bold mb-4">Users</h2>
-      <ul className="space-y-2">
+    <div
+      className={`w-full md:w-64 p-3 border-r dark:border-gray-600 h-screen overflow-y-auto bg-white dark:bg-gray-800 ${
+        showSidebar ? 'block' : 'hidden'
+      } md:block`}
+    >
+      {/* Close button for small screens */}
+      <div className="flex justify-end md:hidden mb-2">
+        <button
+          onClick={onCloseSidebar}
+          className="text-gray-800 dark:text-white text-xl font-bold"
+          title="Close sidebar"
+        >
+          ✕
+        </button>
+      </div>
+
+      <h2 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">Users</h2>
+      <ul className="space-y-1">
         {users
           .filter((user) => user.id !== currentUserId)
           .map((user) => {
@@ -50,7 +61,7 @@ const UserListSidebar = ({
               <li
                 key={user.id}
                 onClick={() => onSelectUser(user)}
-                className="flex items-center space-x-3 cursor-pointer hover:bg-gray-200 p-2 rounded relative"
+                className="flex items-center space-x-2 cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 p-2 rounded relative transition-colors"
               >
                 <div
                   className={`w-3 h-3 rounded-full ${
@@ -60,9 +71,10 @@ const UserListSidebar = ({
                 <img
                   src={user.profileImageUrl || '/default.jpg'}
                   alt="avatar"
-                  className="w-8 h-8 rounded-full"
+                  className="w-6 h-6 rounded-full object-cover"
                 />
-                <span>{user.name}</span>
+                <span className="text-gray-800 dark:text-white truncate">{user.name}</span>
+
                 {newMsgCount > 0 && (
                   <span className="absolute top-1 right-1 px-2 text-xs font-bold text-white bg-red-600 rounded-full">
                     {newMsgCount}
