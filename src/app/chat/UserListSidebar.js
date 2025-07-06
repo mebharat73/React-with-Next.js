@@ -69,15 +69,10 @@ const UserListSidebar = ({
                   }`}
                 />
                 <img
-                  src={
-                    user.profileImageUrl
-                      ? user.profileImageUrl.replace(/^http:\/\//, 'https://')
-                      : '/default.jpg'
-                  }
+                  src={user.profileImageUrl || '/default.jpg'}
                   alt="avatar"
                   className="w-6 h-6 rounded-full object-cover"
                 />
-
                 <span className="text-gray-800 dark:text-white truncate">{user.name}</span>
 
                 {newMsgCount > 0 && (
