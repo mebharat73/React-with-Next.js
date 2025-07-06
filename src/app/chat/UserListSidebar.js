@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { getAllUsers } from '@/api/user';
 import { useGlobalSocket } from '@/context/SocketContext';
+import Image from 'next/image';
 
 const UserListSidebar = ({
   currentUserId,
@@ -68,17 +69,20 @@ const UserListSidebar = ({
                     isOnline ? 'bg-green-500' : 'bg-gray-400'
                   }`}
                 />
-                <img
-                  src={(user.profileImageUrl?.startsWith('http://') 
-                    ? user.profileImageUrl.replace('http://', 'https://') 
-                    : user.profileImageUrl) || '/default.jpg'}
+                <Image
+                  src={
+                    (user.profileImageUrl?.startsWith('http://')
+                      ? user.profileImageUrl.replace('http://', 'https://')
+                      : user.profileImageUrl) || '/default.jpg'
+                  }
                   alt="avatar"
+                  width={24}
+                  height={24}
                   className="w-6 h-6 rounded-full object-cover"
                   onError={(e) => {
-                    e.currentTarget.src = '/default.jpg';
+                    e.currentTarget.src = '/default.jpg'; // Only needed if using <img>, not next/image
                   }}
                 />
-
                 <span className="text-gray-800 dark:text-white truncate">{user.name}</span>
 
                 {newMsgCount > 0 && (
