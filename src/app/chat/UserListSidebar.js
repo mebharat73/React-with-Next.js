@@ -70,19 +70,12 @@ const UserListSidebar = ({
                   }`}
                 />
                 <Image
-                  src={
-                    (user.profileImageUrl?.startsWith('http://')
-                      ? user.profileImageUrl.replace('http://', 'https://')
-                      : user.profileImageUrl) || '/default.jpg'
-                  }
-                  alt="avatar"
-                  width={24}
-                  height={24}
-                  className="w-6 h-6 rounded-full object-cover"
-                  onError={(e) => {
-                    e.currentTarget.src = '/default.jpg'; // Only needed if using <img>, not next/image
-                  }}
-                />
+                                        src={user.profileImageUrl}
+                                        alt="profile-img"
+                                        width={28}
+                                        height={28}
+                                        className="h-6 w-6 rounded-full object-cover"
+                                      />
                 <span className="text-gray-800 dark:text-white truncate">{user.name}</span>
 
                 {newMsgCount > 0 && (
