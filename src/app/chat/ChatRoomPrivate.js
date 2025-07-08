@@ -269,37 +269,36 @@ const ChatRoomPrivate = ({ selectedUser }) => {
       )}
 
       {/* Message Input */}
-      <form onSubmit={sendMessage} className="mt-2 flex items-center space-x-4">
-        <input
-          value={input}
-          onChange={handleInputChange}
-          className="flex-grow px-4 py-2 border rounded-md bg-[#fdfdfc] dark:bg-gray-800 dark:text-white dark:border-gray-600 resize-none"
-          placeholder="Type a message..."
-          autoComplete="off"
-          // Changed textarea to input for simpler UI (feel free to revert)
-          // If you want multiline, change back to textarea and adjust height accordingly.
-        />
-        <input
-          type="file"
-          ref={fileRef}
-          className="hidden"
-          onChange={handleFileChange}
-        />
-        <button
-          type="button"
-          onClick={() => fileRef.current?.click()}
-          className="bg-yellow-400 dark:bg-yellow-500 px-4 py-2 rounded"
-          title="Attach a file"
-        >
-          📎
-        </button>
-        <button
-          type="submit"
-          className="bg-purple-600 text-white px-4 py-2 rounded"
-        >
-          Send
-        </button>
-      </form>
+      <form onSubmit={sendMessage} className="mt-2 flex items-center space-x-2">
+  <input
+    value={input}
+    onChange={handleInputChange}
+    className="flex-grow px-4 py-2 border rounded-md bg-[#fdfdfc] dark:bg-gray-800 dark:text-white dark:border-gray-600 resize-none"
+    placeholder="Type a message..."
+    autoComplete="off"
+  />
+  <input
+    type="file"
+    ref={fileRef}
+    className="hidden"
+    onChange={handleFileChange}
+  />
+  <button
+    type="button"
+    onClick={() => fileRef.current?.click()}
+    className="bg-yellow-400 dark:bg-yellow-500 px-2 py-1 rounded"
+    title="Attach a file"
+  >
+    📎
+  </button>
+  <button
+    type="submit"
+    className="bg-purple-600 text-white px-6 py-1 rounded"
+  >
+    Send
+  </button>
+</form>
+
     </div>
   );
 };

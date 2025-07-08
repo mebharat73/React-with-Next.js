@@ -122,7 +122,7 @@ const ProductDetailExchangeForm = React.forwardRef(
 
     if (!selectedProduct || !exchangeFormVisibility) {
       return (
-        <div className="w-full mt-4 px-3 lg:px-0 lg:w-1/3 lg:fixed lg:top-24 lg:right-0 lg:h-[90vh]">
+        <div className="-mt-4 md:w-full md:mt-4 px-3 lg:px-0 lg:w-1/3 lg:fixed lg:top-24 lg:right-0 lg:h-[90vh]">
           <motion.div
             className="mt-6 md:mr-4 lg:mr-10 py-6 px-4 max-h-[85vh] overflow-y-auto scrollbar-hide shadow-lg border-2 border-[#656dff] bg-gradient-to-tl from-[#8e912d] to-[#dd53ff] dark:from-[#2d2d30] dark:to-[#3c3c41] rounded-xl transition-colors"
             initial={{ opacity: 0, y: 50 }}

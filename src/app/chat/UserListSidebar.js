@@ -15,22 +15,17 @@ const UserListSidebar = ({
   const [users, setUsers] = useState([]);
   const socket = useGlobalSocket();
 
+
+
   useEffect(() => {
     getAllUsers()
       .then(setUsers)
       .catch(console.error);
   }, []);
 
-  useEffect(() => {
-    if (!socket) return;
 
-    const handlePresence = () => {
-      console.log('Presence event received in sidebar');
-    };
 
-    socket.on('presence', handlePresence);
-    return () => socket.off('presence', handlePresence);
-  }, [socket]);
+  
 
   return (
     <div
@@ -55,6 +50,8 @@ const UserListSidebar = ({
           .filter((user) => user.id !== currentUserId)
           .map((user) => {
             const isOnline = !!onlineUsers[user.id];
+
+
             const newMsgCount = unseenMessages[user.id] || 0;
 
             return (

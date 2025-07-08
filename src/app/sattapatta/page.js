@@ -112,23 +112,23 @@ const Products = () => {
   if (loading) return <div>Loading...</div>;
 
   return (
-    <div className="min-h-screen px-5 py-5 bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] dark:bg-gradient-to-br dark:from-[#1c1c1e] dark:to-[#2e2e30] transition-colors">
+    <div className="min-h-screen px-8 md:px-5 md:py-5 bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] dark:bg-gradient-to-br dark:from-[#1c1c1e] dark:to-[#2e2e30] transition-colors">
 
   {/* Header */}
-  <div className="container px-5 py-2 font-poppins">
-    <div className="flex flex-col lg:flex-row items-center justify-between gap-6 mb-4">
+  <div className="container md:px-5 md:py-2 font-poppins">
+    <div className="flex flex-col mb-2 lg:flex-row items-center justify-between gap-6 md:mb-4">
       <div className="text-center lg:text-left w-full">
         <h1 className="text-3xl font-bold text-primary-700 dark:text-white tracking-tight font-poppins-bold">
           🪙 Sattapatta Products
         </h1>
-        <div className="w-24 h-1 bg-primary-500 rounded-full mx-auto lg:mx-0 mt-2" />
+        <div className=" md:w-24 h-1 bg-primary-500 rounded-full md:mx-auto lg:mx-0 mt-2" />
       </div>
 
       <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-3 w-full md:ml-52 lg:-ml-56 px-3">
   {/* View Offers Button */}
-  <div className="relative">
+  <div className="relative -mt-4">
     <Link href="/sattapatta/offers">
-      <button className="py-1 px-2 bg-[#68217A] text-white font-thin rounded-lg shadow-md hover:bg-[#8b2fa2] transform hover:scale-105 transition-all duration-300">
+      <button className="md:py-1 md:px-2 bg-[#68217A] text-white font-thin rounded-lg shadow-md hover:bg-[#8b2fa2] transform hover:scale-105 transition-all duration-300">
         📥 View Received Offers
       </button>
     </Link>
@@ -148,7 +148,7 @@ const Products = () => {
   {/* Add Item Button */}
   <button
     onClick={handleAddItemClick}
-    className="py-1 px-3 bg-gradient-to-r from-[#68217A] to-[#8b2fa2] text-white font-thin rounded-lg shadow-md hover:brightness-110 transform hover:scale-105 transition-all duration-300"
+    className="-mt-2 md:-mt-4 md:py-1 md:px-3 bg-gradient-to-r from-[#68217A] to-[#8b2fa2] text-white font-thin rounded-lg shadow-md hover:brightness-110 transform hover:scale-105 transition-all duration-300"
   >
     ➕ Add New Sattapatta Item
   </button>
@@ -163,7 +163,7 @@ const Products = () => {
     {/* Product List */}
     <div className="lg:col-span-4">
       <div
-        className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-4 rounded-xl mr-4 ml-2 pt-2"
+        className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 rounded-xl mr-4 ml-2 pt-2"
       >
 
         {products.length === 0 ? (
@@ -172,7 +172,7 @@ const Products = () => {
           products.map((product) => (
             <div
               key={product._id}
-              className={`bg-gradient-to-tl py-6 px-4 rounded-xl border-2 border-[#8b2fa2] shadow-lg transform transition-all duration-300 relative flex gap-4 dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e] ${
+              className={`bg-gradient-to-tl py-2 px-2 md:py-6 md:px-4 rounded-xl border-2 border-[#8b2fa2] shadow-lg transform transition-all duration-300 relative flex gap-4 dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e] ${
                 inExchangeItemIds.has(product._id)
                   ? 'pointer-events-none opacity-70'
                   : 'hover:shadow-xl hover:scale-105 cursor-pointer'
@@ -209,7 +209,7 @@ const Products = () => {
                 {/* Title */}
                 <div className="mb-1 border border-[#8b2fa2] bg-gradient-to-br from-[#f0f656] to-[#e382fb] text-[#68217A] dark:text-[#ecf074] font-bold rounded-lg overflow-hidden dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e]">
                   <motion.div
-                    className="whitespace-nowrap overflow-hidden w-40"
+                    className="w-auto whitespace-nowrap overflow-hidden md:w-40"
                     animate={{ x: ['100%', '-100%'] }}
                     transition={{
                       x: {
@@ -230,11 +230,11 @@ const Products = () => {
                   src={product.imageUrls?.[0] || '/placeholder.jpg'}
                   width={500}
                   height={500}
-                  className="h-36 bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] rounded-2xl border-y-2 border-dashed border-[#8b2fa2] object-fill dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e]"
+                  className="h-28 md:h-36 bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] rounded-2xl border-y-2 border-dashed border-[#8b2fa2] object-fill dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e]"
                 />
 
                 {/* Description */}
-                <p className="text-sm font-semibold text-zinc-600 dark:text-white mt-2 max-h-24 overflow-hidden">
+                <p className="text-sm font-semibold text-zinc-600 dark:text-white md:mt-2 max-h-24 overflow-hidden">
                   {product.description
                     ? product.description.slice(0, 15)
                     : ""}
