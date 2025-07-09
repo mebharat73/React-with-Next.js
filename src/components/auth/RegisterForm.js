@@ -62,7 +62,7 @@ function RegisterForm() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
-      <div className="text-center mb-6">
+      <div className="text-center">
         <h2 className="text-2xl font-semibold text-gray-800 dark:text-white">
           Create Your Account
         </h2>
@@ -192,7 +192,7 @@ function RegisterForm() {
       <motion.button
         type="submit"
         disabled={loading}
-        className="h-8 w-full mt-3 font-serif font-bold bg-[#68217A] text-[#d0fa44] dark:hover:text-white hover:text-white py-3 rounded-lg disabled:bg-primary-300 disabled:cursor-not-allowed hover:bg-[#8b2fa2] transition duration-200 flex justify-center items-center dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]"
+        className="h-7 w-full font-serif font-bold bg-[#68217A] text-[#d0fa44] dark:hover:text-white hover:text-white py-3 rounded-lg disabled:bg-primary-300 disabled:cursor-not-allowed hover:bg-[#8b2fa2] transition duration-200 flex justify-center items-center dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
       >
@@ -200,7 +200,7 @@ function RegisterForm() {
         Register
       </motion.button>
 
-      <div className="text-center mt-6">
+      <div className="text-center mt-2">
         <Link
           href={LOGIN_ROUTE}
           className="text-[#68217A] hover:text-[#8b2fa2] hover:underline dark:text-white"

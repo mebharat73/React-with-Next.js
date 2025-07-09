@@ -122,7 +122,7 @@ const ProductDetailExchangeForm = React.forwardRef(
 
     if (!selectedProduct || !exchangeFormVisibility) {
       return (
-        <div className="-mt-4 md:w-full md:mt-4 px-3 lg:px-0 lg:w-1/3 lg:fixed lg:top-24 lg:right-0 lg:h-[90vh]">
+        <div className="-mt-6 mb-4 md:w-full md:mt-4 px-3 lg:px-0 lg:w-1/3 lg:fixed lg:top-24 lg:right-0 lg:h-[90vh]">
           <motion.div
             className="mt-6 md:mr-4 lg:mr-10 py-6 px-4 max-h-[85vh] overflow-y-auto scrollbar-hide shadow-lg border-2 border-[#656dff] bg-gradient-to-tl from-[#8e912d] to-[#dd53ff] dark:from-[#2d2d30] dark:to-[#3c3c41] rounded-xl transition-colors"
             initial={{ opacity: 0, y: 50 }}
@@ -130,13 +130,13 @@ const ProductDetailExchangeForm = React.forwardRef(
             exit={{ opacity: 0, y: 50 }}
             transition={{ duration: 0.5 }}
           >
-            <div className="max-h-[75vh] px-2 -mt-4 rounded-lg shadow-lg border-[#d8fd72] border-4 border-double bg-gradient-to-tl from-[#C3EF38] to-[#dd53ff] dark:from-[#444c3a] dark:to-[#673877] transition-colors">
-              <div className="text-center py-0 px-4 sm:px-6">
-                <h2 className="text-2xl font-bold text-[#f5ec39] dark:text-[#fafc86]">
+            <div className="px-4 -mt-5 max-h-[75vh] md:px-2 md:-mt-4 rounded-lg shadow-lg border-[#d8fd72] border-4 border-double bg-gradient-to-tl from-[#C3EF38] to-[#dd53ff] dark:from-[#444c3a] dark:to-[#673877] transition-colors">
+              <div className="mt-2 px-6 text-center py-0 md:px-4 md:mt-6">
+                <h2 className="text-xl md:text-2xl font-bold text-[#f5ec39] dark:text-[#fafc86]">
                   How to Exchange a Product 🪙
                 </h2>
 
-                <ol className="text-left text-base sm:text-lg text-gray-700 dark:text-gray-300 list-decimal space-y-2 max-w-3xl mx-auto mt-4">
+                <ol className="text-sm text-left md:text-base lg:text-lg text-gray-700 dark:text-gray-300 list-decimal space-y-2 max-w-3xl mx-auto mt-4">
                   <li>
                     In order to exchange a product, first you need to{' '}
                     <span className="font-semibold text-[#68217A] dark:text-[#c4a8fa]">add your product</span>. If you
@@ -200,7 +200,8 @@ const ProductDetailExchangeForm = React.forwardRef(
           </h2>
 
           {/* Selected & Exchange Product */}
-          <div className="flex justify-center items-start gap-4 flex-wrap bg-white/30 dark:bg-white/10 p-3 mt-2 mb-4 rounded-xl shadow-inner max-w-full">
+          <div className="gap-2 flex justify-center items-start md:gap-4 flex-nowrap bg-white/30 dark:bg-white/10 p-3 mt-2 mb-4 rounded-xl shadow-inner max-w-full overflow-auto">
+
             {/* Selected Product */}
             <div className="flex flex-col items-center bg-white/70 dark:bg-[#2e2e31] p-2 rounded-xl shadow-md border-2 border-[#68217A] w-[160px]">
               <p className="text-sm font-semibold text-[#500b57] dark:text-purple-200 text-center mb-1">
@@ -260,7 +261,7 @@ const ProductDetailExchangeForm = React.forwardRef(
                 const selected = products.find((p) => p._id === selectedId);
                 setSelectedExchangeProduct(selected);
               }}
-              className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-[#2a2a2d] text-[#333] dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-[#68217A]"
+              className="px-4 w-full md:px-3 md:py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-[#2a2a2d] text-[#333] dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-[#68217A]"
             >
               <option value="" disabled>
                 -- Choose Product --
@@ -282,7 +283,7 @@ const ProductDetailExchangeForm = React.forwardRef(
               type="number"
               value={additionalPrice}
               onChange={(e) => setAdditionalPrice(e.target.value)}
-              className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-[#2a2a2d] text-[#333] dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-[#68217A]"
+              className="px-4 w-full md:px-3 md:py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-[#2a2a2d] text-[#333] dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-[#68217A]"
               placeholder="Enter additional price"
             />
           </div>
@@ -291,7 +292,7 @@ const ProductDetailExchangeForm = React.forwardRef(
           <div className="mt-3">
             <button
               type="submit"
-              className="w-full p-1 bg-[#f5e72a] text-[#051206] font-semibold rounded-full hover:bg-[#8b2fa2] transition duration-300 transform hover:scale-105 disabled:opacity-50"
+              className="w-full md:p-1 bg-[#f5e72a] text-[#051206] font-semibold rounded-full hover:bg-[#8b2fa2] transition duration-300 transform hover:scale-105 disabled:opacity-50"
               disabled={!selectedExchangeProduct}
             >
               🔁 Confirm Exchange
@@ -300,7 +301,7 @@ const ProductDetailExchangeForm = React.forwardRef(
         </form>
       ) : (
         <div className="text-center">
-          <h3 className="text-2xl text-[#68217A] dark:text-[#f3d3ff] font-semibold mb-3 mt-4">
+          <h3 className=" md:text-2xl text-[#68217A] dark:text-[#f3d3ff] font-semibold mb-3 mt-4">
             ✅ Exchange Confirmed!
           </h3>
 
@@ -327,7 +328,7 @@ const ProductDetailExchangeForm = React.forwardRef(
 
           <button
             onClick={resetForm}
-            className="py-2 px-4 bg-[#68217A] text-white font-semibold rounded-full w-full hover:bg-[#8b2fa2] transition duration-300 transform hover:scale-105"
+            className="md:py-2 px-4 bg-[#68217A] text-white font-semibold rounded-full w-full hover:bg-[#8b2fa2] transition duration-300 transform hover:scale-105"
           >
             ➕ Start Another Exchange
           </button>

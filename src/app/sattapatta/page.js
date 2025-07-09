@@ -24,6 +24,13 @@ const Products = () => {
   const userId = getCurrentUserId();
 
   useEffect(() => {
+  if (exchangeFormVisibility && exchangeFormRef.current) {
+    exchangeFormRef.current.scrollIntoView({ behavior: 'smooth' });
+  }
+}, [exchangeFormVisibility]);
+
+
+  useEffect(() => {
     const fetchProducts = async () => {
       try {
         const response = await api.get('/sattapatta-items');
@@ -112,7 +119,7 @@ const Products = () => {
   if (loading) return <div>Loading...</div>;
 
   return (
-    <div className="min-h-screen px-8 md:px-5 md:py-5 bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] dark:bg-gradient-to-br dark:from-[#1c1c1e] dark:to-[#2e2e30] transition-colors">
+    <div className="min-h-screen px-5 md:px-5 md:py-5 bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] dark:bg-gradient-to-br dark:from-[#1c1c1e] dark:to-[#2e2e30] transition-colors">
 
   {/* Header */}
   <div className="container md:px-5 md:py-2 font-poppins">

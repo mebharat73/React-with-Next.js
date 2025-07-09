@@ -7,8 +7,11 @@ import {
 import Link from 'next/link';
 import { SATTAPATTA_ROUTE } from '@/constants/routes'; // make sure this exists or replace with your route constant
 
-export default async function SattapattaItemPage({ params }) {
+export default async function SattapattaItemPage(props) {
+  const params = await props.params; // ✅ await the promise
   const id = params.id;
+ 
+
   const item = await getSattapattaItemById(id);
 
   return (
@@ -29,9 +32,9 @@ export default async function SattapattaItemPage({ params }) {
 
         <Link
           href={SATTAPATTA_ROUTE || '/sattapatta'}
-          className="hidden lg:flex items-center dark:text-gray-100 hover:underline font-bold text-[#68217A] py-2 px-2 hover:bg-[#d0fa44] rounded-3xl"
+          className=" lg:flex items-center dark:text-gray-100 hover:underline font-bold text-[#68217A] py-2 px-2 md:hover:bg-[#d0fa44] rounded-3xl"
         >
-          <MdArrowBack className="mr-3 bg-gradient-to-tl from-[#8e912d] to-[#dd53ff] rounded-full" />
+          <MdArrowBack className="md:mr-3 bg-gradient-to-tl from-[#8e912d] to-[#dd53ff] rounded-full" />
           Go Back
         </Link>
 
@@ -52,7 +55,7 @@ export default async function SattapattaItemPage({ params }) {
           </p>
           <ul className="mt-3 px-6 list-disc dark:text-gray-100">
             <li>Estimated Value: ${item.estimatedValue}</li>
-            <li>Features: High quality material</li>
+            <li>Required: Offer should be accepted and you should contact the owner</li>
             <li>Delivery: On time</li>
             <li>Available all over Nepal</li>
           </ul>

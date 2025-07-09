@@ -78,6 +78,17 @@ async function updateStatus(id, data) {
   return response.data;
 }
 
+async function deleteOrderById(orderId) {
+  const response = await axios.delete(`${config.apiUrl}/api/orders/${orderId}`, {
+    headers: {
+      Authorization: `Bearer ${authToken()}`,
+    },
+  });
+
+  return response.data;
+}
+
+
 export {
   checkoutOrder,
   confirmOrder,
@@ -85,4 +96,5 @@ export {
   getOrders,
   getOrdersByUser,
   updateStatus,
+  deleteOrderById, // ✅ EXPORT HERE
 };

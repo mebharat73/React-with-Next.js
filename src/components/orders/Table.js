@@ -7,6 +7,8 @@ import { getOrders } from "@/api/orders";
 import { useEffect, useState } from "react";
 import Spinner from "../Spinner";
 import EditOrderStatus from "./EditStatus";
+import { deleteOrderById } from "@/api/orders";
+
 
 function OrdersTable() {
   const [loading, setLoading] = useState(true);
@@ -124,12 +126,24 @@ function OrdersTable() {
                     setIsStatusUpdated={setIsStatusUpdated}
                   />
                   <motion.button
+                    onClick={async () => {
+                      if (!confirm("Are you sure you want to delete this order?")) return;
+
+                      try {
+                        await deleteOrderById(order._id);
+                        setOrders((prev) => prev.filter((o) => o._id !== order._id));
+                      } catch (error) {
+                        console.error("Failed to delete order:", error.message);
+                        alert("Error deleting order.");
+                      }
+                    }}
                     className="h-7 w-6 bg-red-600 p-1 rounded text-white"
                     whileHover={{ scale: 1.1 }}
                     transition={{ duration: 0.2 }}
                   >
                     <BsTrash />
                   </motion.button>
+
                 </div>
               </td>
             </motion.tr>
