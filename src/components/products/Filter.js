@@ -40,17 +40,23 @@ function FilterProducts({ brands, categories }) {
   }
 
   function setFilter() {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set("brand", brandsFilter.join(","));
-    params.set("category", category);
-    params.set("limit", limitFilter);
-    params.set("max", maxPrice);
-    params.set("min", minPrice);
-    params.set("sort", sortFilter);
+  const params = new URLSearchParams();
 
-    router.push(pathname + "?" + params.toString());
-    setShowFilter(false);
+  if (brandsFilter.length > 0) {
+    params.set("brands", brandsFilter.join(","));
   }
+  if (category) {
+    params.set("category", category);
+  }
+  params.set("limit", Number(limitFilter));
+  params.set("min", Number(minPrice));
+  params.set("max", Number(maxPrice));
+  params.set("sort", sortFilter);
+
+  router.push(pathname + "?" + params.toString());
+  setShowFilter(false);
+}
+
 
   function resetFilter() {
     setBrandsFilter([]);

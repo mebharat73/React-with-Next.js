@@ -22,24 +22,24 @@ function ProductsPage() {
   const router = useRouter();
 
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const query = new URLSearchParams(searchParams).toString(); // Converts the searchParams to a query string
-        const productsData = await getAllProducts(query); // Pass the query string to the API
-        setProducts(productsData);
+  async function fetchData() {
+    try {
+      const queryString = searchParams.toString(); // converts URLSearchParams to string
+      const productsData = await getAllProducts(queryString);
+      setProducts(productsData);
 
-        const brandsData = await getBrands();
-        setBrands(brandsData);
+      const brandsData = await getBrands();
+      setBrands(brandsData);
 
-        const categoriesData = await getCategories();
-        setCategories(categoriesData);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
+      const categoriesData = await getCategories();
+      setCategories(categoriesData);
+    } catch (error) {
+      console.error('Error fetching data:', error);
     }
+  }
 
-    fetchData();
-  }, [searchParams]); // Re-run the effect whenever searchParams changes
+  fetchData();
+}, [searchParams]);
 
   return (
     <div>

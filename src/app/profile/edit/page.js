@@ -75,7 +75,7 @@ function EditProfilePage() {
       <div className="-mt-12 md:-mt-2 rounded-2xl shadow-xl p-5 w-11/12 max-w-lg bg-white dark:bg-gray-800 transform transition-all duration-500 ease-in-out hover:scale-105">
         <ProfileImage className="rounded-full shadow-xl mb-2" /> {/* Profile image styling */}
         <h2 className="p-1 text-xl md:p-2 font-serif md:text-3xl text-[#68217A] font-bold text-center mb-1">Edit Profile</h2>
-        <form onSubmit={handleSubmit(submitForm)} className="space-y-2 md:space-y-4 animate__animated animate__fadeIn">
+        <form onSubmit={handleSubmit(submitForm)} className="space-y-2 md:space-y-3 animate__animated animate__fadeIn">
           {/* Name Input */}
           <div>
             <label htmlFor="name" className="flex items-center text-lg dark:text-white">

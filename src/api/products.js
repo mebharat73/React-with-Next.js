@@ -2,10 +2,11 @@ import { formatSearchParams } from "@/helpers/formatParams";
 import api from "./api";
 import authToken from "@/constants/authToken";
 
-async function getAllProducts() {
-  const response = await api.get(`/products`); // ✅ not /api/products
+async function getAllProducts(queryString = '') {
+  const response = await api.get(`/products?${queryString}`);
   return response.data;
 }
+
 
 
 // baseUrl/api/products/:id

@@ -328,7 +328,7 @@ const ProductDetailExchangeForm = React.forwardRef(
 
           <button
             onClick={resetForm}
-            className="mt-2 px-1 md:-mt-1 md:py-2 md:px-4 bg-[#68217A] text-white font-semibold rounded-full w-full hover:bg-[#8b2fa2] transition duration-300 transform hover:scale-105"
+            className="mt-1 px-1 md:-mt-1 md:py-2 md:px-4 bg-[#68217A] text-white font-semibold rounded-full w-full hover:bg-[#8b2fa2] transition duration-300 transform hover:scale-105"
           >
             ➕ Start Another Exchange
           </button>
