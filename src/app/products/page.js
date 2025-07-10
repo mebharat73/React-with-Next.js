@@ -16,30 +16,82 @@ function ProductsPage() {
   const [products, setProducts] = useState([]);
   const [brands, setBrands] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
+  const [offset, setOffset] = useState(0);
+  const limit = 12; // Number of products per page
+
   const { user } = useSelector((state) => state.auth);
 
-  const searchParams = useSearchParams(); // Unwrap the searchParams using this hook
+  const searchParams = useSearchParams();
   const router = useRouter();
 
+  // Helper function to get current filters without limit & offset params
+  const getBaseQueryParams = () => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.delete('limit');
+    params.delete('offset');
+    return params.toString();
+  };
+
+  // Load initial products & filters when searchParams change
   useEffect(() => {
-  async function fetchData() {
-    try {
-      const queryString = searchParams.toString(); // converts URLSearchParams to string
-      const productsData = await getAllProducts(queryString);
-      setProducts(productsData);
+    async function fetchInitial() {
+      setLoading(true);
+      try {
+        setOffset(0); // Reset offset on filter/search change
+        const baseParams = getBaseQueryParams();
+        const queryString = baseParams ? `${baseParams}&limit=${limit}&offset=0` : `limit=${limit}&offset=0`;
 
-      const brandsData = await getBrands();
-      setBrands(brandsData);
+        const productsData = await getAllProducts(queryString);
+        setProducts(productsData);
+        setHasMore(productsData.length === limit); // If less than limit, no more products
 
-      const categoriesData = await getCategories();
-      setCategories(categoriesData);
-    } catch (error) {
-      console.error('Error fetching data:', error);
+        // Fetch brands & categories (you may want to fetch this once globally, but fine here for now)
+        const brandsData = await getBrands();
+        setBrands(brandsData);
+
+        const categoriesData = await getCategories();
+        setCategories(categoriesData);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        setLoading(false);
+      }
     }
-  }
 
-  fetchData();
-}, [searchParams]);
+    fetchInitial();
+  }, [searchParams]);
+
+  // Load more products when "Load More" button clicked
+  const loadMoreProducts = async () => {
+  if (loading) return;
+  setLoading(true);
+  try {
+    const baseParams = getBaseQueryParams();
+    const newOffset = offset + limit;
+    const queryString = baseParams
+      ? `${baseParams}&limit=${limit}&offset=${newOffset}`
+      : `limit=${limit}&offset=${newOffset}`;
+
+    const moreProducts = await getAllProducts(queryString);
+
+    // ✅ Deduplicate by `id`
+    setProducts((prev) => {
+      const existingIds = new Set(prev.map((p) => p.id));
+      const uniqueNew = moreProducts.filter((p) => !existingIds.has(p.id));
+      return [...prev, ...uniqueNew];
+    });
+
+    setOffset(newOffset);
+    setHasMore(moreProducts.length === limit);
+  } catch (error) {
+    console.error('Error loading more products:', error);
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   return (
     <div>
@@ -58,7 +110,6 @@ function ProductsPage() {
 
         <div className="flex items-center py-0">
           <ProductViewSwitcher />
-          {/* Conditionally render Add Product button for ADMIN role */}
           {user?.roles.some((role) => role === 'ADMIN' || role === 'MERCHANT') && (
             <Link
               href={`${PRODUCTS_ROUTE}/add`}
@@ -67,7 +118,6 @@ function ProductsPage() {
               Add Product
             </Link>
           )}
-
         </div>
       </div>
 
@@ -77,6 +127,19 @@ function ProductsPage() {
       </div>
 
       <ProductList products={products} />
+
+      {/* Load More Button */}
+      {hasMore && (
+        <div className="flex justify-center my-4">
+          <button
+            onClick={loadMoreProducts}
+            disabled={loading}
+            className="bg-[#68217A] text-white px-6 py-2 rounded hover:bg-[#8b2fa2] transition"
+          >
+            {loading ? 'Loading...' : 'Load More'}
+          </button>
+        </div>
+      )}
     </div>
   );
 }
