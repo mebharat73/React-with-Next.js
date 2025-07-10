@@ -50,13 +50,13 @@ function ProfileImage() {
         alt="image"
         height={200}
         width={200}
-        className="p-1 rounded-full border-[#84a123] border-4  h-28 w-28 object-cover bg-gradient-to-tl from-[#C3EF38] to-[#dd53ff] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]"
+        className="h-16 w-16 p-1 rounded-full border-[#84a123] border-4  md:h-28 md:w-28 object-cover bg-gradient-to-tl from-[#C3EF38] to-[#dd53ff] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]"
       />
 
       <form onSubmit={updateProfile} className="flex items-center mt-2">
         <input
           type="file"
-          className="border border-[#8b2fa2] h-8 rounded-2xl px-3 text-[#68217A] text-base font-bold  py-0 w-full shadow-md dark:text-white dark:bg-zinc-600"
+          className="border border-[#8b2fa2] rounded-2xl px-3 text-[#68217A] text-base font-bold  py-0 w-full shadow-md dark:text-white dark:bg-zinc-600"
           id="profile-image"
           onChange={(e) => {
             const files = [];
