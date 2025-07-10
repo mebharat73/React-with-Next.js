@@ -169,9 +169,9 @@ const ChatRoomPrivate = ({ selectedUser }) => {
   }
 
   return (
-    <div className="flex flex-col w-full h-[90vh] md:h-[95vh] p-3 rounded-xl bg-white dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e]">
+    <div className="flex flex-col w-full h-[96vh] md:h-[100vh] p-3 rounded-xl bg-white dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e]">
       {/* Chat Header */}
-      <div className="font-bold text-lg text-center mb-2 text-black dark:text-white">
+      <div className=" -mt-6 font-bold text-lg text-center md:mb-2 md:-mt-2 text-black dark:text-white">
         Chat with {selectedUser.name}
       </div>
 
@@ -269,11 +269,11 @@ const ChatRoomPrivate = ({ selectedUser }) => {
       )}
 
       {/* Message Input */}
-      <form onSubmit={sendMessage} className="mt-2 flex items-center space-x-2">
+      <form onSubmit={sendMessage} className="mt-1 flex items-center space-x-1">
   <input
     value={input}
     onChange={handleInputChange}
-    className="flex-grow px-4 py-2 border rounded-md bg-[#fdfdfc] dark:bg-gray-800 dark:text-white dark:border-gray-600 resize-none"
+    className="flex-auto px-4 py-2 border rounded-md bg-[#fdfdfc] dark:bg-gray-800 dark:text-white dark:border-gray-600 resize-none"
     placeholder="Type a message..."
     autoComplete="off"
   />
@@ -293,7 +293,7 @@ const ChatRoomPrivate = ({ selectedUser }) => {
   </button>
   <button
     type="submit"
-    className="bg-purple-600 text-white px-6 py-1 rounded"
+    className="bg-purple-600 text-white px-5 py-1 rounded"
   >
     Send
   </button>

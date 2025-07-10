@@ -153,7 +153,7 @@ const ContactPage = () => {
         </div>
 
         {/* Start Chat Button */}
-        <div className="bottom-20 absolute md:bottom-16 md:right-10 z-20">
+        <div className="bottom-24 absolute md:bottom-16 md:right-10 z-20">
           <Link
             href="/chat"
             onMouseEnter={triggerFireworks}
