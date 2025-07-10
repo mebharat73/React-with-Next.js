@@ -134,7 +134,7 @@ function ProductCard({ product, productView }) {
     </Link>
     
     <Link href={`${PRODUCTS_ROUTE}/category/${product.category}`}>
-      <span className="mt-1.5 md:mt-1.5 inline-flex items-center rounded-md bg-[#68217A] hover:bg-[#8b2fa2] text-xs font-medium text-[#d0fa44] hover:text-white ring-1 ring-inset ring-red-500/10 overflow-hidden w-24 h-4 relative"> {/* Set a fixed width */}
+      <span className="w-20 mt-1.5 md:mt-1.5 inline-flex items-center rounded-md bg-[#68217A] hover:bg-[#8b2fa2] text-xs font-medium text-[#d0fa44] hover:text-white ring-1 ring-inset ring-red-500/10 overflow-hidden md:w-24 h-4 relative"> {/* Set a fixed width */}
         
         
         <motion.div

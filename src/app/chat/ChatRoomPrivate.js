@@ -169,7 +169,7 @@ const ChatRoomPrivate = ({ selectedUser }) => {
   }
 
   return (
-    <div className="flex flex-col w-full h-[95vh] md:h-[100vh] p-3 rounded-xl bg-white dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e]">
+    <div className="flex flex-col w-full h-[90vh] md:h-[95vh] p-3 rounded-xl bg-white dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e]">
       {/* Chat Header */}
       <div className="font-bold text-lg text-center mb-2 text-black dark:text-white">
         Chat with {selectedUser.name}

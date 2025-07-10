@@ -51,7 +51,7 @@ const AddItemForm = ({ setAddItemFormVisibility, setProducts }) => {
 
     {message && <p className="text-red-500 dark:text-red-400 text-center mb-3">{message}</p>}
 
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="md:space-y-4">
       {/* Title */}
       <div>
         <label className="block text-sm font-semibold dark:text-white mb-1">Title:</label>
