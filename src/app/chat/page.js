@@ -14,15 +14,15 @@ export default function ChatPage() {
   const [selectedUser, setSelectedUser] = useState(null);
   const [onlineUsers, setOnlineUsers] = useState({});
   const [unseenMessages, setUnseenMessages] = useState({});
-  const [isMobileView, setIsMobileView] = useState(false); // 🌟 used instead of showSidebar
+  const [isMobileView, setIsMobileView] = useState(false);
 
   const selectedUserRef = useRef(null);
   const userRef = useRef(null);
 
-  // Track window width to determine mobile/desktop
+  // Detect screen width for responsive layout
   useEffect(() => {
     const checkView = () => {
-      setIsMobileView(window.innerWidth < 640); // sm breakpoint
+      setIsMobileView(window.innerWidth < 640); // Tailwind 'sm' breakpoint
     };
     checkView();
     window.addEventListener('resize', checkView);
@@ -37,6 +37,7 @@ export default function ChatPage() {
     selectedUserRef.current = selectedUser;
   }, [selectedUser]);
 
+  // Load unseen message counts
   useEffect(() => {
     if (!user?.id) return;
     axios
@@ -45,6 +46,7 @@ export default function ChatPage() {
       .catch(console.error);
   }, [user?.id]);
 
+  // Handle presence and new messages via socket
   useEffect(() => {
     if (!user?.id || !socket) return;
 
@@ -88,6 +90,7 @@ export default function ChatPage() {
     };
   }, [user?.id, socket]);
 
+  // Reset unseen count for active chat
   useEffect(() => {
     if (!user?.id || !selectedUser) return;
 
@@ -104,19 +107,19 @@ export default function ChatPage() {
       .catch(console.error);
   }, [selectedUser, user?.id]);
 
+  // Responsive layout logic
+  const showUserList = isMobileView ? !selectedUser : true;
+  const showChatRoom = isMobileView ? !!selectedUser : true;
+
   if (!user) {
     return <div className="text-center mt-10 text-gray-600">Please log in to use chat.</div>;
   }
 
-  // ✅ Responsive behavior
-  const showUserList = isMobileView && !selectedUser;
-  const showChatRoom = isMobileView ? !!selectedUser : true;
-
   return (
     <div className="flex flex-col sm:flex-row h-screen bg-white dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e] text-gray-900 dark:text-white">
       {/* Sidebar */}
-      {showUserList || !isMobileView ? (
-        <div className="w-full sm:w-60 border-b sm:border-b-0 sm:border-r dark:border-gray-600">
+      {showUserList && (
+        <div className="w-full sm:w-64 border-b sm:border-b-0 sm:border-r dark:border-gray-600">
           <UserListSidebar
             currentUserId={user.id}
             onSelectUser={setSelectedUser}
@@ -124,22 +127,15 @@ export default function ChatPage() {
             unseenMessages={unseenMessages}
           />
         </div>
-      ) : null}
+      )}
 
-      {/* Chat Area */}
+      {/* Chat Section */}
       {showChatRoom && (
-        <div className="flex-1 overflow-hidden relative">
-          {isMobileView && (
-            <div className="p-2">
-              <button
-                onClick={() => setSelectedUser(null)}
-                className="text-sm text-blue-600 underline"
-              >
-                ← Back to Users
-              </button>
-            </div>
-          )}
-          <ChatRoomPrivate selectedUser={selectedUser} />
+        <div className="flex-1 flex flex-col overflow-hidden">
+          <ChatRoomPrivate
+            selectedUser={selectedUser}
+            onBack={isMobileView ? () => setSelectedUser(null) : null}
+          />
         </div>
       )}
     </div>

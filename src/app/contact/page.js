@@ -82,7 +82,7 @@ const ContactPage = () => {
     >
       <div className="absolute inset-0 bg-black opacity-40" />
       <div className="relative z-10 flex flex-col items-center justify-center text-white min-h-screen">
-        <h1 className="-mt-20 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-extrabold text-center px-6 sm:px-10">
+        <h1 className="-mt-32 md:-mt-24 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-extrabold text-center px-6 sm:px-10">
           Let's Get in Touch!
         </h1>
 
@@ -153,7 +153,7 @@ const ContactPage = () => {
         </div>
 
         {/* Start Chat Button */}
-        <div className="bottom-24 absolute md:bottom-16 md:right-10 z-20">
+        <div className="bottom-28 absolute md:bottom-16 md:right-10 z-20">
           <Link
             href="/chat"
             onMouseEnter={triggerFireworks}

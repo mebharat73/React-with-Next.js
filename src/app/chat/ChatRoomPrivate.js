@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 import { useGlobalSocket } from '@/context/SocketContext';
 
-// Helper to render file icons based on file extension
+// Helper: file icon renderer
 const renderFileIcon = (ext) => {
   ext = (ext || '').toLowerCase();
   if (ext === 'pdf') return <span className="text-red-500 text-xl">📄</span>;
@@ -17,13 +17,13 @@ const renderFileIcon = (ext) => {
   return <span className="text-gray-500 text-xl">📎</span>;
 };
 
-// Helper to check if file is image
+// Helper: check image
 const isImage = (attachment) => {
   const ext = (attachment?.format || attachment?.original_filename?.split('.').pop() || '').toLowerCase();
   return ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'].includes(ext);
 };
 
-const ChatRoomPrivate = ({ selectedUser }) => {
+const ChatRoomPrivate = ({ selectedUser, onBack }) => {
   const { user } = useSelector((state) => state.auth);
   const socket = useGlobalSocket();
 
@@ -33,12 +33,11 @@ const ChatRoomPrivate = ({ selectedUser }) => {
   const [selectedFile, setSelectedFile] = useState(null);
 
   const fileRef = useRef(null);
-  const messageListRef = useRef(null);
+  const bottomRef = useRef(null);
   const typingTimeoutRef = useRef(null);
 
   const API = process.env.NEXT_PUBLIC_API_URL;
 
-  // Load chat history
   useEffect(() => {
     if (!user || !selectedUser) return;
 
@@ -48,38 +47,34 @@ const ChatRoomPrivate = ({ selectedUser }) => {
       .catch(console.error);
   }, [user, selectedUser]);
 
-  // Mark messages as seen
   useEffect(() => {
     if (!user || !selectedUser) return;
 
-    axios.post(`${API}/api/chat/mark-seen`, {
-      senderId: selectedUser.id,
-      receiverId: user.id,
-    }).catch(console.error);
+    axios
+      .post(`${API}/api/chat/mark-seen`, {
+        senderId: selectedUser.id,
+        receiverId: user.id,
+      })
+      .catch(console.error);
   }, [user, selectedUser]);
 
-  // Socket event handlers
   useEffect(() => {
     if (!socket) return;
 
     const handleNewMessage = (msg) => {
-      if (!user || !selectedUser) return;
+  if (!selectedUser) return; // 🛡️ prevent null access
 
-      const msgSenderId = String(msg.senderId);
-      const msgToId = String(msg.to);
-      const userId = String(user.id);
-      const selectedUserId = String(selectedUser.id);
+  const { senderId, to } = msg;
+  if (
+    (senderId === user.id && to === selectedUser.id) ||
+    (senderId === selectedUser.id && to === user.id)
+  ) {
+    setMessages((prev) => [...prev, msg]);
+  }
+};
 
-      if (
-        (msgSenderId === userId && msgToId === selectedUserId) ||
-        (msgSenderId === selectedUserId && msgToId === userId)
-      ) {
-        setMessages((prev) => [...prev, msg]);
-      }
-    };
 
     const handleTyping = ({ from, isTyping }) => {
-      if (!selectedUser || !selectedUser.id) return;
       if (from === selectedUser.id) {
         setTypingStatus(isTyping ? 'Typing...' : null);
       }
@@ -87,26 +82,21 @@ const ChatRoomPrivate = ({ selectedUser }) => {
 
     socket.on('newMessage', handleNewMessage);
     socket.on('typing', handleTyping);
-
     return () => {
       socket.off('newMessage', handleNewMessage);
       socket.off('typing', handleTyping);
     };
-  }, [socket, selectedUser, user]);
+  }, [socket, user, selectedUser]);
 
-  // Auto scroll on new message
   useEffect(() => {
-    messageListRef.current?.scrollTo({
-      top: messageListRef.current.scrollHeight,
-      behavior: 'smooth',
-    });
+    if (bottomRef.current) {
+      bottomRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
   }, [messages]);
 
   const handleInputChange = (e) => {
     setInput(e.target.value);
-    if (!socket || !selectedUser) return;
-
-    socket.emit('typing', { to: selectedUser.id, isTyping: true });
+    socket?.emit('typing', { to: selectedUser.id, isTyping: true });
 
     clearTimeout(typingTimeoutRef.current);
     typingTimeoutRef.current = setTimeout(() => {
@@ -123,20 +113,15 @@ const ChatRoomPrivate = ({ selectedUser }) => {
     if (!input.trim() && !selectedFile) return;
 
     let attachment = null;
-
     if (selectedFile) {
       const formData = new FormData();
       formData.append('file', selectedFile);
-
       try {
         const res = await axios.post(`${API}/api/chat/upload`, formData);
-
-        const originalFilename = res.data.original_filename || selectedFile.name;
-
         attachment = {
           url: res.data.url,
           format: res.data.format,
-          original_filename: originalFilename,
+          original_filename: res.data.original_filename || selectedFile.name,
           resource_type: res.data.resource_type,
         };
       } catch (err) {
@@ -153,7 +138,7 @@ const ChatRoomPrivate = ({ selectedUser }) => {
       to: selectedUser.id,
     };
 
-    socket?.emit('sendMessage', msg);
+    socket.emit('sendMessage', msg);
     setMessages((prev) => [...prev, msg]);
     setInput('');
     setSelectedFile(null);
@@ -169,31 +154,37 @@ const ChatRoomPrivate = ({ selectedUser }) => {
   }
 
   return (
-    <div className="flex flex-col w-full h-[96vh] md:h-[100vh] p-3 rounded-xl bg-white dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e]">
+    <div className="flex flex-col h-screen w-full p-2 md:p-3 rounded-xl bg-white dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e]">
+      {/* Back Button */}
+      {onBack && (
+        <div className="md:hidden mb-2">
+          <button
+            onClick={onBack}
+            className="text-sm bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-white px-3 py-1 rounded shadow hover:bg-gray-300 dark:hover:bg-gray-500"
+          >
+            ← Back to Users
+          </button>
+        </div>
+      )}
+
       {/* Chat Header */}
-      <div className=" -mt-6 font-bold text-lg text-center md:mb-2 md:-mt-2 text-black dark:text-white">
+      <div className="font-bold text-lg text-center text-black dark:text-white mb-2">
         Chat with {selectedUser.name}
       </div>
 
-      {/* Message List */}
-      <div
-        ref={messageListRef}
-        className="overflow-y-auto p-3 rounded-lg space-y-1 flex-grow bg-gray-100 dark:bg-gray-700"
-      >
+      {/* Messages */}
+      <div className="flex-grow overflow-y-auto p-2 rounded-lg space-y-1 bg-gray-100 dark:bg-gray-700">
         {messages.map((msg, idx) => (
           <div
             key={idx}
-            className={`max-w-[70%] sm:max-w-[75%] md:max-w-[80%] p-2 rounded-lg break-words ${
+            className={`max-w-[75vw] md:max-w-[60%] p-2 rounded-lg break-words ${
               msg.senderId === user.id
                 ? 'ml-auto bg-green-200 dark:bg-green-600'
                 : 'mr-auto bg-purple-200 dark:bg-purple-500'
             }`}
           >
-            <div className="-mt-[9] px-2 font-semibold text-gray-900 dark:text-white">
-              {msg.senderName}
-            </div>
+            <div className="font-semibold text-sm text-gray-900 dark:text-white">{msg.senderName}</div>
 
-            {/* Attachment Display */}
             {msg.attachment?.url && (
               <div className="mt-1">
                 {isImage(msg.attachment) ? (
@@ -212,13 +203,10 @@ const ChatRoomPrivate = ({ selectedUser }) => {
                     </a>
                   </>
                 ) : (
-                  <div className="flex items-center gap-2 -mt-2 bg-white dark:bg-gray-600 rounded px-2 shadow-sm border border-gray-300 dark:border-gray-500">
-                    {renderFileIcon(
-                      msg.attachment.format ||
-                        msg.attachment.original_filename?.split('.').pop()
-                    )}
-                    <span className="text-sm font-medium px-1 text-gray-800 dark:text-white break-words">
-                      {msg.attachment.original_filename || 'Unnamed File'}
+                  <div className="flex items-center gap-2 bg-white dark:bg-gray-600 rounded px-2 border border-gray-300 dark:border-gray-500">
+                    {renderFileIcon(msg.attachment.format || msg.attachment.original_filename?.split('.').pop())}
+                    <span className="text-sm text-gray-800 dark:text-white break-words">
+                      {msg.attachment.original_filename}
                     </span>
                     <a
                       href={msg.attachment.url}
@@ -234,9 +222,9 @@ const ChatRoomPrivate = ({ selectedUser }) => {
               </div>
             )}
 
-            <div className="-mt-1 ml-14 px-4 whitespace-pre-wrap text-gray-800 dark:text-white">
-              {msg.message}
-            </div>
+            {msg.message && (
+              <div className="mt-1 px-2 whitespace-pre-wrap text-gray-800 dark:text-white">{msg.message}</div>
+            )}
 
             {msg.senderId === user.id && (
               <div className="text-xs text-gray-600 dark:text-gray-300 mt-1">
@@ -246,10 +234,11 @@ const ChatRoomPrivate = ({ selectedUser }) => {
           </div>
         ))}
 
-        {/* Typing Status */}
         {typingStatus && (
           <div className="text-sm italic text-gray-600 dark:text-gray-300">{typingStatus}</div>
         )}
+
+        <div ref={bottomRef} />
       </div>
 
       {/* File Preview */}
@@ -269,36 +258,26 @@ const ChatRoomPrivate = ({ selectedUser }) => {
       )}
 
       {/* Message Input */}
-      <form onSubmit={sendMessage} className="mt-1 flex items-center space-x-1">
-  <input
-    value={input}
-    onChange={handleInputChange}
-    className="flex-auto px-4 py-2 border rounded-md bg-[#fdfdfc] dark:bg-gray-800 dark:text-white dark:border-gray-600 resize-none"
-    placeholder="Type a message..."
-    autoComplete="off"
-  />
-  <input
-    type="file"
-    ref={fileRef}
-    className="hidden"
-    onChange={handleFileChange}
-  />
-  <button
-    type="button"
-    onClick={() => fileRef.current?.click()}
-    className="bg-yellow-400 dark:bg-yellow-500 px-2 py-1 rounded"
-    title="Attach a file"
-  >
-    📎
-  </button>
-  <button
-    type="submit"
-    className="bg-purple-600 text-white px-5 py-1 rounded"
-  >
-    Send
-  </button>
-</form>
-
+      <form onSubmit={sendMessage} className="mt-2 flex items-center gap-1">
+        <input
+          value={input}
+          onChange={handleInputChange}
+          className="flex-grow px-4 py-2 border rounded-md bg-[#fdfdfc] dark:bg-gray-800 dark:text-white dark:border-gray-600"
+          placeholder="Type a message..."
+        />
+        <input type="file" ref={fileRef} className="hidden" onChange={handleFileChange} />
+        <button
+          type="button"
+          onClick={() => fileRef.current?.click()}
+          className="bg-yellow-400 dark:bg-yellow-500 px-2 py-1 rounded text-xl"
+          title="Attach a file"
+        >
+          📎
+        </button>
+        <button type="submit" className="bg-purple-600 text-white px-5 py-1 rounded">
+          Send
+        </button>
+      </form>
     </div>
   );
 };

@@ -19,7 +19,7 @@ function ProductsPage() {
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [offset, setOffset] = useState(0);
-  const limit = 12; // Number of products per page
+  const limit = 15; // Number of products per page
 
   const { user } = useSelector((state) => state.auth);
 
@@ -134,7 +134,7 @@ function ProductsPage() {
           <button
             onClick={loadMoreProducts}
             disabled={loading}
-            className="bg-[#68217A] text-white px-6 py-2 rounded hover:bg-[#8b2fa2] transition"
+            className="bg-[#68217A] text-white px-3 py-1 -mt-3 mb-4 md:px-6 md:py-1 rounded hover:bg-[#8b2fa2] transition"
           >
             {loading ? 'Loading...' : 'Load More'}
           </button>

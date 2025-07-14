@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
@@ -8,46 +8,36 @@ import AddItemForm from './AddItemForm';
 import { getCurrentUserId } from '@/constants/authToken';
 import { getReceivedOffers } from '@/api/sattapattaExchangeOffer';
 import api from '@/api/api';
-import Modal from '@/components/Modal'; // adjust path if needed
+import Modal from '@/components/Modal';
 import ExchangeInstructions from '@/app/sattapatta/exchangemodal/ExchangeInstructions';
 
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [visibleCount, setVisibleCount] = useState(18);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [exchangeFormVisibility, setExchangeFormVisibility] = useState(false);
   const [additionalPrice, setAdditionalPrice] = useState('');
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const [addItemFormVisibility, setAddItemFormVisibility] = useState(false);
-  const exchangeFormRef = useRef(null);
   const [offerCount, setOfferCount] = useState(0);
-  const [inExchangeItemIds, setInExchangeItemIds] = useState(new Set());
-
-  // State to control the ExchangeInstructions modal visibility
-  const [showInstructionsModal, setShowInstructionsModal] = useState(false);
+  const [inExchangeItemIds, setInExchangeItemIds] = React.useState(new Set());
+  const [showInstructionsModal, setShowInstructionsModal] = React.useState(false);
 
   const userId = getCurrentUserId();
 
-  // Scroll exchange form into view when visible
-  useEffect(() => {
-    if (exchangeFormVisibility && exchangeFormRef.current) {
-      exchangeFormRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, [exchangeFormVisibility]);
+  // Helper to sort products by createdAt DESC
+  const sortProductsDesc = (productsArray) =>
+    productsArray.slice().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
-  // Fetch products, offers, exchange item IDs on mount
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const response = await api.get('/sattapatta-items');
-        setProducts(response.data);
-        localStorage.setItem('products', JSON.stringify(response.data));
+        const sorted = sortProductsDesc(response.data);
+        setProducts(sorted);
       } catch (err) {
         console.error('Error fetching products', err);
-        const savedProducts = localStorage.getItem('products');
-        if (savedProducts) {
-          setProducts(JSON.parse(savedProducts));
-        }
       } finally {
         setLoading(false);
       }
@@ -75,28 +65,33 @@ const Products = () => {
     fetchOfferCount();
     fetchExchangeItemIds();
 
-    // Show ExchangeInstructions modal on page load
     setShowInstructionsModal(true);
-
-    // Auto close modal after 7 seconds
-    const timer = setTimeout(() => {
-      setShowInstructionsModal(false);
-    }, 80000);
-
-    // Cleanup timer on unmount
+    const timer = setTimeout(() => setShowInstructionsModal(false), 80000);
     return () => clearTimeout(timer);
-
   }, []);
 
+  const handleLoadMore = () => {
+    setVisibleCount((prev) => {
+      const next = prev + 18;
+      return next > products.length ? products.length : next;
+    });
+  };
+
+  const handleLoadLess = () => {
+    setVisibleCount((prev) => {
+      const next = prev - 18;
+      return next < 18 ? 18 : next;
+    });
+  };
+
   const handleProductClick = (product) => {
-    setSelectedProduct(product);
+    if (!inExchangeItemIds.has(product._id)) {
+      setSelectedProduct(product);
+    }
   };
 
   const handleExchangeClick = () => {
     setExchangeFormVisibility(true);
-    if (exchangeFormRef.current) {
-      exchangeFormRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
   };
 
   const handleAddItemClick = () => {
@@ -110,6 +105,7 @@ const Products = () => {
     setAdditionalPrice('');
   };
 
+  // Update product status and then sort again
   const updateProductStatus = (selectedProductId, selectedExchangeProductId, isConfirmed) => {
     setProducts((prevProducts) => {
       const updated = prevProducts.map((product) => {
@@ -129,8 +125,15 @@ const Products = () => {
         }
         return product;
       });
-      localStorage.setItem('products', JSON.stringify(updated));
-      return updated;
+      return sortProductsDesc(updated);
+    });
+  };
+
+  // Call this function when you add a new product to keep sorting correct
+  const addNewProduct = (newProduct) => {
+    setProducts((prevProducts) => {
+      const updated = [newProduct, ...prevProducts];
+      return sortProductsDesc(updated);
     });
   };
 
@@ -149,7 +152,7 @@ const Products = () => {
           <div className="flex flex-col sm:flex-row items-center gap-3 w-full justify-center lg:justify-end">
             <div className="relative">
               <Link href="/sattapatta/offers">
-                <button className="px-4 py-2 bg-[#68217A] text-white rounded hover:bg-[#8b2fa2] transition-all">
+                <button className="px-2 py-1 md:px-4 md:py-2 bg-[#68217A] text-white rounded hover:bg-[#8b2fa2] transition-all">
                   📥 View Received Offers
                 </button>
               </Link>
@@ -167,7 +170,7 @@ const Products = () => {
 
             <button
               onClick={handleAddItemClick}
-              className="px-4 py-2 bg-gradient-to-r from-[#68217A] to-[#8b2fa2] text-white rounded hover:brightness-110 transition-all"
+              className="px-2 py-1 md:px-4 md:py-2 bg-gradient-to-r from-[#68217A] to-[#8b2fa2] text-white rounded hover:brightness-110 transition-all"
             >
               ➕ Add New Sattapatta Item
             </button>
@@ -176,11 +179,10 @@ const Products = () => {
 
         {/* Product Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6 rounded-xl">
-
           {products.length === 0 ? (
             <p className="text-center text-lg text-gray-600 dark:text-gray-300">No products available.</p>
           ) : (
-            products.map((product) => (
+            products.slice(0, visibleCount).map((product) => (
               <div
                 key={product._id}
                 className={`bg-gradient-to-tl py-[1vw] px-[1vw] rounded-xl border-2 border-[#8b2fa2] shadow-lg transform transition-all duration-300 relative flex flex-col gap-3 dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e] ${
@@ -287,16 +289,30 @@ const Products = () => {
           )}
         </div>
 
+        {/* Load More and Load Less Buttons */}
+        <div className="flex justify-center gap-4 mt-6">
+          {visibleCount < products.length && (
+            <button
+              onClick={handleLoadMore}
+              className="px-3 py-0 md:px-6 md:py-2 bg-[#68217A] text-white rounded-full hover:bg-[#8b2fa2] transition-all"
+            >
+              Load More
+            </button>
+          )}
+          {visibleCount > 18 && (
+            <button
+              onClick={handleLoadLess}
+              className="px-3 py-0 md:px-6 md:py-2 bg-gray-500 text-white rounded-full hover:bg-gray-700 transition-all"
+            >
+              Load Less
+            </button>
+          )}
+        </div>
+
         {/* ExchangeInstructions Modal */}
-        <Modal
-          title="How to Exchange a Product 🪙"
-          show={showInstructionsModal}
-          setShow={setShowInstructionsModal}
-          
-        >
+        <Modal title="How to Exchange a Product 🪙" show={showInstructionsModal} setShow={setShowInstructionsModal}>
           <ExchangeInstructions />
         </Modal>
-        
 
         {/* Exchange Form Modal */}
         <Modal title="Exchange Offer" show={exchangeFormVisibility} setShow={setExchangeFormVisibility}>
@@ -315,7 +331,17 @@ const Products = () => {
 
         {/* Add Item Modal */}
         {addItemFormVisibility && (
-          <AddItemForm setAddItemFormVisibility={setAddItemFormVisibility} setProducts={setProducts} />
+          <AddItemForm
+            setAddItemFormVisibility={setAddItemFormVisibility}
+            setProducts={(newListOrUpdater) => {
+              // If function, call with current products
+              if (typeof newListOrUpdater === 'function') {
+                setProducts((prev) => sortProductsDesc(newListOrUpdater(prev)));
+              } else {
+                setProducts(sortProductsDesc(newListOrUpdater));
+              }
+            }}
+          />
         )}
 
         {/* CTA for another exchange */}

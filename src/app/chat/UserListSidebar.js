@@ -15,73 +15,78 @@ const UserListSidebar = ({
   const [users, setUsers] = useState([]);
   const socket = useGlobalSocket();
 
-
-
   useEffect(() => {
     getAllUsers()
       .then(setUsers)
       .catch(console.error);
   }, []);
 
-
-
-  
-
   return (
-    <div
-      className={`w-full md:w-64 p-3 border-r dark:border-gray-600 h-screen overflow-y-auto bg-white dark:bg-gray-800 ${
-        showSidebar ? 'block' : 'hidden'
-      } md:block`}
+    <aside
+      className={`fixed md:static top-0 left-0 z-40 w-[80vw] sm:w-[60vw] md:w-64 h-full bg-white dark:bg-gray-900 border-r dark:border-gray-700 transform ${
+        showSidebar ? 'translate-x-0' : '-translate-x-full'
+      } transition-transform duration-300 ease-in-out md:translate-x-0`}
     >
-      {/* Close button for small screens */}
-      <div className="flex justify-end md:hidden mb-2">
+      {/* Header with Close Button */}
+      <div className="flex items-center justify-between px-4 py-3 border-b dark:border-gray-700">
+        <h2 className="text-xl font-bold text-gray-900 dark:text-white">Users</h2>
         <button
           onClick={onCloseSidebar}
-          className="text-gray-800 dark:text-white text-xl font-bold"
-          title="Close sidebar"
+          className="text-gray-800 dark:text-white text-xl md:hidden"
+          title="Close"
         >
           ✕
         </button>
       </div>
 
-      <h2 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">Users</h2>
-      <ul className="space-y-1">
+      {/* User List */}
+      <ul className="overflow-y-auto h-[calc(100%-60px)] px-2 py-3 space-y-1">
         {users
           .filter((user) => user.id !== currentUserId)
           .map((user) => {
             const isOnline = !!onlineUsers[user.id];
-
-
-            const newMsgCount = unseenMessages[user.id] || 0;
+            const unseenCount = unseenMessages[user.id] || 0;
 
             return (
               <li
                 key={user.id}
-                onClick={() => onSelectUser(user)}
-                className="flex items-center space-x-2 cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 p-2 rounded relative transition-colors"
+                onClick={() => {
+                  onSelectUser(user);
+                  onCloseSidebar(); // auto-close on mobile
+                }}
+                className="flex items-center gap-3 p-2 rounded-lg cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-800 transition-all relative"
               >
+                {/* Online/Offline Dot */}
                 <div
                   className={`w-3 h-3 rounded-full ${
                     isOnline ? 'bg-green-500' : 'bg-gray-400'
                   }`}
+                  title={isOnline ? 'Online' : 'Offline'}
                 />
+
+                {/* Avatar */}
                 <img
                   src={user.profileImageUrl || '/default.jpg'}
                   alt="avatar"
-                  className="w-6 h-6 rounded-full object-cover"
+                  className="w-8 h-8 rounded-full object-cover border border-gray-300 dark:border-gray-600"
                 />
-                <span className="text-gray-800 dark:text-white truncate">{user.name}</span>
 
-                {newMsgCount > 0 && (
-                  <span className="absolute top-1 right-1 px-2 text-xs font-bold text-white bg-red-600 rounded-full">
-                    {newMsgCount}
+                {/* Name */}
+                <span className="text-gray-800 dark:text-white truncate flex-grow">
+                  {user.name}
+                </span>
+
+                {/* Unseen Badge */}
+                {unseenCount > 0 && (
+                  <span className="absolute top-1 right-3 bg-red-600 text-white text-xs font-bold px-2 py-0.5 rounded-full shadow">
+                    {unseenCount}
                   </span>
                 )}
               </li>
             );
           })}
       </ul>
-    </div>
+    </aside>
   );
 };
 
