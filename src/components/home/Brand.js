@@ -19,7 +19,7 @@ function ProductCard({ product, onClick }) {
       <h3 className="text-xl mt-2 font-semibold text-[#68217A] hover:underline ">
         {product.name}
       </h3>
-      <p className="text-lg text-[#84a123] font-bold">${product.price}</p>
+      <p className="text-lg text-[#84a123] font-bold">Rs{product.price}</p>
     </div>
   );
 }

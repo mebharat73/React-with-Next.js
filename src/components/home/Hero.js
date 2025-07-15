@@ -14,6 +14,10 @@ import Confetti from "react-confetti"; // Import Confetti
 import AnimatedBox from "../AnimatedBox";
 import Modal from "@/components/Advertise.js"; // Import your Modal component
 
+// Add this flag to control AnimatedBox display
+const showAnimatedBox = false; // Set to true later when you want to enable it
+
+
 const slides = [
   {
     title: "Ipad Pro",
@@ -52,7 +56,7 @@ const Hero = () => {
 
   useEffect(() => {
     setIsClient(true);
-    setConfetti(true); // Trigger confetti when the component loads
+    setConfetti(false); // Trigger confetti when the component loads
     setTimeout(() => {
       setConfetti(false); // Stop the confetti after 5 seconds (adjust timing if needed)
     }, 5000);
@@ -61,6 +65,9 @@ const Hero = () => {
   if (!isClient) {
     return null; // Prevent React Slick from rendering during SSR
   }
+
+  // Add this flag to control Modal display
+  const showAdModal = false; // Change to true later when you want to show it
 
   return (
     <div className="relative bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595] border-t-2 border-[#84a123] rounded-3xl ">
@@ -81,7 +88,7 @@ const Hero = () => {
         />
       )}
       
-        <AnimatedBox />
+       {showAnimatedBox && <AnimatedBox />}
 
 
       <Slider
@@ -117,7 +124,7 @@ const Hero = () => {
                   {slide.title}
                 </h1>
                 <h4 className="text-2xl md:text-3xl lg:text-5xl font-bold text-orange-500 my-5">
-                  <span className="text-3xl md:text-4xl lg:text-6xl">$</span>
+                  <span className="text-3xl md:text-4xl lg:text-6xl">Rs</span>
                   {slide.price}
                 </h4>
                 <Link
@@ -137,13 +144,15 @@ const Hero = () => {
 
 
         {/* Modal with Advertisement */}
-        <Modal
-          title="Special Offer!"
-          imageUrl="https://images.unsplash.com/photo-1478827217976-7214a0556393?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-          adText="Get inspired by this beautiful image!"
-          show={showModal}
-          setShow={setShowModal}
-        />
+        {showAdModal && (
+          <Modal
+            title="Special Offer!"
+            imageUrl="https://images.unsplash.com/photo-1478827217976-7214a0556393?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            adText="Get inspired by this beautiful image!"
+            show={showModal}
+            setShow={setShowModal}
+          />
+        )}
       </div>
       
     </div>

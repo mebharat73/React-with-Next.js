@@ -12,7 +12,7 @@ export default function Home() {
         {/* Hero Section */}
         <div className="min-h-[60vh]">  {/* Ensure the Hero section has enough height */}
           <Hero />
-        </div>
+       </div>
         {/* Categories Section */}
         <HomeCategories />
       </div>

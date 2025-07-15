@@ -151,7 +151,7 @@ function ProductsCart() {
                         </Link>
                       </div>
                     </td>
-                    <td className="p-[1vw] text-center">${product.price}</td>
+                    <td className="p-[1vw] text-center">Rs{product.price}</td>
                     <td className="p-[1vw] text-center">
                       <div className="flex items-center justify-center space-x-[3vw] sm:space-x-3">
                         <motion.button
@@ -176,7 +176,7 @@ function ProductsCart() {
                       </div>
                     </td>
                     <td className="p-[1vw] text-right font-bold">
-                      ${product.price * product.quantity}
+                      Rs{product.price * product.quantity}
                     </td>
                     <td className="p-[1vw] text-center">
                       <RemoveFromCart product={product} />
@@ -198,7 +198,7 @@ function ProductsCart() {
                   <td className="font-serif font-extrabold text-[4vw] sm:text-lg text-[#68217A]">
                     Sub total:
                   </td>
-                  <td className="text-[4vw] sm:text-lg font-bold">${totalPrice}</td>
+                  <td className="text-[4vw] sm:text-lg font-bold">Rs{totalPrice}</td>
                   <td></td>
                 </motion.tr>
 
@@ -213,7 +213,7 @@ function ProductsCart() {
                     Discount:
                   </td>
                   <td className="text-[4vw] sm:text-lg text-[#d0fa44]">
-                    ${Math.floor(totalPrice * 0.1)}
+                    Rs{Math.floor(totalPrice * 0.1)}
                   </td>
                   <td></td>
                 </motion.tr>
@@ -229,7 +229,7 @@ function ProductsCart() {
                     Grand total:
                   </td>
                   <td className="text-[5vw] sm:text-xl font-bold text-green-500">
-                    ${Math.floor(totalPrice * 0.9)}
+                    Rs{Math.floor(totalPrice * 0.9)}
                   </td>
                   <td></td>
                 </motion.tr>
@@ -270,11 +270,11 @@ function ProductsCart() {
                       {product.name}
                     </Link>
                     <div className="mt-1 text-sm text-gray-600 dark:text-gray-300">
-                      Price: <span className="font-bold">${product.price}</span>
+                      Price: <span className="font-bold">Rs{product.price}</span>
                     </div>
                     <div className="mt-1 text-sm text-gray-600 dark:text-gray-300">
                       Total:{" "}
-                      <span className="font-bold">${product.price * product.quantity}</span>
+                      <span className="font-bold">Rs{product.price * product.quantity}</span>
                     </div>
 
                     <div className="flex items-center mt-2 space-x-4">

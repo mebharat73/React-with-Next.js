@@ -31,35 +31,37 @@ const Products = () => {
     productsArray.slice().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await api.get('/sattapatta-items');
-        const sorted = sortProductsDesc(response.data);
-        setProducts(sorted);
-      } catch (err) {
-        console.error('Error fetching products', err);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchProducts = async () => {
+    try {
+      const response = await api.get('/sattapatta-items');
+      const sorted = sortProductsDesc(response.data);
+      setProducts(sorted);
+    } catch (err) {
+      console.error('Error fetching products', err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    const fetchOfferCount = async () => {
-      try {
-        const offers = await getReceivedOffers();
-        setOfferCount(offers.length || 0);
-      } catch (error) {
-        console.error('Error fetching offer count:', error);
-      }
-    };
+  const fetchOfferCount = async () => {
+    if (!userId) return; // 🛑 Only fetch if logged in
+    try {
+      const offers = await getReceivedOffers();
+      setOfferCount(offers.length || 0);
+    } catch (error) {
+      // Optional: suppress error silently
+    }
+  };
 
-    const fetchExchangeItemIds = async () => {
-      try {
-        const res = await api.get('/exchange-offers/active-items');
-        setInExchangeItemIds(new Set(res.data.map((id) => String(id))));
-      } catch (error) {
-        console.error('Error fetching exchange item IDs:', error);
-      }
-    };
+  const fetchExchangeItemIds = async () => {
+    if (!userId) return; // 🛑 Only fetch if logged in
+    try {
+      const res = await api.get('/exchange-offers/active-items');
+      setInExchangeItemIds(new Set(res.data.map((id) => String(id))));
+    } catch (error) {
+      // Optional: suppress error silently
+    }
+  };
 
     fetchProducts();
     fetchOfferCount();
@@ -113,14 +115,14 @@ const Products = () => {
           return {
             ...product,
             status: isConfirmed ? 'exchanged' : 'ongoing',
-            statusText: isConfirmed ? 'Selected product' : null,
+            statusText: isConfirmed ? 'Your Product' : null,
           };
         }
         if (product._id === selectedExchangeProductId) {
           return {
             ...product,
             status: 'locked',
-            statusText: isConfirmed ? 'Your Product' : null,
+            statusText: isConfirmed ? 'Selected product' : null,
           };
         }
         return product;
@@ -152,7 +154,7 @@ const Products = () => {
           <div className="flex flex-col sm:flex-row items-center gap-3 w-full justify-center lg:justify-end">
             <div className="relative">
               <Link href="/sattapatta/offers">
-                <button className="px-2 py-1 md:px-4 md:py-2 bg-[#68217A] text-white rounded hover:bg-[#8b2fa2] transition-all">
+                <button className="px-2 py-1 md:px-4 md:py-1 bg-[#68217A] text-white rounded-xl hover:bg-[#8b2fa2] transition-all">
                   📥 View Received Offers
                 </button>
               </Link>
@@ -170,7 +172,7 @@ const Products = () => {
 
             <button
               onClick={handleAddItemClick}
-              className="px-2 py-1 md:px-4 md:py-2 bg-gradient-to-r from-[#68217A] to-[#8b2fa2] text-white rounded hover:brightness-110 transition-all"
+              className="px-2 py-1 md:px-4 md:py-1 bg-gradient-to-r from-[#68217A] to-[#8b2fa2] text-white rounded-xl hover:brightness-110 transition-all"
             >
               ➕ Add New Sattapatta Item
             </button>
@@ -279,7 +281,7 @@ const Products = () => {
                       )}
 
                     <p className="text-right">
-                      <span className="text-2xl font-bold font-serif text-[#84a123] dark:text-[#58ee71] pr-1">$</span>
+                      <span className="text-base font-bold font-serif text-[#84a123] dark:text-[#58ee71] pr-1">Rs</span>
                       <span className="text-[#68217A] font-bold">{product.estimatedValue}</span>
                     </p>
                   </div>
@@ -294,7 +296,7 @@ const Products = () => {
           {visibleCount < products.length && (
             <button
               onClick={handleLoadMore}
-              className="px-3 py-0 md:px-6 md:py-2 bg-[#68217A] text-white rounded-full hover:bg-[#8b2fa2] transition-all"
+              className="px-3 py-0 md:px-6 md:py-1 bg-[#68217A] text-white rounded-full hover:bg-[#8b2fa2] transition-all"
             >
               Load More
             </button>

@@ -9,6 +9,11 @@ const ReceivedOffers = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!userId) {
+      setLoading(false); // prevent loading spinner
+      return;
+    }
+
     const fetchOffers = async () => {
       try {
         const res = await api.get('/exchange-offers/received');
@@ -20,6 +25,7 @@ const ReceivedOffers = () => {
         setLoading(false);
       }
     };
+
     fetchOffers();
   }, []);
 
@@ -71,6 +77,15 @@ const ReceivedOffers = () => {
 
 
   if (loading) return <div>Loading offers...</div>;
+
+  if (!userId) {
+    return (
+      <div className="p-4 bg-yellow-100 rounded text-sm text-center">
+        🔒 Please log in to view your received exchange offers.
+      </div>
+    );
+  }
+
 
   if (offers.length === 0) {
     return (
@@ -129,7 +144,7 @@ const ReceivedOffers = () => {
             <p><strong>From:</strong> {offer.fromUserName}</p>
             <p><strong>Requested:</strong> {offer.offeredProductTitle}</p>
             <p><strong>Offered:</strong> {offer.requestedProductTitle}</p>
-            <p><strong>Extra Price:</strong> ${offer.additionalPrice}</p>
+            <p><strong>Extra Price:</strong> Rs{offer.additionalPrice}</p>
             <p><strong>Status:</strong> <span className="capitalize">{offer.status}</span></p>
 
             {/* Accepted Contact */}

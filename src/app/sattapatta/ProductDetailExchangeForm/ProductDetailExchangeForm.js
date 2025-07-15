@@ -132,7 +132,7 @@ const ProductDetailExchangeForm = React.forwardRef(
                         className="flex flex-col items-center bg-white/70 dark:bg-[#2e2e31] p-2 rounded-xl shadow-md border-2 border-[#68217A] w-[140px] sm:w-[160px] md:w-[180px]"
                       >
                         <p className="text-sm font-semibold text-[#500b57] dark:text-purple-200 text-center mb-1">
-                          {idx === 0 ? 'Selected Product' : 'Exchange Product'}
+                          {idx === 0 ? 'Yours Product' : 'Exchange Product'}
                         </p>
                         <div className="aspect-square w-full max-w-[120px] sm:max-w-[140px] bg-white dark:bg-[#1e1e20] rounded-md overflow-hidden flex justify-center items-center">
                           <Image
@@ -149,7 +149,7 @@ const ProductDetailExchangeForm = React.forwardRef(
                           {product.title}
                         </p>
                         <p className="text-sm font-bold text-[#3e125a] dark:text-green-300">
-                          💰 ${product.estimatedValue}
+                          💰 Rs{product.estimatedValue}
                         </p>
                       </div>
                     ) : null

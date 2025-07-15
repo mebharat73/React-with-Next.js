@@ -178,7 +178,7 @@ function ProductCard({ product, productView }) {
                 </div>
               {/* Price */}
               <p className="text-right">
-                <span className="text-2xl font-bold font-serif text-[#84a123] pr-1">$</span>
+                <span className="text-base font-bold font-serif text-[#84a123] pr-1">Rs</span>
                 <span className="dark:text-white font-bold text-[#68217A]">{product.price}</span>
               </p>
             </div>

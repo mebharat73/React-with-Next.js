@@ -54,7 +54,7 @@ export default async function SattapattaItemPage(props) {
             {item.description}
           </p>
           <ul className="mt-3 px-6 list-disc dark:text-gray-100">
-            <li>Estimated Value: ${item.estimatedValue}</li>
+            <li>Estimated Value: Rs{item.estimatedValue}</li>
             <li>Required: Offer should be accepted and you should contact the owner</li>
             <li>Delivery: On time</li>
             <li>Available all over Nepal</li>
@@ -67,7 +67,7 @@ export default async function SattapattaItemPage(props) {
           {/* Estimated Price */}
           <div className="flex items-center">
             <span className="text-xl md:text-3xl text-[#68217A] font-bold dark:text-white mr-2">
-              $
+              Rs
             </span>
             <span className="text-[#d15bee] font-mono dark:text-white text-xl md:text-2xl font-bold">
               {Math.floor(item.estimatedValue)}
