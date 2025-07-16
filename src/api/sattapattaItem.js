@@ -2,6 +2,8 @@
 import config from "@/config/config";
 import authToken from "@/constants/authToken";
 import axios from "axios";
+import getToken from "@/constants/authToken";
+
 
 // Function to create a new Sattapatta item
 export async function createSattapattaItem(formData) {
@@ -41,13 +43,28 @@ async function updateSattapattaItem(id, data) {
 }
 
 // Function to delete a Sattapatta item
+// Function to delete a Sattapatta item
 async function deleteSattapattaItem(id) {
-  const response = await axios.delete(`${config.apiUrl}/api/sattapatta-items/${id}`, {
-    headers: {
-      Authorization: `Bearer ${authToken}`,
-    },
-  });
-  return response.data;
+  const token = getToken(); // ✅
+
+  if (!token) {
+    throw new Error('No auth token found. User might not be logged in.');
+  }
+
+  try {
+    const response = await axios.delete(`${config.apiUrl}/api/sattapatta-items/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    if (error.response?.data?.message) {
+      throw new Error(error.response.data.message);
+    }
+    throw new Error('Failed to delete item. Please try again.');
+  }
 }
 
 // Function to get items by owner

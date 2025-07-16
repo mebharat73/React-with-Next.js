@@ -7,9 +7,11 @@ import ProductDetailExchangeForm from './ProductDetailExchangeForm/ProductDetail
 import AddItemForm from './AddItemForm';
 import { getCurrentUserId } from '@/constants/authToken';
 import { getReceivedOffers } from '@/api/sattapattaExchangeOffer';
+import { deleteSattapattaItem } from '@/api/sattapattaItem';
 import api from '@/api/api';
 import Modal from '@/components/Modal';
 import ExchangeInstructions from '@/app/sattapatta/exchangemodal/ExchangeInstructions';
+
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -131,6 +133,22 @@ const Products = () => {
     });
   };
 
+
+  const handleDeleteProduct = async (productId) => {
+  const confirmDelete = window.confirm('Are you sure you want to delete this item?');
+
+  if (!confirmDelete) return;
+
+  try {
+    await deleteSattapattaItem(productId);
+    setProducts((prev) => prev.filter((product) => product._id !== productId));
+  } catch (error) {
+    console.error('❌ Error deleting product:', error);
+    alert('Failed to delete the product. Please try again.');
+  }
+};
+
+
   // Call this function when you add a new product to keep sorting correct
   const addNewProduct = (newProduct) => {
     setProducts((prevProducts) => {
@@ -202,90 +220,121 @@ const Products = () => {
                 style={{ minWidth: '160px' }}
               >
                 <div className="flex-1 relative">
-                  {inExchangeItemIds.has(product._id) && (
-                    <div className="absolute inset-0 bg-black bg-opacity-60 flex flex-col items-center justify-center rounded-lg z-20">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="w-10 h-10 text-yellow-400 mb-2"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth={1.5}
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M12 11c0-1.105-.895-2-2-2s-2 .895-2 2 .895 2 2 2 2-.895 2-2zM12 7V6m0 11v-1m4.24-4.24l.707.707m-10.607 0l.707-.707M16.97 9.03l.707-.707M6.323 9.03l-.707-.707"
-                        />
-                      </svg>
-                      <p className="text-yellow-400 font-bold text-sm select-none">Booked</p>
-                    </div>
-                  )}
+  {inExchangeItemIds.has(product._id) && (
+    <div className="absolute inset-0 bg-black bg-opacity-60 flex flex-col items-center justify-center rounded-lg z-20">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        className="w-10 h-10 text-yellow-400 mb-2"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        strokeWidth={1.5}
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M12 11c0-1.105-.895-2-2-2s-2 .895-2 2 .895 2 2 2 2-.895 2-2zM12 7V6m0 11v-1m4.24-4.24l.707.707m-10.607 0l.707-.707M16.97 9.03l.707-.707M6.323 9.03l-.707-.707"
+        />
+      </svg>
+      <p className="text-yellow-400 font-bold text-sm select-none">Booked</p>
+    </div>
+  )}
 
-                  {/* Status overlay text */}
-                  {product.statusText && (
-                    <div className="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center text-white text-lg font-semibold rounded-md z-10 pointer-events-none">
-                      {product.statusText}
-                    </div>
-                  )}
+  {/* Status overlay text */}
+  {product.statusText && (
+    <div className="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center text-white text-lg font-semibold rounded-md z-10 pointer-events-none">
+      {product.statusText}
+    </div>
+  )}
 
-                  {/* Title marquee */}
-                  <div className="mb-1 border border-[#8b2fa2] bg-gradient-to-br from-[#f0f656] to-[#e382fb] text-[#68217A] dark:text-[#ecf074] font-bold rounded-lg overflow-hidden dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e]">
-                    <motion.div
-                      className="w-auto whitespace-nowrap overflow-hidden md:w-40"
-                      animate={{ x: ['100%', '-100%'] }}
-                      transition={{
-                        x: {
-                          repeat: Infinity,
-                          repeatType: 'loop',
-                          duration: 15,
-                          ease: 'linear',
-                        },
-                      }}
-                    >
-                      {product.title}
-                    </motion.div>
-                  </div>
+  {/* Title marquee */}
+  <div className="mb-1 border border-[#8b2fa2] bg-gradient-to-br from-[#f0f656] to-[#e382fb] text-[#68217A] dark:text-[#ecf074] font-bold rounded-lg overflow-hidden dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e]">
+    <motion.div
+      className="w-auto whitespace-nowrap overflow-hidden md:w-40"
+      animate={{ x: ['100%', '-100%'] }}
+      transition={{
+        x: {
+          repeat: Infinity,
+          repeatType: 'loop',
+          duration: 15,
+          ease: 'linear',
+        },
+      }}
+    >
+      {product.title}
+    </motion.div>
+  </div>
 
-                  {/* Image */}
-                  <Image
-                    alt={product.title}
-                    src={product.imageUrls?.[0] || '/placeholder.jpg'}
-                    width={500}
-                    height={500}
-                    className="h-28 md:h-36 bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] rounded-2xl border-y-2 border-dashed border-[#8b2fa2] object-fill dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e]"
-                  />
+  {/* Image */}
+  <Image
+    alt={product.title}
+    src={product.imageUrls?.[0] || '/placeholder.jpg'}
+    width={500}
+    height={500}
+    className="h-28 md:h-36 bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] rounded-2xl border-y-2 border-dashed border-[#8b2fa2] object-fill dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e]"
+  />
 
-                  {/* Description + More details */}
-                  <p className="text-sm font-semibold text-zinc-600 dark:text-white md:mt-2 max-h-24 overflow-hidden">
-                    {product.description ? product.description.slice(0, 40) : ''}
-                    <Link
-                      href={`/sattapatta/${product._id}`}
-                      className="text-[#dc57fd] dark:text-[#673075] font-semibold underline hover:text-[#8b2fa2] ml-1"
-                    >
-                      More details
-                    </Link>
-                  </p>
+  {/* Description + More details */}
+  <p className="text-sm font-semibold text-zinc-600 dark:text-white md:mt-2 max-h-24 overflow-hidden">
+    {product.description ? product.description.slice(0, 40) : ''}
+    <Link
+      href={`/sattapatta/${product._id}`}
+      className="text-[#dc57fd] dark:text-[#673075] font-semibold underline hover:text-[#8b2fa2] ml-1"
+    >
+      More details
+    </Link>
+  </p>
 
-                  {/* Action & Price */}
-                  <div className="md:flex items-center justify-between mt-2">
-                    {userId &&
-                      product.owner &&
-                      userId === (typeof product.owner === 'string' ? product.owner : product.owner._id) && (
-                        <button
-                          onClick={handleExchangeClick}
-                          className="w-auto bg-[#68217A] text-xs font-medium px-2 py-1 text-[#d0fa44] rounded-md hover:bg-[#8b2fa2] hover:text-black transition duration-300"
-                        >
-                          Exchange Offer
-                        </button>
-                      )}
+  {/* Action & Price */}
+  <div className="md:flex items-center justify-between mt-2">
+    {/* Exchange Offer button stays here */}
+    {userId &&
+      product.owner &&
+      userId === (typeof product.owner === 'string' ? product.owner : product.owner._id) && (
+        <button
+          onClick={handleExchangeClick}
+          className="w-auto bg-[#68217A] text-xs font-medium px-2 py-1 text-[#d0fa44] rounded-md hover:bg-[#8b2fa2] hover:text-black transition duration-300 mr-2"
+        >
+          Exchange Offer
+        </button>
+      )}
 
-                    <p className="text-right">
-                      <span className="text-base font-bold font-serif text-[#84a123] dark:text-[#58ee71] pr-1">Rs</span>
-                      <span className="text-[#68217A] font-bold">{product.estimatedValue}</span>
-                    </p>
-                  </div>
-                </div>
+    <p className="text-right">
+      <span className="text-base font-bold font-serif text-[#84a123] dark:text-[#58ee71] pr-1">
+        Rs
+      </span>
+      <span className="text-[#68217A] font-bold">{product.estimatedValue}</span>
+    </p>
+  </div>
+
+  {/* Delete icon button positioned at bottom right */}
+  {userId &&
+    product.owner &&
+    userId === (typeof product.owner === 'string' ? product.owner : product.owner._id) && (
+      <button
+        onClick={() => handleDeleteProduct(product._id)}
+        className="absolute bottom-8 right-0 p-0 rounded-md bg-white bg-opacity-80 hover:bg-opacity-100 transition-shadow shadow-md"
+        aria-label="Delete product"
+        title="Delete product"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-6 w-6 text-red-600 hover:text-red-800"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2}
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5-4h4m-4 0a1 1 0 011-1h2a1 1 0 011 1m-4 0h4"
+          />
+        </svg>
+      </button>
+    )}
+</div>
+
               </div>
             ))
           )}
