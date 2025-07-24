@@ -94,7 +94,7 @@ function ProductsPage() {
 
 
   return (
-    <div>
+    <div className="bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595] text-black dark:text-white min-h-screen transition-colors duration-300" >
       <div className="px-0 md:py-1 md:px-5 flex items-center justify-between">
         <h1 className="font-serif text-center md:text-left text-2xl lg:text-4xl font-semibold text-[#68217A] dark:text-white">
           Make a wish..

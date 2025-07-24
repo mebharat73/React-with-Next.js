@@ -21,6 +21,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import dokanLogo from "@/assets/images/dokan.png";
+import { useTheme } from "next-themes";
 
 
 
@@ -28,7 +29,15 @@ function Header() {
   const { user } = useSelector((state) => state.auth);
   const { products } = useSelector((state) => state.cart);
 
-  const { theme } = useSelector((state) => state.userPreferences);
+ const { setTheme, theme: currentTheme } = useTheme(); // <- add this
+  const reduxTheme = useSelector((state) => state.userPreferences.theme);
+  const dispatch = useDispatch();
+
+  const switchTheme = () => {
+    const newTheme = reduxTheme === LIGHT_MODE ? "dark" : "light";
+    dispatch(toggleTheme());        // Update Redux state
+    setTheme(newTheme);             // Update actual DOM class via next-themes
+  };
 
   const [showProfile, setShowProfile] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
@@ -36,7 +45,7 @@ function Header() {
 
   const isAuth = user ? true : false;
 
-  const dispatch = useDispatch();
+  
 
   const router = useRouter();
 
@@ -81,10 +90,7 @@ function Header() {
   }
 
 
-  function switchTheme() {
-    dispatch(toggleTheme());
-  }
-
+  
   useEffect(() => {}, [showProfile]);
 
   return (
@@ -121,7 +127,7 @@ function Header() {
                 </div>
                 <div className="flex items-center gap-4 md:hidden">
                   <button onClick={switchTheme} className="bg-transparent rounded-full hover:text-[#8b2fa2] lg:text-[#68217A] bg-[#C3EF38]">
-                    {theme === LIGHT_MODE ? (
+                    {currentTheme === LIGHT_MODE ? (
                       <MdOutlineDarkMode className="h-5 w-5 animate-pulse" />
                     ) : (
                       <MdOutlineLightMode className="h-5 w-5 animate-spin" />
@@ -158,7 +164,7 @@ function Header() {
                 })}
 
               <button onClick={switchTheme} className="mx-5 bg-transparent rounded-3xl border-2 hover:text-white lg:text-[#C3EF38] bg-[#8b2fa2] hover:bg-[#68217A] transition-transform transform hover:scale-105 active:scale-105">
-                {theme === LIGHT_MODE ? (
+                {currentTheme === LIGHT_MODE ? (
                   <MdOutlineDarkMode className="w-5 h-5 transition-all duration-300 ease-in-out transform hover:scale-85" />
                 ) : (
                   <MdOutlineLightMode className="w-5 h-5 animate-ping" />

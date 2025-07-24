@@ -74,7 +74,7 @@ function ProductCard({ product, productView }) {
       <Link href={`${PRODUCTS_ROUTE}/${product.id}`}>
         <div className="relative">
           {/* Scrolling Product Name at the Top */}
-          <div className="mb-1 border-1 border-[#8b2fa2] border-solid bg-gradient-to-br rounded-lg from-[#f0f656] to-[#e382fb] text-[#68217A] dark:text-[#d0fa44] font-bold whitespace-nowrap overflow-hidden dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595]">
+          <div className="mb-1 border-1 border-[#8b2fa2] border-solid rounded-lg bg-gradient-to-br from-[#f0f656] to-[#e382fb] text-[#68217A] dark:text-[#d0fa44] font-bold whitespace-nowrap overflow-hidden dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595]">
             <motion.div
               className="whitespace-nowrap overflow-hidden"
               animate={{ x: ["-100%", "100%"] }} // Move from right to left

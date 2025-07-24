@@ -19,6 +19,20 @@ export async function createSattapattaItem(formData) {
   return response.data;
 }
 
+export async function editSattapattaItem(itemId, formData) {
+  const token = authToken(); // ✅ your auth token function
+
+  const response = await axios.put(`${config.apiUrl}/api/sattapatta-items/edit/${itemId}`, formData, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'multipart/form-data', // Required for FormData
+    },
+  });
+
+  return response.data;
+}
+
+
 
 // Function to get all Sattapatta items
 async function getAllSattapattaItems() {

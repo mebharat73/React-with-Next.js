@@ -1,105 +1,169 @@
 import React, { useState, useEffect } from 'react';
 import { createSattapattaItem } from '@/api/sattapattaItem.js';
+import api from '@/api/api';
+import { getToken } from '@/constants/authToken';
+import { useRouter } from 'next/navigation';
+import { editSattapattaItem } from '@/api/sattapattaItem.js'; // ✅ make sure this is imported
 
-const AddItemForm = ({ setAddItemFormVisibility, setProducts }) => {
+
+const AddItemForm = ({ product = null, setAddItemFormVisibility, setProducts }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [imageFiles, setImageFiles] = useState([]);
   const [imagePreviews, setImagePreviews] = useState([]);
+  const [keptImageUrls, setKeptImageUrls] = useState([]);
   const [estimatedValue, setEstimatedValue] = useState('');
   const [condition, setCondition] = useState('used');
   const [status, setStatus] = useState('available');
   const [message, setMessage] = useState('');
+  const [checkingAuth, setCheckingAuth] = useState(true);
 
+  const router = useRouter();
+
+  // Auth check
   useEffect(() => {
-    if (imageFiles.length < 1) {
-      setImagePreviews([]);
-      return;
+    const token = getToken();
+    if (!token) {
+      router.push('/login');
+    } else {
+      setCheckingAuth(false);
     }
+  }, [router]);
 
-    const newPreviews = imageFiles.map(file => URL.createObjectURL(file));
-    setImagePreviews(newPreviews);
-
-    return () => {
-      newPreviews.forEach(url => URL.revokeObjectURL(url));
-    };
-  }, [imageFiles]);
-
-  const handleImageFilesChange = (e) => {
-    // Append new files (avoid duplicates)
-    const newFiles = Array.from(e.target.files);
-
-    // Optionally filter duplicates by name+size or just replace all
-    // Here we append:
-    setImageFiles(prev => [...prev, ...newFiles]);
-  };
-
-  const handleRemoveImage = (indexToRemove) => {
-    setImageFiles(prevFiles => prevFiles.filter((_, i) => i !== indexToRemove));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (imageFiles.length === 0) {
-      setMessage('No files selected for upload');
-      return;
+  // Prefill form if editing
+  useEffect(() => {
+    if (product) {
+      setTitle(product.title || '');
+      setDescription(product.description || '');
+      setEstimatedValue(product.estimatedValue || '');
+      setCondition(product.condition || 'used');
+      setStatus(product.status || 'available');
+      if (Array.isArray(product.imageUrls)) {
+        setKeptImageUrls(product.imageUrls);
+        setImagePreviews(product.imageUrls);
+      }
     }
+  }, [product]);
 
-    const formData = new FormData();
-    formData.append('title', title);
-    formData.append('description', description);
-    imageFiles.forEach(file => formData.append('imageFiles', file));
-    formData.append('estimatedValue', estimatedValue);
-    formData.append('condition', condition);
-    formData.append('status', status);
+ const handleImageFilesChange = e => {
+  const newFiles = Array.from(e.target.files);
+  const newPreviews = newFiles.map(file => URL.createObjectURL(file));
 
-    try {
-      const response = await createSattapattaItem(formData);
-      setProducts(prev => [response, ...prev]); // add new item on top
-      setAddItemFormVisibility(false);
-      setMessage('Item added successfully!');
-    } catch (error) {
-      console.error('Error adding new item:', error);
-      setMessage('Failed to add item. Please try again.');
+  // 🧹 Remove existing images when new ones are added
+  setKeptImageUrls([]); // clear existing
+  setImageFiles(newFiles); // replace with new
+  setImagePreviews(newPreviews); // replace previews
+};
+
+
+  const handleRemoveImage = index => {
+    const keptCount = keptImageUrls.length;
+
+    if (index < keptCount) {
+      // Remove from existing images
+      const updatedKept = keptImageUrls.filter((_, i) => i !== index);
+      setKeptImageUrls(updatedKept);
+      setImagePreviews(prev => prev.filter((_, i) => i !== index));
+    } else {
+      // Remove from new files
+      const fileIndex = index - keptCount;
+      setImageFiles(prev => prev.filter((_, i) => i !== fileIndex));
+      setImagePreviews(prev => prev.filter((_, i) => i !== index));
     }
   };
+
+  const handleSubmit = async e => {
+  e.preventDefault();
+
+  const totalImages = keptImageUrls.length + imageFiles.length;
+  if (totalImages === 0) {
+    setMessage('Please select at least one image.');
+    return;
+  }
+
+  if (totalImages > 6) {
+    setMessage('Maximum 6 images allowed.');
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append('title', title);
+  formData.append('description', description);
+  formData.append('estimatedValue', estimatedValue);
+  formData.append('condition', condition);
+  formData.append('status', status);
+
+  // ✅ Correct key: 'files' matches backend multer config
+  imageFiles.forEach(file => formData.append('imageFiles', file));
+
+
+  if (keptImageUrls.length > 0) {
+    formData.append('existingImages', JSON.stringify(keptImageUrls));
+  }
+
+  // ✅ Log everything inside FormData
+  console.log('%c🔍 FormData contents before submitting:', 'color: blue; font-weight: bold;');
+  for (let [key, value] of formData.entries()) {
+    if (value instanceof File) {
+      console.log(`${key}: [File] name=${value.name}, size=${value.size}`);
+    } else {
+      console.log(`${key}:`, value);
+    }
+  }
+
+  try {
+    if (product && product._id) {
+  const updatedItem = await editSattapattaItem(product._id, formData);
+  setProducts(prev => prev.map(p => (p._id === product._id ? updatedItem.item : p)));
+  setMessage('Item updated successfully!');
+} else {
+  const response = await createSattapattaItem(formData);
+  setProducts(prev => [response, ...prev]);
+  setMessage('Item added successfully!');
+}
+
+    setAddItemFormVisibility(false);
+  } catch (error) {
+    console.error('🚨 Error saving item:', error);
+    setMessage('Failed to save item. Please try again.');
+  }
+};
+
+
+  if (checkingAuth) return <div>Loading...</div>;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-40 z-50 flex items-center justify-center px-4">
-      <div className="bg-gradient-to-tl from-[#8e912d] to-[#dd53ff] dark:from-[#5c5f1e] dark:to-[#9e39c9] 
+      <div className="bg-gradient-to-tl from-[#8e912d] to-[#dd53ff] dark:from-[#5c5f1e] dark:to-[#9e39c9]
                       w-full max-w-2xl p-6 sm:p-8 rounded-xl shadow-2xl overflow-y-auto max-h-[90vh]">
         <h2 className="text-2xl font-bold text-center text-[#68217A] dark:text-white mb-2 -mt-4">
-          Add New Sattapatta Item
+          {product ? 'Edit Sattapatta Item' : 'Add New Sattapatta Item'}
         </h2>
 
         {message && <p className="text-red-500 dark:text-red-400 text-center mb-3">{message}</p>}
 
         <form onSubmit={handleSubmit} className="md:space-y-4">
-          {/* Title */}
           <div>
             <label className="block text-sm font-semibold dark:text-white mb-1">Title:</label>
             <input
               type="text"
               value={title}
-              onChange={(e) => setTitle(e.target.value)}
+              onChange={e => setTitle(e.target.value)}
               required
               className="w-full p-1 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-black dark:text-white"
             />
           </div>
 
-          {/* Description */}
           <div>
             <label className="block text-sm font-semibold dark:text-white mb-1">Description:</label>
             <textarea
               value={description}
-              onChange={(e) => setDescription(e.target.value)}
+              onChange={e => setDescription(e.target.value)}
               rows={3}
               className="w-full px-3 py-1.5 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-black dark:text-white"
             />
           </div>
 
-          {/* Upload Images + Preview */}
           <div className="flex flex-col md:flex-row md:items-start gap-4">
             <div className="flex-1">
               <label className="block text-sm font-semibold dark:text-white mb-1">Upload Images:</label>
@@ -112,7 +176,6 @@ const AddItemForm = ({ setAddItemFormVisibility, setProducts }) => {
               />
             </div>
 
-            {/* Preview container */}
             <div className="flex flex-wrap gap-3 max-w-xs max-h-[150px] overflow-y-auto">
               {imagePreviews.map((src, index) => (
                 <div key={index} className="relative group">
@@ -134,24 +197,22 @@ const AddItemForm = ({ setAddItemFormVisibility, setProducts }) => {
             </div>
           </div>
 
-          {/* Estimated Value */}
           <div>
             <label className="block text-sm font-semibold dark:text-white mb-1">Estimated Value:</label>
             <input
               type="number"
               value={estimatedValue}
-              onChange={(e) => setEstimatedValue(e.target.value)}
+              onChange={e => setEstimatedValue(e.target.value)}
               required
               className="w-full p-1 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-black dark:text-white"
             />
           </div>
 
-          {/* Condition */}
           <div>
             <label className="block text-sm font-semibold dark:text-white mb-1">Condition:</label>
             <select
               value={condition}
-              onChange={(e) => setCondition(e.target.value)}
+              onChange={e => setCondition(e.target.value)}
               className="w-full p-1 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-black dark:text-white"
             >
               <option value="new">New</option>
@@ -160,12 +221,11 @@ const AddItemForm = ({ setAddItemFormVisibility, setProducts }) => {
             </select>
           </div>
 
-          {/* Status */}
           <div>
             <label className="block text-sm font-semibold dark:text-white mb-1">Status:</label>
             <select
               value={status}
-              onChange={(e) => setStatus(e.target.value)}
+              onChange={e => setStatus(e.target.value)}
               className="w-full p-1 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-black dark:text-white"
             >
               <option value="available">Available</option>
@@ -173,7 +233,6 @@ const AddItemForm = ({ setAddItemFormVisibility, setProducts }) => {
             </select>
           </div>
 
-          {/* Buttons */}
           <div className="flex justify-end gap-4 pt-1">
             <button
               type="button"
@@ -186,7 +245,7 @@ const AddItemForm = ({ setAddItemFormVisibility, setProducts }) => {
               type="submit"
               className="px-2 py-1 rounded-md bg-[#68217A] hover:bg-[#8b2fa2] text-white font-semibold"
             >
-              Add Item
+              {product ? 'Update Item' : 'Add Item'}
             </button>
           </div>
         </form>

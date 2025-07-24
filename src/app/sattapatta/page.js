@@ -99,8 +99,9 @@ const Products = () => {
   };
 
   const handleAddItemClick = () => {
-    setAddItemFormVisibility(true);
-  };
+  setSelectedProduct(null);               // ✅ Clear selected product
+  setAddItemFormVisibility(true);         // ✅ Then show form in add mode
+};
 
   const handleNewExchange = () => {
     setSelectedProduct(null);
@@ -108,6 +109,15 @@ const Products = () => {
     setIsFormSubmitted(false);
     setAdditionalPrice('');
   };
+
+  const handleEditProduct = (product) => {
+  // You can open a modal or redirect to an edit page here
+  console.log("Editing product:", product);
+  // Example: open the existing AddItemForm in "edit mode"
+  setSelectedProduct(product);
+  setAddItemFormVisibility(true);
+};
+
 
   // Update product status and then sort again
   const updateProductStatus = (selectedProductId, selectedExchangeProductId, isConfirmed) => {
@@ -268,7 +278,7 @@ const Products = () => {
   {/* Image */}
   <Image
     alt={product.title}
-    src={product.imageUrls?.[0] || '/placeholder.jpg'}
+    src={`${product.imageUrls?.[0]}?v=${new Date(product.updatedAt).getTime()}`}
     width={500}
     height={500}
     className="h-28 md:h-36 bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] rounded-2xl border-y-2 border-dashed border-[#8b2fa2] object-fill dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e]"
@@ -308,18 +318,41 @@ const Products = () => {
   </div>
 
   {/* Delete icon button positioned at bottom right */}
-  {userId &&
-    product.owner &&
-    userId === (typeof product.owner === 'string' ? product.owner : product.owner._id) && (
+{userId &&
+  product.owner &&
+  userId === (typeof product.owner === 'string' ? product.owner : product.owner._id) && (
+    <div className="absolute bottom-28 right-1 flex flex-col gap-1 z-10">
+      {/* Edit Button */}
+      <button
+        onClick={() => handleEditProduct(product)}
+        className="bg-blue-600 hover:bg-blue-700 text-white rounded-md p-1 shadow-md"
+        title="Edit product"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-4 w-4"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2}
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M11 5h7M11 9h4M5 17h14M5 21h14M5 13h4m4 0h6"
+          />
+        </svg>
+      </button>
+
+      {/* Delete Button */}
       <button
         onClick={() => handleDeleteProduct(product._id)}
-        className="absolute bottom-8 right-0 p-0 rounded-md bg-white bg-opacity-80 hover:bg-opacity-100 transition-shadow shadow-md"
-        aria-label="Delete product"
+        className="bg-red-600 hover:bg-red-700 text-white rounded-md p-1 shadow-md"
         title="Delete product"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6 text-red-600 hover:text-red-800"
+          className="h-4 w-4"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -332,7 +365,10 @@ const Products = () => {
           />
         </svg>
       </button>
-    )}
+    </div>
+)}
+
+
 </div>
 
               </div>
@@ -382,18 +418,19 @@ const Products = () => {
 
         {/* Add Item Modal */}
         {addItemFormVisibility && (
-          <AddItemForm
-            setAddItemFormVisibility={setAddItemFormVisibility}
-            setProducts={(newListOrUpdater) => {
-              // If function, call with current products
-              if (typeof newListOrUpdater === 'function') {
-                setProducts((prev) => sortProductsDesc(newListOrUpdater(prev)));
-              } else {
-                setProducts(sortProductsDesc(newListOrUpdater));
-              }
-            }}
-          />
-        )}
+  <AddItemForm
+  product={selectedProduct}  // ✅ Correct prop name
+  setAddItemFormVisibility={setAddItemFormVisibility}
+  setProducts={(newListOrUpdater) => {
+    if (typeof newListOrUpdater === 'function') {
+      setProducts((prev) => sortProductsDesc(newListOrUpdater(prev)));
+    } else {
+      setProducts(sortProductsDesc(newListOrUpdater));
+    }
+  }}
+/>
+
+)}
 
         {/* CTA for another exchange */}
         {isFormSubmitted && (

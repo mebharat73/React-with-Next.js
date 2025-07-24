@@ -77,3 +77,18 @@ ul {
   -ms-overflow-style: none;  /* Hide scrollbar in IE and Edge */
   scrollbar-width: none;     /* Hide scrollbar in Firefox */
 }
+
+
+/* Light mode background */
+/* Light mode background */
+body {
+  background-color: white;
+  color: black;
+}
+
+/* Dark mode background */
+html.dark body {
+  background-color: black;
+  color: white;
+}
+

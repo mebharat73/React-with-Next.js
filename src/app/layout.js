@@ -1,9 +1,10 @@
+import { ThemeProvider } from "next-themes";
 import "./globals.css";
 import MainLayout from "@/layouts/MainLayout";
 import Providers from "@/redux/providers";
 import config from "@/config/config";
 import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css"; // Make sure this is imported!
+import "react-toastify/dist/ReactToastify.css";
 
 export const metadata = {
   title: config.appName,
@@ -13,10 +14,30 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className="h-screen bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]">
-        <Providers>
-          <MainLayout>{children}</MainLayout>
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var theme = localStorage.getItem('theme');
+                  if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                    document.documentElement.classList.add('dark');
+                  } else {
+                    document.documentElement.classList.remove('dark');
+                  }
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
+      </head>
+      <body>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem={true}>
+          <Providers>
+            <MainLayout>{children}</MainLayout>
+          </Providers>
           <ToastContainer
             position="top-right"
             autoClose={1500}
@@ -29,7 +50,7 @@ export default function RootLayout({ children }) {
             pauseOnHover
             theme="light"
           />
-        </Providers>
+        </ThemeProvider>
       </body>
     </html>
   );

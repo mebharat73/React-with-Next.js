@@ -5,11 +5,22 @@ import { MdOutlineShoppingCart } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // Don't forget the styles
+import { useRouter } from "next/navigation"; // To redirect
+import { useSelector } from "react-redux"; // To access the user state
 
 function AddToCart({ product }) {
   const dispatch = useDispatch();
+  const router = useRouter();
+  const { user } = useSelector((state) => state.auth); // Get user from the redux state
 
   function addProductToCart() {
+    // If user is not logged in, redirect to login page
+    if (!user) {
+      router.push("/login");
+      return; // Prevent further action if not logged in
+    }
+
+    // If user is logged in, proceed to add to cart
     dispatch(
       addToCart({
         id: product.id,
