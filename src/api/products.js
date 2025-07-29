@@ -30,6 +30,7 @@ async function editProduct(id, data) {
   const response = await api.put(`/products/${id}`, data, {
     headers: {
       Authorization: `Bearer ${authToken}`,
+      'Content-Type': 'multipart/form-data', // Required for FormData
     },
   });
 

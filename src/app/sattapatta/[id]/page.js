@@ -5,6 +5,8 @@ import {
   MdStarHalf,
 } from 'react-icons/md';
 import Link from 'next/link';
+import { SattapattaItemImageGallery } from '@/app/sattapatta/[id]/SattapattaItemImageGallery'; // adjust path if needed
+
 import { SATTAPATTA_ROUTE } from '@/constants/routes'; // make sure this exists or replace with your route constant
 
 export default async function SattapattaItemPage(props) {
@@ -15,79 +17,75 @@ export default async function SattapattaItemPage(props) {
   const item = await getSattapattaItemById(id);
 
   return (
-    <div className="min-h-screen py-12 px-10 flex flex-col lg:flex-row justify-around bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] dark:bg-gradient-to-br dark:from-[#1f1f1f] dark:to-[#4b4b4b]">
+    <div className="min-h-screen px-10 flex flex-col lg:flex-row justify-around bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] dark:bg-gradient-to-br dark:from-[#1f1f1f] dark:to-[#4b4b4b]">
 
 
       {/* Left Column: Image */}
-      <div className="p-5 rounded-2xl border-2 border-[#84a123] relative w-full lg:w-1/2 md:p-16 bg-gradient-to-tl from-[#f0f656] to-[#e382fb] dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595] flex items-center justify-center transition-transform transform hover:scale-105 hover:shadow-xl duration-300 ease-in-out">
-        <img
-          src={item.imageUrls?.[0]}
-          alt={item.title}
-          className="rounded-3xl max-w-full max-h-[500px] object-contain"
-        />
+      {/* Left Column: Image Gallery */}
+      <div className="w-full lg:w-1/2 md:p-16">
+        <SattapattaItemImageGallery imageUrls={item.imageUrls} title={item.title} />
       </div>
+
 
       {/* Right Column: Details */}
-      <div className="w-full lg:w-1/2 p-10 md:px-10 bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] dark:bg-gray-700 rounded-2xl border-2 border-[#8b2fa2] dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e]">
+<div className="w-full lg:w-1/2 h-full p-6 mt-2 md:mr-28 md:p-10 md:mt-12 lg:min-h-[500px] bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] dark:from-[#b4b0b0] dark:to-[#504e4e] rounded-2xl border-2 border-[#8b2fa2] flex flex-col justify-between shadow-lg">
 
-        <Link
-          href={SATTAPATTA_ROUTE || '/sattapatta'}
-          className=" lg:flex items-center dark:text-gray-100 hover:underline font-bold text-[#68217A] py-2 px-2 md:hover:bg-[#d0fa44] rounded-3xl"
-        >
-          <MdArrowBack className="md:mr-3 bg-gradient-to-tl from-[#8e912d] to-[#dd53ff] rounded-full" />
-          Go Back
-        </Link>
+  {/* Back Link */}
+  <Link
+    href={SATTAPATTA_ROUTE || '/sattapatta'}
+    className="inline-flex items-center text-sm font-semibold text-[#68217A] dark:text-gray-100 hover:underline hover:text-[#4b125f] transition"
+  >
+    <MdArrowBack className="mr-2 text-lg bg-gradient-to-tl from-[#8e912d] to-[#dd53ff] rounded-full p-[2px]" />
+    Go Back
+  </Link>
 
-        {/* Title */}
-        <h1 className="text-3xl md:text-2xl mt-5 font-bold text-[#8b2fa2] dark:text-white my-0 slide-up">
-          {item.title}
-        </h1>
+  {/* Title */}
+  <h1 className="text-2xl font-bold text-[#8b2fa2] dark:text-white mt-6 mb-2">
+    {item.title}
+  </h1>
 
-        {/* Description */}
-        <div className="py-5">
-          <div className="border-b border-gray-300 mb-5">
-            <h3 className="font-serif text-xl font-extrabold text-[#84a123] dark:text-gray-100">
-              Description
-            </h3>
-          </div>
-          <p className="mt-3 dark:text-white fade-in">
-            {item.description}
-          </p>
-          <ul className="mt-3 px-6 list-disc dark:text-gray-100">
-            <li>Estimated Value: Rs{item.estimatedValue}</li>
-            <li>Required: Offer should be accepted and you should contact the owner</li>
-            <li>Delivery: On time</li>
-            <li>Available all over Nepal</li>
-          </ul>
-        </div>
+  {/* Description */}
+  <div className="mb-6">
+    <h3 className="text-lg font-semibold text-[#84a123] dark:text-white mb-2 border-b pb-1 border-gray-300">
+      Description
+    </h3>
+    <p className="text-sm text-gray-700 dark:text-gray-200 leading-relaxed mb-3">
+      {item.description}
+    </p>
+    <ul className="list-disc pl-6 text-sm text-gray-800 dark:text-gray-100 space-y-1">
+      <li>Estimated Value: Rs{item.estimatedValue}</li>
+      <li>Offer must be accepted and contact owner</li>
+      <li>Timely delivery</li>
+      <li>Available all over Nepal</li>
+    </ul>
+  </div>
 
-        {/* Additional details or ratings if any */}
-        <div className="flex items-center justify-between mt-2">
+  {/* Footer: Price and Rating */}
+  <div className="flex items-center justify-between mt-auto pt-4 border-t border-gray-300 dark:border-gray-600">
+    {/* Estimated Price */}
+    <div className="flex items-center">
+      <span className="text-lg font-bold text-[#68217A] dark:text-white mr-1">
+        Rs
+      </span>
+      <span className="text-2xl text-[#d15bee] font-mono font-semibold dark:text-white">
+        {Math.floor(item.estimatedValue)}
+      </span>
+    </div>
 
-          {/* Estimated Price */}
-          <div className="flex items-center">
-            <span className="text-xl md:text-3xl text-[#68217A] font-bold dark:text-white mr-2">
-              Rs
-            </span>
-            <span className="text-[#d15bee] font-mono dark:text-white text-xl md:text-2xl font-bold">
-              {Math.floor(item.estimatedValue)}
-            </span>
-          </div>
+    {/* Ratings */}
+    <div className="flex items-center text-yellow-500 text-lg gap-1">
+      <MdOutlineStarPurple500 />
+      <MdOutlineStarPurple500 />
+      <MdOutlineStarPurple500 />
+      <MdOutlineStarPurple500 />
+      <MdStarHalf />
+      <span className="text-gray-600 text-xs font-medium ml-2 dark:text-gray-300">
+        4.5 (329 reviews)
+      </span>
+    </div>
+  </div>
+</div>
 
-          {/* Ratings (optional, you can customize or remove) */}
-          <div className="flex text-yellow-500 md:text-2xl items-center">
-            <MdOutlineStarPurple500 />
-            <MdOutlineStarPurple500 />
-            <MdOutlineStarPurple500 />
-            <MdOutlineStarPurple500 />
-            <MdStarHalf />
-            <span className="text-gray-600 text-xs md:text-sm ml-3 font-semibold dark:text-gray-300">
-              4.5 (329 rev.)
-            </span>
-          </div>
-        </div>
-
-      </div>
     </div>
   );
 }

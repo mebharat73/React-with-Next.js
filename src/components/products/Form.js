@@ -20,46 +20,73 @@ function ProductForm({ isEditing = false, product }) {
 
   const [loading, setLoading] = useState(false);
   const [productImages, setProductImages] = useState([]);
-  const [localImageUrls, setLocalImageUrls] = useState([]);
+const [localImageUrls, setLocalImageUrls] = useState([]);
+const [existingImageUrls, setExistingImageUrls] = useState(product?.imageUrls || []);
 
   const router = useRouter();
 
+
+
   async function submitForm(data) {
-    setLoading(true);
+  setLoading(true);
 
-    const formData = new FormData();
-    formData.append("brand", data.brand);
-    formData.append("category", data.category);
-    formData.append("description", data.description);
-    formData.append("name", data.name);
-    formData.append("price", data.price);
-    formData.append("stock", data.stock);
-    productImages.map((image) => {
-      formData.append("images", image);
-    });
+  const formData = new FormData();
 
-    try {
-      isEditing
-        ? await editProduct(product.id, data)
-        : await addProduct(formData);
+  formData.append("brand", data.brand || "");
+  formData.append("category", data.category || "");
+  formData.append("description", data.description || "");
+  formData.append("name", data.name || "");
+  formData.append("price", Number(data.price));
+  formData.append("stock", Number(data.stock));
 
-      toast.success(
-        isEditing
-          ? "Product updated successfully."
-          : "Product added successfully.",
-        {
-          autoClose: 1500,
-          onClose: () => router.replace(PRODUCTS_ROUTE),
-        }
-      );
-    } catch (error) {
-      toast.error(error.response.data, {
-        autoClose: 1500,
-      });
-    } finally {
-      setLoading(false);
+  if (isEditing) {
+  formData.append("existingImages", JSON.stringify(existingImageUrls));
+}
+
+
+  productImages.forEach((file) => {
+    formData.append("imageFiles", file);
+  });
+
+  // Log all formData entries
+  console.group("FormData contents:");
+  for (const pair of formData.entries()) {
+    // For files, log just file name and type, not full object
+    if (pair[1] instanceof File) {
+      console.log(pair[0], pair[1].name, pair[1].type);
+    } else {
+      console.log(pair[0], pair[1]);
     }
   }
+  console.groupEnd();
+
+  try {
+    if (isEditing) {
+      await editProduct(product._id, formData);
+    } else {
+      await addProduct(formData);
+    }
+    toast.success(isEditing ? "Product updated." : "Product created.", {
+      autoClose: 1500,
+      onClose: () => router.replace(PRODUCTS_ROUTE),
+    });
+  } catch (err) {
+    console.error("Form error:", err);
+    if (err?.response) {
+      console.error("Response data:", err.response.data);
+      console.error("Response status:", err.response.status);
+      console.error("Response headers:", err.response.headers);
+    }
+    toast.error(err?.response?.data || "Something went wrong", {
+      autoClose: 1500,
+    });
+  } finally {
+    setLoading(false);
+  }
+}
+
+
+
 
   return (
     <motion.form
@@ -195,43 +222,79 @@ function ProductForm({ isEditing = false, product }) {
       </div>
 
       <div className="py-2">
-        <motion.label
-          htmlFor="images"
-          className="px-1 py-0 bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] rounded-md  font-semibold text-sm font-serif text-[#8b2fa2] border-2 border-solid uppercase p-1 dark:text-white dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e]"
-          initial={{ x: -30, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 1.2 }}
-        >
-          Images
-        </motion.label>
+  <motion.label
+    htmlFor="images"
+    className="px-1 py-0 bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] rounded-md font-semibold text-sm font-serif text-[#8b2fa2] border-2 border-solid uppercase p-1 dark:text-white dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e]"
+    initial={{ x: -30, opacity: 0 }}
+    animate={{ x: 0, opacity: 1 }}
+    transition={{ duration: 1.2 }}
+  >
+    Images
+  </motion.label>
 
-        {localImageUrls.length > 0 && (
-          <div className="p-5 bg-gray-100 dark:bg-zinc-600 my-1 rounded grid grid-cols-2 gap-3 items-center justify-evenly">
-            {localImageUrls.map((url, index) => (
-              <Image key={index} src={url} alt="image" height={200} width={200} />
-            ))}
-          </div>
-        )}
+  {/* ✅ Show Existing Images (if editing) */}
+  {isEditing && existingImageUrls.length > 0 && (
 
-        <input
-          type="file"
-          multiple
-          className="font-semibold text-[#506118] bg-gradient-to-tl from-[#edbef9] to-[#f9fbc6] border border-gray-500 rounded-lg px-4 py-0 w-full shadow-md mt-2 dark:text-black dark:bg-zinc-600"
-          id="images"
-          onChange={(e) => {
-            const files = [];
-            const urls = [];
+    <div className="my-2">
+      <p className="font-bold mb-2">Existing Images:</p>
+      <div className="grid grid-cols-2 gap-3">
+  {existingImageUrls.map((url, idx) => (
+    <div key={url} className="relative">
+      <Image 
+        src={url} 
+        alt={`existing-${idx}`} 
+        width={200} 
+        height={200} 
+        className="rounded-md" 
+      />
+      <button
+        type="button"
+        className="absolute top-0 right-0 bg-red-600 text-white text-xs px-1 py-0.5 rounded"
+        onClick={() => {
+          const updatedUrls = existingImageUrls.filter((_, i) => i !== idx);
+          setExistingImageUrls(updatedUrls);
+        }}
+      >
+        ×
+      </button>
+    </div>
+  ))}
+</div>
 
-            Array.from(e.target?.files).map((file) => {
-              files.push(file);
-              urls.push(URL.createObjectURL(file));
-            });
+        
+    </div>
+  )}
 
-            setProductImages(files);
-            setLocalImageUrls(urls);
-          }}
-        />
-      </div>
+  {/* ✅ Show New Image Previews */}
+  {localImageUrls.length > 0 && (
+    <div className="p-5 bg-gray-100 dark:bg-zinc-600 my-1 rounded grid grid-cols-2 gap-3 items-center justify-evenly">
+      {localImageUrls.map((url, index) => (
+        <Image key={index} src={url} alt="image" height={200} width={200} />
+      ))}
+    </div>
+  )}
+
+  {/* ✅ File Upload Input */}
+  <input
+    type="file"
+    multiple
+    className="font-semibold text-[#506118] bg-gradient-to-tl from-[#edbef9] to-[#f9fbc6] border border-gray-500 rounded-lg px-4 py-0 w-full shadow-md mt-2 dark:text-black dark:bg-zinc-600"
+    id="images"
+    onChange={(e) => {
+      const files = [];
+      const urls = [];
+
+      Array.from(e.target?.files).forEach((file) => {
+        files.push(file);
+        urls.push(URL.createObjectURL(file));
+      });
+
+      setProductImages(files);
+      setLocalImageUrls(urls);
+    }}
+  />
+</div>
+
 
       <div className="flex justify-center pt-5">
         <motion.input

@@ -3,7 +3,7 @@
 import { addToCart } from "@/redux/cart/cartSlice";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { useDispatch } from "react-redux";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // Don't forget the styles
 import { useRouter } from "next/navigation"; // To redirect
 import { useSelector } from "react-redux"; // To access the user state
@@ -44,7 +44,6 @@ function AddToCart({ product }) {
         Add to cart
         <MdOutlineShoppingCart className="ml-1 text-[#dbff65] dark:text-white" />
       </button>
-      <ToastContainer />
     </>
   );
 }

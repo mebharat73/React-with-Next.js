@@ -126,7 +126,8 @@ function ProductsPage() {
         <FilterProducts brands={brands} categories={categories} />
       </div>
 
-      <ProductList products={products} />
+      <ProductList products={products} setProducts={setProducts} />
+
 
       {/* Load More Button */}
       {hasMore && (

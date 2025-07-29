@@ -18,11 +18,12 @@ import { motion } from 'framer-motion';
 import AddToCart from "@/components/products/AddToCart";
 
 
-function ProductCard({ product, productView }) {
+function ProductCard({ product, productView, products, setProducts }) {
   const [showDeletePopup, setShowDeletePopup] = useState(false);
   const [showFullDescription, setShowFullDescription] = useState(false);
   const { user } = useSelector((state) => state.auth);
   const router = useRouter();
+
 
   function addProductToCart() {
     dispatch(
@@ -50,9 +51,11 @@ function ProductCard({ product, productView }) {
       toast.success(`${product.name} deleted successfully.`, {
         autoClose: 1500,
       });
-      router.refresh();
+      // Update local products state to remove deleted product
+      setProducts(products.filter(p => p.id !== product.id));
+      // Optionally no need to refresh router now
     } catch (error) {
-      toast.error(error.response.data ?? "", {
+      toast.error(error.response?.data ?? "Error deleting product", {
         autoClose: 1500,
       });
     } finally {
@@ -194,24 +197,31 @@ function ProductCard({ product, productView }) {
             />
           ))}
         </div>
-        <div className="flex items-center justify-end">
-          {user?.roles.includes("ADMIN") && (
-            <Link
-              href={`${PRODUCTS_ROUTE}/edit/${product.id}`}
-              className="text-black hover:text-[#68217A] dark:text-white hover:dark:text-gray-200"
-            >
-              <MdOutlineEdit className="h-5 w-5 rounded-full border-2 border-[#8b2fa2] bg-[#C3EF38] hover:bg-white " />
-            </Link>
-          )}
-          {user?.roles.includes("ADMIN") && (
-            <button
-              onClick={removeProduct}
-              className="p-1 text-red-500 hover:text-red-700 dark:text-white hover:dark:text-gray-200"
-            >
-              <MdDelete />
-            </button>
-          )}
-        </div>
+          <div className="flex items-center justify-end">
+            {user &&
+              (user.roles?.includes("ADMIN") ||
+                (product.createdBy && product.createdBy.toString() === user.id)) && (
+                <>
+                  <Link
+                    href={`${PRODUCTS_ROUTE}/edit/${product.id}`}
+                    className="text-black hover:text-[#68217A] dark:text-white hover:dark:text-gray-200"
+                  >
+                    <MdOutlineEdit className="h-5 w-5 rounded-full border-2 border-[#8b2fa2] bg-[#C3EF38] hover:bg-white " />
+                  </Link>
+                  <button
+                    onClick={removeProduct}
+                    className="p-1 text-red-500 hover:text-red-700 dark:text-white hover:dark:text-gray-200"
+                  >
+                    <MdDelete />
+                  </button>
+                </>
+              )}
+          </div>
+
+
+
+    
+
     
 
 
@@ -243,7 +253,7 @@ function ProductCard({ product, productView }) {
         </div>
       </Modal>
 
-      <ToastContainer />
+    
       
     </div>
   );
