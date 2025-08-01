@@ -301,20 +301,27 @@ function Header() {
 
             <nav className="flex flex-col flex-grow p-3 m-1 border-2 border-dashed border-[#8e912d] md:hidden">
               {navLinks.map((navlink) => {
-                if (navlink.isAuth && !user) return <div key={navlink.route}></div>;
+              if (navlink.isAuth && !user) return <div key={navlink.route}></div>;
 
-                return (
+              return (
+                <div key={navlink.route} className="relative w-full mb-3">
                   <Link
-                    key={navlink.route}
-                    className="p-1 mt-4 text-sm font-semibold font-serif bg-transparent rounded-3xl md:mt-0 md:ml-4 hover:text-white focus:text-gray-900 hover:bg-white focus:bg-primary-100 focus:outline-none focus:shadow-outline"
+                    className="p-1 text-sm font-semibold font-serif bg-transparent rounded-3xl md:mt-0 md:ml-4 hover:text-white focus:text-gray-900 hover:bg-white focus:bg-primary-100 focus:outline-none focus:shadow-outline"
                     href={navlink.route}
                   >
-                    <div className="px-4 py-2 text-[#d0fa44] dark:text-white font-serif font-semibold hover:text-white border-[#dd53ff] rounded-2xl bg-[#dd53ff] dark:dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595]">
+                    <div className="px-4 py-2 text-[#d0fa44] dark:text-white font-serif font-semibold hover:text-white border-[#dd53ff] rounded-2xl bg-[#dd53ff] dark:dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595] relative">
                       {navlink.label}
+
+                      {navlink.notification && products.length > 0 && (
+                        <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full text-[0.6rem] h-4 w-4 flex items-center justify-center">
+                          {products.length}
+                        </span>
+                      )}
                     </div>
                   </Link>
-                );
-              })}
+                </div>
+              );
+            })}
             </nav>
 
             {user ? (

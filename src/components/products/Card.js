@@ -6,7 +6,7 @@ import Modal from "../Modal";
 import placeholder from "@/assets/images/placeholder.jpeg";
 import { MdDelete, MdOutlineCategory, MdOutlineEdit } from "react-icons/md";
 import { PRODUCTS_ROUTE } from "@/constants/routes";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import { deleteProduct } from "@/api/products";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -16,6 +16,7 @@ import { PRODUCT_GRID_VIEW } from "@/constants/productView";
 import { FaStar } from "react-icons/fa"; // For star rating
 import { motion } from 'framer-motion';
 import AddToCart from "@/components/products/AddToCart";
+import { useDispatch } from "react-redux";
 
 
 function ProductCard({ product, productView, products, setProducts }) {
@@ -23,6 +24,7 @@ function ProductCard({ product, productView, products, setProducts }) {
   const [showFullDescription, setShowFullDescription] = useState(false);
   const { user } = useSelector((state) => state.auth);
   const router = useRouter();
+  const dispatch = useDispatch();  // <-- call inside the component
 
 
   function addProductToCart() {
@@ -256,7 +258,9 @@ function ProductCard({ product, productView, products, setProducts }) {
     
       
     </div>
+      
   );
+
 }
 
 export default ProductCard;

@@ -10,6 +10,8 @@ import { getReceivedOffers } from '@/api/sattapattaExchangeOffer';
 import { deleteSattapattaItem } from '@/api/sattapattaItem';
 import api from '@/api/api';
 import Modal from '@/components/Modal';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import ExchangeInstructions from '@/app/sattapatta/exchangemodal/ExchangeInstructions';
 
 
@@ -152,9 +154,20 @@ const Products = () => {
   try {
     await deleteSattapattaItem(productId);
     setProducts((prev) => prev.filter((product) => product._id !== productId));
+    toast.success('✅ Product deleted successfully!', {
+      position: 'top-right',
+      autoClose: 3000,
+    });
   } catch (error) {
     console.error('❌ Error deleting product:', error);
-    alert('Failed to delete the product. Please try again.');
+    toast.error('❌ Failed to delete the product. Please try again.', {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+    });
   }
 };
 
@@ -286,7 +299,7 @@ const Products = () => {
 
   {/* Description + More details */}
   <p className="text-sm font-semibold text-zinc-600 dark:text-white md:mt-2 max-h-24 overflow-hidden">
-    {product.description ? product.description.slice(0, 40) : ''}
+    {product.description ? product.description.slice(0, 30) : ''}
     <Link
       href={`/sattapatta/${product._id}`}
       className="text-[#dc57fd] dark:text-[#673075] font-semibold underline hover:text-[#8b2fa2] ml-1"
@@ -296,7 +309,7 @@ const Products = () => {
   </p>
 
   {/* Action & Price */}
-  <div className="md:flex items-center justify-between mt-2">
+  <div className="md:flex items-center justify-between mt-1">
     {/* Exchange Offer button stays here */}
     {userId &&
       product.owner &&
@@ -305,7 +318,7 @@ const Products = () => {
           onClick={handleExchangeClick}
           className="w-auto bg-[#68217A] text-xs font-medium px-2 py-1 text-[#d0fa44] rounded-md hover:bg-[#8b2fa2] hover:text-black transition duration-300 mr-2"
         >
-          Exchange Offer
+          Exchange
         </button>
       )}
 
@@ -321,7 +334,7 @@ const Products = () => {
 {userId &&
   product.owner &&
   userId === (typeof product.owner === 'string' ? product.owner : product.owner._id) && (
-    <div className="absolute bottom-28 right-1 flex flex-col gap-1 z-10">
+    <div className="absolute bottom-32 right-2 flex flex-col gap-1 z-10">
       {/* Edit Button */}
       <button
         onClick={() => handleEditProduct(product)}
@@ -444,7 +457,20 @@ const Products = () => {
           </div>
         )}
       </div>
+      <ToastContainer
+                  position="top-right"
+                  autoClose={1500}
+                  hideProgressBar={false}
+                  newestOnTop
+                  closeOnClick
+                  rtl={false}
+                  pauseOnFocusLoss
+                  draggable
+                  pauseOnHover
+                  theme="light"
+                />
     </div>
+    
   );
 };
 

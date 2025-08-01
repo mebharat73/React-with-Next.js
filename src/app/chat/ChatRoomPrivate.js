@@ -157,18 +157,18 @@ const ChatRoomPrivate = ({ selectedUser, onBack }) => {
     <div className="flex flex-col h-screen w-full p-2 md:p-3 rounded-xl bg-white dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e]">
       {/* Back Button */}
       {onBack && (
-        <div className="md:hidden mb-2">
+        <div className="md:hidden">
           <button
             onClick={onBack}
             className="text-sm bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-white px-3 py-1 rounded shadow hover:bg-gray-300 dark:hover:bg-gray-500"
           >
-            ← Back to Users
+            Back to Users
           </button>
         </div>
       )}
 
       {/* Chat Header */}
-      <div className="font-bold text-lg text-center text-black dark:text-white mb-2">
+      <div className="font-bold text-lg text-center text-black dark:text-white  mb-2">
         Chat with {selectedUser.name}
       </div>
 

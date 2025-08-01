@@ -12,6 +12,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { PRODUCTS_ROUTE } from '@/constants/routes';
 
+
 function ProductsPage() {
   const [products, setProducts] = useState([]);
   const [brands, setBrands] = useState([]);

@@ -4,7 +4,6 @@ import { addToCart } from "@/redux/cart/cartSlice";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css"; // Don't forget the styles
 import { useRouter } from "next/navigation"; // To redirect
 import { useSelector } from "react-redux"; // To access the user state
 
@@ -19,6 +18,9 @@ function AddToCart({ product }) {
       router.push("/login");
       return; // Prevent further action if not logged in
     }
+
+    // Dismiss previous toasts before showing the new one to avoid duplicates
+    toast.dismiss();  // This will clear previous toasts
 
     // If user is logged in, proceed to add to cart
     dispatch(

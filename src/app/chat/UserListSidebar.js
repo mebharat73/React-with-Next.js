@@ -40,52 +40,58 @@ const UserListSidebar = ({
       </div>
 
       {/* User List */}
-      <ul className="overflow-y-auto h-[calc(100%-60px)] px-2 py-3 space-y-1">
-        {users
-          .filter((user) => user.id !== currentUserId)
-          .map((user) => {
-            const isOnline = !!onlineUsers[user.id];
-            const unseenCount = unseenMessages[user.id] || 0;
+      <ul className="overflow-y-auto h-[calc(100%-60px)] px-2 py-3 space-y-2">
+  {users
+    .filter((user) => user.id !== currentUserId)
+    .map((user) => {
+      const isOnline = !!onlineUsers[user.id];
+      const unseenCount = unseenMessages[user.id] || 0;
 
-            return (
-              <li
-                key={user.id}
-                onClick={() => {
-                  onSelectUser(user);
-                  onCloseSidebar(); // auto-close on mobile
-                }}
-                className="flex items-center gap-3 p-2 rounded-lg cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-800 transition-all relative"
-              >
-                {/* Online/Offline Dot */}
-                <div
-                  className={`w-3 h-3 rounded-full ${
-                    isOnline ? 'bg-green-500' : 'bg-gray-400'
-                  }`}
-                  title={isOnline ? 'Online' : 'Offline'}
-                />
+      return (
+        <li
+          key={user.id}
+          onClick={() => {
+            onSelectUser(user);
+            onCloseSidebar();
+          }}
+          className="flex items-center px-3 rounded-xl cursor-pointer bg-sky-300 dark:bg-gray-800 hover:bg-lime-200 dark:hover:bg-gray-700 shadow-sm transition-all relative"
+        >
+          {/* Avatar + Status */}
+          <div className="relative">
+            <img
+              src={user.profileImageUrl || '/default.jpg'}
+              alt="avatar"
+              className="w-10 h-10 rounded-full object-cover border-2 border-purple-600 dark:border-gray-600"
+            />
+            <span
+              className={`absolute bottom-0 right-0 w-3 h-3 rounded-full ring-2 ring-white dark:ring-gray-900 ${
+                isOnline ? 'bg-green-500' : 'bg-gray-400'
+              }`}
+              title={isOnline ? 'Online' : 'Offline'}
+            />
+          </div>
 
-                {/* Avatar */}
-                <img
-                  src={user.profileImageUrl || '/default.jpg'}
-                  alt="avatar"
-                  className="w-8 h-8 rounded-full object-cover border border-gray-300 dark:border-gray-600"
-                />
+          {/* Name */}
+          <div className="flex flex-col flex-grow">
+            <span className="text-gray-900 ml-2 dark:text-white font-medium truncate">
+              {user.name}
+            </span>
+            <span className="text-sm ml-4 text-gray-500 dark:text-gray-400">
+              {isOnline ? 'Online' : 'Offline'}
+            </span>
+          </div>
 
-                {/* Name */}
-                <span className="text-gray-800 dark:text-white truncate flex-grow">
-                  {user.name}
-                </span>
+          {/* Unseen Message Badge */}
+          {unseenCount > 0 && (
+            <span className="bg-red-600 text-white text-xs font-bold px-2 py-0.5 rounded-full shadow-lg">
+              {unseenCount}
+            </span>
+          )}
+        </li>
+      );
+    })}
+</ul>
 
-                {/* Unseen Badge */}
-                {unseenCount > 0 && (
-                  <span className="absolute top-1 right-3 bg-red-600 text-white text-xs font-bold px-2 py-0.5 rounded-full shadow">
-                    {unseenCount}
-                  </span>
-                )}
-              </li>
-            );
-          })}
-      </ul>
     </aside>
   );
 };

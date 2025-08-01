@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { motion } from "framer-motion";
 
 function ProductForm({ isEditing = false, product }) {
@@ -306,9 +307,22 @@ const [existingImageUrls, setExistingImageUrls] = useState(product?.imageUrls ||
           transition={{ type: "spring", stiffness: 200 }}
         />
       </div>
+      <ToastContainer
+                  position="top-right"
+                  autoClose={1500}
+                  hideProgressBar={false}
+                  newestOnTop
+                  closeOnClick
+                  rtl={false}
+                  pauseOnFocusLoss
+                  draggable
+                  pauseOnHover
+                  theme="light"
+                />
 
-      <ToastContainer />
+      
     </motion.form>
+    
   );
 }
 

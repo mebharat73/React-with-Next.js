@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { createSattapattaItem } from '@/api/sattapattaItem.js';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import api from '@/api/api';
 import { getToken } from '@/constants/authToken';
 import { useRouter } from 'next/navigation';
 import { editSattapattaItem } from '@/api/sattapattaItem.js'; // ✅ make sure this is imported
-
 
 const AddItemForm = ({ product = null, setAddItemFormVisibility, setProducts }) => {
   const [title, setTitle] = useState('');
@@ -15,8 +16,10 @@ const AddItemForm = ({ product = null, setAddItemFormVisibility, setProducts }) 
   const [estimatedValue, setEstimatedValue] = useState('');
   const [condition, setCondition] = useState('used');
   const [status, setStatus] = useState('available');
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState(''); // for error or success messages
   const [checkingAuth, setCheckingAuth] = useState(true);
+  const [toastMessage, setToastMessage] = useState(''); // state for the toast message
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const router = useRouter();
 
@@ -45,44 +48,47 @@ const AddItemForm = ({ product = null, setAddItemFormVisibility, setProducts }) 
     }
   }, [product]);
 
- const handleImageFilesChange = e => {
-  const newFiles = Array.from(e.target.files);
-  const newPreviews = newFiles.map(file => URL.createObjectURL(file));
+  const handleImageFilesChange = (e) => {
+    const newFiles = Array.from(e.target.files);
+    const newPreviews = newFiles.map((file) => URL.createObjectURL(file));
 
-  // 🧹 Remove existing images when new ones are added
-  setKeptImageUrls([]); // clear existing
-  setImageFiles(newFiles); // replace with new
-  setImagePreviews(newPreviews); // replace previews
-};
+    // 🧹 Remove existing images when new ones are added
+    setKeptImageUrls([]); // clear existing
+    setImageFiles(newFiles); // replace with new
+    setImagePreviews(newPreviews); // replace previews
+  };
 
-
-  const handleRemoveImage = index => {
+  const handleRemoveImage = (index) => {
     const keptCount = keptImageUrls.length;
 
     if (index < keptCount) {
       // Remove from existing images
       const updatedKept = keptImageUrls.filter((_, i) => i !== index);
       setKeptImageUrls(updatedKept);
-      setImagePreviews(prev => prev.filter((_, i) => i !== index));
+      setImagePreviews((prev) => prev.filter((_, i) => i !== index));
     } else {
       // Remove from new files
       const fileIndex = index - keptCount;
-      setImageFiles(prev => prev.filter((_, i) => i !== fileIndex));
-      setImagePreviews(prev => prev.filter((_, i) => i !== index));
+      setImageFiles((prev) => prev.filter((_, i) => i !== fileIndex));
+      setImagePreviews((prev) => prev.filter((_, i) => i !== index));
     }
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
   e.preventDefault();
+  setIsSubmitting(true); // Start loading
 
   const totalImages = keptImageUrls.length + imageFiles.length;
+
   if (totalImages === 0) {
     setMessage('Please select at least one image.');
+    setIsSubmitting(false);
     return;
   }
 
   if (totalImages > 6) {
     setMessage('Maximum 6 images allowed.');
+    setIsSubmitting(false);
     return;
   }
 
@@ -92,43 +98,49 @@ const AddItemForm = ({ product = null, setAddItemFormVisibility, setProducts }) 
   formData.append('estimatedValue', estimatedValue);
   formData.append('condition', condition);
   formData.append('status', status);
-
-  // ✅ Correct key: 'files' matches backend multer config
-  imageFiles.forEach(file => formData.append('imageFiles', file));
-
-
+  imageFiles.forEach((file) => formData.append('imageFiles', file));
   if (keptImageUrls.length > 0) {
     formData.append('existingImages', JSON.stringify(keptImageUrls));
   }
 
-  // ✅ Log everything inside FormData
-  console.log('%c🔍 FormData contents before submitting:', 'color: blue; font-weight: bold;');
-  for (let [key, value] of formData.entries()) {
-    if (value instanceof File) {
-      console.log(`${key}: [File] name=${value.name}, size=${value.size}`);
-    } else {
-      console.log(`${key}:`, value);
-    }
+  try {
+  if (product && product._id) {
+    const updatedItem = await editSattapattaItem(product._id, formData);
+    setProducts((prev) =>
+      prev.map((p) => (p._id === product._id ? updatedItem.item : p))
+    );
+    toast.success("Item updated successfully!", {
+      onClose: () => setAddItemFormVisibility(false),
+    });
+  } else {
+    const response = await createSattapattaItem(formData);
+    setProducts((prev) => [response, ...prev]);
+    toast.success("Item added successfully!", {
+      onClose: () => setAddItemFormVisibility(false),
+    });
   }
 
-  try {
-    if (product && product._id) {
-  const updatedItem = await editSattapattaItem(product._id, formData);
-  setProducts(prev => prev.map(p => (p._id === product._id ? updatedItem.item : p)));
-  setMessage('Item updated successfully!');
-} else {
-  const response = await createSattapattaItem(formData);
-  setProducts(prev => [response, ...prev]);
-  setMessage('Item added successfully!');
+  // ❌ Don't close immediately
+  // setAddItemFormVisibility(false); ← REMOVE this
+} catch (error) {
+  console.error("🚨 Error saving item:", error);
+  toast.error("Failed to save item. Please try again.");
+} finally {
+  setIsSubmitting(false);
 }
 
-    setAddItemFormVisibility(false);
-  } catch (error) {
-    console.error('🚨 Error saving item:', error);
-    setMessage('Failed to save item. Please try again.');
-  }
 };
 
+
+  // To automatically hide the toast message after 3 seconds
+  useEffect(() => {
+    if (toastMessage) {
+      const timer = setTimeout(() => {
+        setToastMessage(''); // Clear the toast after 3 seconds
+      }, 3000);
+      return () => clearTimeout(timer); // Clean up timeout on component unmount
+    }
+  }, [toastMessage]);
 
   if (checkingAuth) return <div>Loading...</div>;
 
@@ -140,6 +152,8 @@ const AddItemForm = ({ product = null, setAddItemFormVisibility, setProducts }) 
           {product ? 'Edit Sattapatta Item' : 'Add New Sattapatta Item'}
         </h2>
 
+        {/* Display Toast Message */}
+        
         {message && <p className="text-red-500 dark:text-red-400 text-center mb-3">{message}</p>}
 
         <form onSubmit={handleSubmit} className="md:space-y-4">
@@ -148,7 +162,7 @@ const AddItemForm = ({ product = null, setAddItemFormVisibility, setProducts }) 
             <input
               type="text"
               value={title}
-              onChange={e => setTitle(e.target.value)}
+              onChange={(e) => setTitle(e.target.value)}
               required
               className="w-full p-1 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-black dark:text-white"
             />
@@ -158,7 +172,7 @@ const AddItemForm = ({ product = null, setAddItemFormVisibility, setProducts }) 
             <label className="block text-sm font-semibold dark:text-white mb-1">Description:</label>
             <textarea
               value={description}
-              onChange={e => setDescription(e.target.value)}
+              onChange={(e) => setDescription(e.target.value)}
               rows={3}
               className="w-full px-3 py-1.5 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-black dark:text-white"
             />
@@ -202,7 +216,7 @@ const AddItemForm = ({ product = null, setAddItemFormVisibility, setProducts }) 
             <input
               type="number"
               value={estimatedValue}
-              onChange={e => setEstimatedValue(e.target.value)}
+              onChange={(e) => setEstimatedValue(e.target.value)}
               required
               className="w-full p-1 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-black dark:text-white"
             />
@@ -212,7 +226,7 @@ const AddItemForm = ({ product = null, setAddItemFormVisibility, setProducts }) 
             <label className="block text-sm font-semibold dark:text-white mb-1">Condition:</label>
             <select
               value={condition}
-              onChange={e => setCondition(e.target.value)}
+              onChange={(e) => setCondition(e.target.value)}
               className="w-full p-1 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-black dark:text-white"
             >
               <option value="new">New</option>
@@ -225,7 +239,7 @@ const AddItemForm = ({ product = null, setAddItemFormVisibility, setProducts }) 
             <label className="block text-sm font-semibold dark:text-white mb-1">Status:</label>
             <select
               value={status}
-              onChange={e => setStatus(e.target.value)}
+              onChange={(e) => setStatus(e.target.value)}
               className="w-full p-1 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-black dark:text-white"
             >
               <option value="available">Available</option>
@@ -242,15 +256,53 @@ const AddItemForm = ({ product = null, setAddItemFormVisibility, setProducts }) 
               Cancel
             </button>
             <button
-              type="submit"
-              className="px-2 py-1 rounded-md bg-[#68217A] hover:bg-[#8b2fa2] text-white font-semibold"
-            >
-              {product ? 'Update Item' : 'Add Item'}
-            </button>
+  type="submit"
+  disabled={isSubmitting}
+  className={`px-4 py-2 rounded-md font-semibold text-white flex items-center justify-center gap-2
+              ${isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#68217A] hover:bg-[#8b2fa2]'}`}
+>
+  {isSubmitting ? (
+    <>
+      <svg className="animate-spin h-5 w-5 text-white" viewBox="0 0 24 24">
+        <circle
+          className="opacity-25"
+          cx="12"
+          cy="12"
+          r="10"
+          stroke="currentColor"
+          strokeWidth="4"
+          fill="none"
+        />
+        <path
+          className="opacity-75"
+          fill="currentColor"
+          d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+        />
+      </svg>
+      <span>Submitting...</span>
+    </>
+  ) : (
+    <span>{product ? 'Update Item' : 'Add Item'}</span>
+  )}
+</button>
+
           </div>
         </form>
+        <ToastContainer
+            position="top-right"
+            autoClose={1500}
+            hideProgressBar={false}
+            newestOnTop
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          />
       </div>
     </div>
+    
   );
 };
 

@@ -3,8 +3,8 @@ import "./globals.css";
 import MainLayout from "@/layouts/MainLayout";
 import Providers from "@/redux/providers";
 import config from "@/config/config";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+
+
 
 export const metadata = {
   title: config.appName,
@@ -38,18 +38,7 @@ export default function RootLayout({ children }) {
           <Providers>
             <MainLayout>{children}</MainLayout>
           </Providers>
-          <ToastContainer
-            position="top-right"
-            autoClose={1500}
-            hideProgressBar={false}
-            newestOnTop
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="light"
-          />
+          
         </ThemeProvider>
       </body>
     </html>
