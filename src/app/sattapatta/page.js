@@ -431,19 +431,19 @@ const Products = () => {
 
         {/* Add Item Modal */}
         {addItemFormVisibility && (
-  <AddItemForm
-  product={selectedProduct}  // ✅ Correct prop name
-  setAddItemFormVisibility={setAddItemFormVisibility}
-  setProducts={(newListOrUpdater) => {
-    if (typeof newListOrUpdater === 'function') {
-      setProducts((prev) => sortProductsDesc(newListOrUpdater(prev)));
-    } else {
-      setProducts(sortProductsDesc(newListOrUpdater));
-    }
-  }}
-/>
+          <AddItemForm
+            product={selectedProduct}  // ✅ Correct prop name
+            setAddItemFormVisibility={setAddItemFormVisibility}
+            setProducts={(newListOrUpdater) => {
+              if (typeof newListOrUpdater === 'function') {
+                setProducts((prev) => sortProductsDesc(newListOrUpdater(prev)));
+              } else {
+                setProducts(sortProductsDesc(newListOrUpdater));
+              }
+            }}
+          />
 
-)}
+        )}
 
         {/* CTA for another exchange */}
         {isFormSubmitted && (

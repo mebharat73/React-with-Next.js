@@ -4,7 +4,7 @@ import React from "react";
 function Footer() {
   return (
    
-      <section className="absolute w-full  overflow-hidden bg-gradient-to-bl from-[#e382fb] to-[#f0f656] dark:from-gray-900 dark:to-gray-900 shadow-md">
+      <section className="absolute w-full  overflow-hidden bg-gradient-to-bl from-[#22C55E] to-[#FCA5A5] dark:from-gray-900 dark:to-gray-900 shadow-md">
     <div className="max-w-screen-xl mx-auto overflow-hidden lg:px-2">
       <nav className="flex flex-wrap justify-center mt-2">
         
@@ -47,7 +47,7 @@ function Footer() {
         
         
       </div>
-      <p className="mt-3 mb-3 font-serif text-base font-bold leading-6 text-center text-[#8b2fa2]">
+      <p className="mt-3 mb-3 font-serif text-base font-bold leading-6 text-center text-[#E7E5E4]">
         © 2021 Online seller, Inc. All rights reserved.
       </p>
     </div>

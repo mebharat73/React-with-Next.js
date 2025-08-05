@@ -99,28 +99,29 @@ function Header() {
         hideNavbar ? "transform -translate-y-full opacity-0" : "transform translate-y-0 opacity-100"
       } transition-all duration-500 ease-in-out shadow sticky top-0 z-50`}
     >
-      <div className="antialiased bg-gradient-to-r from-[#FD9EFC] to-[#e28ae0] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]">
-        <div className="h-10 w-full text-[white] bg-gradient-to-tr from-[#C3EF38] to-[#dd53ff] dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595]">
+      <div className="antialiased bg-gradient-to-r from-[#3B82F6] to-[#0EA5E9] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]">
+        <div className="h-10 w-full text-[white] bg-gradient-to-tr from-[#3B82F6] to-[#0EA5E9] dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595]">
           <div className="flex flex-col max-w-screen-xl mx-auto md:items-center md:justify-between md:flex-row">
-              <div className="flex flex-row items-center justify-between">
+             <div className="flex flex-row flex-wrap items-center justify-between w-full px-4">
+
                 <div className="flex items-center">
                   <motion.div
                     initial={{ scale: 1 }}
-                    animate={{ scale: 0.8 }}
-                    transition={{ duration: 1, delay: 2 }} // Adjust delay and duration as needed
-                    className="mr-0"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.3 }}
+                    className="mr-2"
                   >
                     <Image
                       src={dokanLogo}
                       alt="Dokan Logo"
-                      width={50} // Adjust size as needed
-                      height={50} // Adjust size as needed
-                      className="h-10 w-10 rounded-lg transition-transform duration-300 hover:scale-150 animate-spin"
+                      width={40} // Adjust size as needed
+                      height={40} // Adjust size as needed
+                      className="h-8 w-8 rounded-lg lg:hover:scale-125 transition-transform duration-300"
                     />
                   </motion.div>
                   <Link
                     href={HOME_ROUTE}
-                    className="font-serif font-extrabold animate-pulse text-[#68217A] lg:text-xl "
+                    className="font-serif font-semibold animate-pulse text-[#68217A] lg:text-xl "
                   >
                     {config.appName}
                   </Link>
@@ -174,21 +175,24 @@ function Header() {
               {user ? (
                 <div className="relative mx-6">
                   <button
-                    className="p-1 border-2 hover:bg-white rounded-3xl hover:dark:bg-gray-800 animate-pulse transition-transform transform hover:scale-105 active:scale-105"
-                    onClick={toggleShowProfile}
-                  >
-                    {user.profileImageUrl ? (
-                      <Image
-                        src={user.profileImageUrl}
-                        alt="profile-img"
-                        width={28}
-                        height={28}
-                        className="h-6 w-6 rounded-full object-cover"
-                      />
-                    ) : (
-                      <ImUser  className=" rounded-full border" />
-                    )}
-                  </button>
+                      className="p-1 border-2 rounded-full hover:bg-white hover:dark:bg-gray-800 transition-transform transform hover:scale-105 active:scale-105"
+                      onClick={toggleShowProfile}
+                    >
+                      {user.profileImageUrl ? (
+                        <div className="h-7 w-7 overflow-hidden rounded-full">
+                          <Image
+                            src={user.profileImageUrl}
+                            alt="profile-img"
+                            width={28}
+                            height={28}
+                            className="h-full w-full object-cover"
+                          />
+                        </div>
+                      ) : (
+                        <ImUser className="h-6 w-6 rounded-full border" />
+                      )}
+                    </button>
+
                   <div
                     className={`${
                       showProfile ? "block" : "hidden"
@@ -232,11 +236,11 @@ function Header() {
       <div
           className={`${
             showMobileMenu ? "block" : "hidden"
-          } md:hidden absolute top-0 right-0 bottom-0 w-full bg-slate-300 bg-opacity-50 dark:bg-opacity-50 h-screen z-40 transition-all`}
+          } md:hidden absolute top-2 right-1 bottom-0 w-full bg-opacity-50 dark:bg-opacity-50 h-screen z-40 transition-all`}
           onClick={() => setShowMobileMenu(false)} // Close the mobile menu when clicked outside
         >
-          <div className="w-3/4 h-auto border-2 border-double border-[#68217A] rounded-3xl bg-gradient-to-b from-[#faaae0] to-[#bacfef] float-right p-6 grid grid-cols-1 grid-rows-[auto,1fr,auto] dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595]">
-            <div className="border-b pl-2 pb-3 flex items-center justify-between">
+          <div className="w-auto h-auto border-2 border-double border-[#68217A] rounded-xl bg-gradient-to-b from-[#faaae0] to-[#bacfef] float-right px-3 py-4 grid grid-cols-1 grid-rows-[auto,1fr,auto] dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595]">
+            <div className="border-b flex items-center justify-between">
               {user ? (
                 <div className="flex items-center justify-start ">
                   <button
@@ -262,72 +266,63 @@ function Header() {
                   <div
                     className={`${
                       showProfile ? "block" : "hidden"
-                    } w-52 py-3 px-5 rounded-xl border border-e-4 border-[#8e912d] bg-gradient-to-b from-[#faaae0] to-[#bacfef] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0] absolute top-7 shadow-lg transition-all duration-300 ease-in-out transform ${
-                      showProfile ? "translate-x-0 translate-y-10" : "translate-x-4 translate-y-0"
+                    } z-10 w-32 px-1 rounded-xl border border-e-4 border-[#8e912d] bg-gradient-to-b from-[#6851ea] to-[#bacfef] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0] absolute top-5 shadow-lg transition-all duration-300 ease-in-out transform ${
+                      showProfile ? "translate-x-9 translate-y-7" : "translate-x-4 translate-y-0"
                     }`} // Smooth transition effect
                     onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside the profile container
                   >
-                    <h3 className="mb-2 font-bold">Hi! {user.name}</h3>
-
                     <Link
                       href={"/profile/edit"}
-                      className="bg-[#dd53ff] text-white font-serif w-full rounded-3xl hover:bg-[#8b2fa2] flex items-center justify-center my-3 transition-transform transform hover:scale-105 active:scale-105"
+                      className="bg-[#dd53ff] text-white font-serif w-full rounded-3xl hover:bg-[#8b2fa2] flex items-center justify-center my-1 transition-transform transform hover:scale-105 active:scale-105"
                     >
                       Profile
                     </Link>
 
-                    <button
-                      className="bg-[#68217A] text-[#d0fa44] font-serif hover:bg-[#8b2fa2] hover:text-white w-full rounded-3xl flex items-center justify-center transition-transform transform hover:scale-200 active:scale-105"
-                      onClick={logout}
-                    >
-                      Logout
-                      <MdLogout className="ml-2" />
-                    </button>
+                    
                   </div>
 
-                  <h3 className="font-bold font-serif text-lg text-[#68217A] ml-4">Hi! {user.name}</h3>
+                  <h3 className="font-bold font-serif text-base text-[#68217A] ml-2">Hi! {user.name}</h3>
                 </div>
               ) : (
-                <h3 className="font-extrabold text-xl font-serif text-[#68217A] dark:text-white">Guest user</h3>
+                <h3 className="font-extrabold text-base font-serif text-[#68217A] dark:text-white">Hi----- Guest user</h3>
               )}
 
               <button
                 className="rounded-lg md:hidden focus:outline-none focus:shadow-outline"
                 onClick={() => setShowMobileMenu(false)} // Close the mobile menu when clicked
               >
-                <RxCross2 className="h-7 w-7 rounded-full bg-[#dd53ff] dark:hover:bg-[#8b2fa2] animate-bounce" />
+                <RxCross2 className="h-5 w-5 -mt-7 rounded-full bg-[#dd53ff] dark:hover:bg-[#8b2fa2] animate-bounce" />
               </button>
             </div>
 
-            <nav className="flex flex-col flex-grow p-3 m-1 border-2 border-dashed border-[#8e912d] md:hidden">
-              {navLinks.map((navlink) => {
-              if (navlink.isAuth && !user) return <div key={navlink.route}></div>;
+           <nav className="flex flex-col gap-2 pt-2 md:hidden">
+            {navLinks.map((navlink) => {
+              if (navlink.isAuth && !user) return null;
 
               return (
-                <div key={navlink.route} className="relative w-full mb-3">
-                  <Link
-                    className="p-1 text-sm font-semibold font-serif bg-transparent rounded-3xl md:mt-0 md:ml-4 hover:text-white focus:text-gray-900 hover:bg-white focus:bg-primary-100 focus:outline-none focus:shadow-outline"
-                    href={navlink.route}
-                  >
-                    <div className="px-4 py-2 text-[#d0fa44] dark:text-white font-serif font-semibold hover:text-white border-[#dd53ff] rounded-2xl bg-[#dd53ff] dark:dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595] relative">
-                      {navlink.label}
+            <Link
+              key={navlink.route}
+              href={navlink.route}
+              className="relative bg-[#dd53ff] dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595] text-[#d0fa44] dark:text-white px-6 py-0.5 rounded-xl font-semibold text-base font-serif flex items-center justify-start gap-2 hover:bg-[#8b2fa2] transition-transform transform hover:scale-105"
+            >
+              <span>{navlink.label}</span>
 
-                      {navlink.notification && products.length > 0 && (
-                        <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full text-[0.6rem] h-4 w-4 flex items-center justify-center">
-                          {products.length}
-                        </span>
-                      )}
-                    </div>
-                  </Link>
-                </div>
+              {navlink.notification && products.length > 0 && (
+                <span className="ml-auto bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">
+                  {products.length}
+                </span>
+              )}
+            </Link>
+
               );
             })}
-            </nav>
+          </nav>
+
 
             {user ? (
               <>
                 <button
-                  className="bg-[#68217A] text-[#d0fa44] hover:bg-[#8b2fa2] hover:text-white w-full rounded-full py-1 flex items-center justify-center"
+                  className="bg-[#68217A] mt-2 text-[#d0fa44] hover:bg-[#8b2fa2] hover:text-white w-full rounded-full py-0.5 flex items-center justify-center"
                   onClick={logout}
                 >
                   Logout

@@ -7,7 +7,7 @@ import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
-    <div className="bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]">
+    <div className="bg-gradient-to-br from-[#E5E7EB] to-[#f1d2f9] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]">
       <div className="max-w-screen-xl mx-auto py-5 px-7 min-h-screen"> {/* Make sure this div takes full height */}
         {/* Hero Section */}
         <div className="min-h-[60vh]">  {/* Ensure the Hero section has enough height */}

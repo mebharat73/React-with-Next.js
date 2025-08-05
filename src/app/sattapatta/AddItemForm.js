@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { createSattapattaItem } from '@/api/sattapattaItem.js';
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import api from '@/api/api';
 import { getToken } from '@/constants/authToken';
@@ -288,18 +288,7 @@ const AddItemForm = ({ product = null, setAddItemFormVisibility, setProducts }) 
 
           </div>
         </form>
-        <ToastContainer
-            position="top-right"
-            autoClose={1500}
-            hideProgressBar={false}
-            newestOnTop
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="light"
-          />
+        
       </div>
     </div>
     
