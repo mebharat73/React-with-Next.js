@@ -67,7 +67,7 @@ function ProductCard({ product, productView, products, setProducts }) {
 
   const className =
     productView === PRODUCT_GRID_VIEW
-      ? "mx-0 my-2 py-1 px-2 md:bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] md:mx-5 md:my-2 md:py-2 md:px-2 rounded-3xl border-2 border-[#8e912d] border-double shadow-lg shadow-[#d0fa44] hover:bg-gradient-to-br from-[#F5F7FA] to-[#FEEEF9] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]"
+      ? "mx-0 my-2 py-1 px-2 md:bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] md:mx-7 md:my-2 md:py-2 md:px-2 rounded-3xl border-2 border-[#8e912d] border-double shadow-lg shadow-[#d0fa44] hover:bg-gradient-to-br from-[#F5F7FA] to-[#FEEEF9] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]"
       : "grid grid-cols-1 sm:grid-cols-[1fr,1fr] md:grid-cols-[1fr,2fr] gap-x-20 bg-gray-50 p-5 sm:p-10 rounded-xl shadow dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-950 transition-all duration-300 ease-in-out";
 
   const descriptionPreview = product.description.substring(0, 60);
@@ -110,11 +110,15 @@ function ProductCard({ product, productView, products, setProducts }) {
             
 
       {/* Product Details */}
-      <div className="px-0">
+      <div className="flex flex-col justify-between min-w-0">
+
   {/* Brand and Category */}
-  <div className="flex md:flex justify-start gap-2 ">
+  <div className="flex flex-wrap gap-2 mb-2">
+
+
     <Link href={`${PRODUCTS_ROUTE}/brand/${product.brand}`}>
-      <span className="px-1 inline-flex items-center rounded-md bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] text-xs font-medium text-black hover:text-rose-600 ring-1 ring-inset ring-primary-500/10 overflow-hidden relative ">
+      <span className="px-2 py-1 bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] text-xs font-medium text-black rounded-md relative overflow-hidden max-w-[110px] truncate">
+
         {/* Limit the displayed brand name to 5 characters */}
         {product.brand.length > 7 ? `${product.brand.slice(0, 7)}...` : product.brand}
         
@@ -139,7 +143,7 @@ function ProductCard({ product, productView, products, setProducts }) {
     </Link>
     
     <Link href={`${PRODUCTS_ROUTE}/category/${product.category}`}>
-      <span className="w-20 mt-1.5 md:mt-1.5 inline-flex items-center rounded-md bg-[#68217A] hover:bg-[#8b2fa2] text-xs font-medium text-[#d0fa44] hover:text-white ring-1 ring-inset ring-red-500/10 overflow-hidden md:w-24 h-4 relative"> {/* Set a fixed width */}
+      <span className="w-20 mt-1.5 md:mt-1.5 inline-flex items-center rounded-md bg-[#68217A] hover:bg-[#8b2fa2] text-xs font-medium text-[#d0fa44] hover:text-white ring-1 ring-inset ring-red-500/10 overflow-hidden md:w-20 h-4 relative"> {/* Set a fixed width */}
         
         
         <motion.div
@@ -164,42 +168,49 @@ function ProductCard({ product, productView, products, setProducts }) {
         
 
         {/* Product Description */}
-        <p className="text-sm font-semibold text-zinc-600 dark:text-white max-h-14 overflow-hidden text-ellipsis">
-          {descriptionPreview?.length > 23 ? `${descriptionPreview.slice(0, 23)}...` : descriptionPreview}
+        <p className="text-sm font-semibold text-zinc-600 dark:text-white max-h-14 -mt-2 overflow-hidden text-ellipsis leading-tight">
+          {descriptionPreview?.length > 20
+            ? `${descriptionPreview.slice(0, 20)}...`
+            : descriptionPreview}
           <Link
             href={`${PRODUCTS_ROUTE}/${product.id}`}
-            className="text-[#dc57fd] font-semibold underline hover:text-[#8b2fa2] hover:underline transition-all duration-200 inline-block"
+            className="text-[#dc57fd] ml-1 underline hover:text-[#8b2fa2]"
           >
-            More details
+            More..
           </Link>
         </p>
 
 
 
-            <div className=" md:flex items-center justify-between">
-              {/* Add to Cart Button */}
-                <div className="flex items-center justify-end">
-                  <AddToCart product={product} />
-                </div>
-              {/* Price */}
-              <p className="text-right">
-                <span className="text-base font-bold font-serif text-[#84a123] pr-1">Rs</span>
-                <span className="dark:text-white font-bold text-[#68217A]">{product.price}</span>
+
+            {/* Price + Add to Cart */}
+            <div className="flex justify-between items-center mt-1 flex-wrap gap-2">
+              <AddToCart product={product} />
+              <p className="text-right -mt-2">
+                <span className="text-base font-bold text-[#84a123] pr-1">Rs</span>
+                <span className="text-base font-bold text-[#68217A] dark:text-white">
+                  {product.price}
+                </span>
               </p>
             </div>
 
 
 
+
         {/* Star Rating */}
-        <div className="flex items-center justify-center gap-1">
-          {[...Array(5)].map((_, index) => (
-            <FaStar
-              key={index}
-              className={`h-3 w-3 ${index < product.rating ? 'text-yellow-400' : 'text-[#8c6496]'}`}
-            />
-          ))}
-        </div>
-          <div className="flex items-center justify-end">
+        {/* Rating */}
+          <div className="flex gap-1 mt-1 ml-3">
+            {[...Array(5)].map((_, index) => (
+              <FaStar
+                key={index}
+                className={`h-3 w-3 ${
+                  index < product.rating ? "text-yellow-400" : "text-[#8c6496]"
+                }`}
+              />
+            ))}
+          </div>
+
+          <div className="flex items-center justify-end -mt-2">
             {user &&
               (user.roles?.includes("ADMIN") ||
                 (product.createdBy && product.createdBy.toString() === user.id)) && (

@@ -187,15 +187,15 @@ const Products = () => {
       <div className="w-full max-w-screen-2xl mx-auto">
         {/* Header */}
         <div className="flex flex-col lg:flex-row items-center justify-between gap-y-4 mb-6">
-          <div className="w-full text-center lg:text-left">
-            <h1 className="text-3xl md:text-4xl font-bold text-[#68217A] dark:text-white font-poppins">🪙 Sattapatta Products</h1>
-            <div className="h-1 w-24 bg-[#68217A] rounded mt-2 mx-auto lg:mx-0" />
+          <div className="w-full text-center -mt-5 md:-mt-4 lg:text-left">
+            <h1 className="text-2xl md:text-4xl font-bold text-[#68217A] dark:text-white font-poppins">🪙 Sattapatta Products</h1>
+            <div className="h-1 w-24 bg-[#68217A] rounded mx-auto lg:mx-0" />
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center gap-3 w-full justify-center lg:justify-end">
+          <div className="-mt-2 flex flex-row items-center gap-2 w-full justify-center lg:justify-end">
             <div className="relative">
               <Link href="/sattapatta/offers">
-                <button className="px-2 py-1 md:px-4 md:py-1 bg-[#68217A] text-white rounded-xl hover:bg-[#8b2fa2] transition-all">
+                <button className="px-2 py-0 md:px-4 md:py-1 bg-[#68217A] text-white rounded-xl hover:bg-[#8b2fa2] transition-all">
                   📥 View Received Offers
                 </button>
               </Link>
@@ -213,7 +213,7 @@ const Products = () => {
 
             <button
               onClick={handleAddItemClick}
-              className="px-2 py-1 md:px-4 md:py-1 bg-gradient-to-r from-[#68217A] to-[#8b2fa2] text-white rounded-xl hover:brightness-110 transition-all"
+              className="px-2 py-0 md:px-4 md:py-1 bg-gradient-to-r from-[#68217A] to-[#8b2fa2] text-white rounded-xl hover:brightness-110 transition-all"
             >
               ➕ Add New Sattapatta Item
             </button>
