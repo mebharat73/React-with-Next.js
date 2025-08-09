@@ -71,6 +71,20 @@ async function deleteProduct(id) {
   return response.data;
 }
 
+async function getProductContact(id) {
+  const response = await api.get(`/products/${id}/contact`);
+  return response.data; // { contactNumber, productId }
+}
+
+// Example API call
+// Corrected rateProduct function using custom `api` instance
+export async function rateProduct(productId, ratingValue) {
+  return api.post(`/products/${productId}/rate`, { value: ratingValue });
+}
+
+
+
+
 export {
   getAllProducts,
   getProductById,
@@ -81,6 +95,7 @@ export {
   getBrands,
   getCategories,
   deleteProduct,
+  getProductContact,
 };
 
 /**

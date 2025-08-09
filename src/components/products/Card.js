@@ -9,7 +9,7 @@ import { PRODUCTS_ROUTE } from "@/constants/routes";
 import { toast } from "react-toastify";
 import { deleteProduct } from "@/api/products";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { addToCart } from "@/redux/cart/cartSlice";
 import { PRODUCT_GRID_VIEW } from "@/constants/productView";
@@ -17,6 +17,9 @@ import { FaStar } from "react-icons/fa"; // For star rating
 import { motion } from 'framer-motion';
 import AddToCart from "@/components/products/AddToCart";
 import { useDispatch } from "react-redux";
+import { getProductContact } from "@/api/products";
+import { rateProduct, getProductById } from "@/api/products"; // Assuming getProductById fetches the product details by ID
+import { Tooltip } from "react-tooltip"; // ✅ Import
 
 
 function ProductCard({ product, productView, products, setProducts }) {
@@ -25,7 +28,9 @@ function ProductCard({ product, productView, products, setProducts }) {
   const { user } = useSelector((state) => state.auth);
   const router = useRouter();
   const dispatch = useDispatch();  // <-- call inside the component
-
+  const [contactNumber, setContactNumber] = useState(null);
+  const [userRating, setUserRating] = useState(product.userRating || 0);
+  const [hoverRating, setHoverRating] = useState(0);
 
   function addProductToCart() {
     dispatch(
@@ -65,6 +70,70 @@ function ProductCard({ product, productView, products, setProducts }) {
     }
   }
 
+ async function handleCallUs() {
+  try {
+    const data = await getProductContact(product.id);
+    const phone = data?.contactNumber;
+
+    if (!phone) {
+      toast.error("Phone number not available");
+      return;
+    }
+
+    const whatsappUrl = `https://wa.me/${phone.replace(/\D/g, '')}`; // remove non-digit characters
+
+    if (typeof window !== "undefined") {
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(window.navigator.userAgent);
+
+      if (isMobile) {
+        // Show prompt to choose between call or WhatsApp
+        const userChoice = window.confirm("Do you want to call directly?\nPress OK to call, Cancel for WhatsApp.");
+
+        if (userChoice) {
+          window.location.href = `tel:${phone}`;
+        } else {
+          window.open(whatsappUrl, "_blank");
+        }
+      } else {
+        // Desktop → go to WhatsApp Web
+        window.open(whatsappUrl, "_blank");
+      }
+    }
+  } catch (error) {
+    toast.error("Failed to fetch contact number");
+    console.error(error);
+  }
+}
+
+
+  async function submitRating(ratingValue) {
+  try {
+    await rateProduct(product.id, ratingValue); // Send rating to backend
+    setUserRating(ratingValue); // Update local state so UI reflects immediately
+    toast.success(`You rated this product ${ratingValue} stars!`);
+
+    // Optional: Refresh product rating from backend after short delay
+    /*
+    setTimeout(async () => {
+      try {
+        const updatedProduct = await getProductById(product.id);
+        setUserRating(updatedProduct.userRating);
+      } catch (err) {
+        console.error("Failed to fetch updated product data:", err);
+      }
+    }, 1000);
+    */
+
+  } catch (err) {
+    toast.error("Failed to submit rating.");
+    console.error(err);
+  }
+}
+
+
+
+
+
   const className =
     productView === PRODUCT_GRID_VIEW
       ? "mx-0 my-2 py-1 px-2 md:bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] md:mx-7 md:my-2 md:py-2 md:px-2 rounded-3xl border-2 border-[#8e912d] border-double shadow-lg shadow-[#d0fa44] hover:bg-gradient-to-br from-[#F5F7FA] to-[#FEEEF9] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]"
@@ -76,38 +145,98 @@ function ProductCard({ product, productView, products, setProducts }) {
   return (
     <div className={className}>
       {/* Product Image */}
-      <Link href={`${PRODUCTS_ROUTE}/${product.id}`}>
-        <div className="relative">
-          {/* Scrolling Product Name at the Top */}
+      <div className="relative w-full cursor-pointer" onClick={() => router.push(`${PRODUCTS_ROUTE}/${product.id}`)}>
+          {/* Scrolling Product Name */}
           <div className="mb-1 border-1 border-[#8b2fa2] border-solid rounded-lg bg-gradient-to-br from-[#f0f656] to-[#e382fb] text-[#68217A] dark:text-[#d0fa44] font-bold whitespace-nowrap overflow-hidden dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595]">
             <motion.div
               className="whitespace-nowrap overflow-hidden"
-              animate={{ x: ["-100%", "100%"] }} // Move from right to left
+              animate={{ x: ["-100%", "100%"] }}
               transition={{
                 x: {
-                  repeat: Infinity,  // Loop indefinitely
-                  repeatType: "loop",  // Make it a continuous loop
-                  duration: 10,  // Adjust duration for scrolling speed
-                  ease: "linear",  // Smooth linear scroll
+                  repeat: Infinity,
+                  repeatType: "loop",
+                  duration: 10,
+                  ease: "linear",
                 },
               }}
             >
               {product.name}
             </motion.div>
-            
+          </div>
+
+          {/* Product Image */}
+          <Image
+                      alt={product.name}
+                      src={product.imageUrls.length > 0 ? product.imageUrls[0] : placeholder}
+                      width={500}
+                      height={500}
+                      className="h-36 bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] rounded-2xl border-y-2 border-dashed border-[#8b2fa2] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0] object-fill"
+                  />
+
+          {/* Overlay */}
+          <div className="absolute top-36 -left-0 -right-2 flex items-center justify-between px-2 z-10">
+
+            {/* Call Us Button with Tooltip */}
+            <div
+              className="relative group"
+              onMouseEnter={async () => {
+                if (!contactNumber) {
+                  try {
+                    const data = await getProductContact(product.id);
+                    setContactNumber(data?.contactNumber || "N/A");
+                  } catch (error) {
+                    console.error("Failed to fetch contact number");
+                    setContactNumber("Unavailable");
+                  }
+                }
+              }}
+            >
+              <button
+                onClick={(e) => {
+                  e.stopPropagation(); // Prevent parent card click
+                  handleCallUs();
+                }}
+                className="px-2 rounded-md bg-green-500 hover:bg-green-700 text-white text-xs font-medium shadow-sm"
+              >
+                📞 Call Us
+              </button>
+
+              {/* Tooltip */}
+              {contactNumber && (
+                <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-[10px] px-2 py-0.5 rounded shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-20">
+                  {contactNumber}
+                </div>
+              )}
+            </div>
+
+            {/* Edit / Delete Buttons */}
+            <div className="flex items-center gap-1">
+              {user &&
+                (user.roles?.includes("ADMIN") ||
+                  (product.createdBy && product.createdBy.toString() === user.id)) && (
+                  <>
+                    <Link
+                      href={`${PRODUCTS_ROUTE}/edit/${product.id}`}
+                      onClick={(e) => e.stopPropagation()} // Prevent parent card click
+                      className="text-black hover:text-[#68217A] dark:text-white hover:dark:text-gray-200"
+                    >
+                      <MdOutlineEdit className="h-4 w-4 rounded-full border-2 border-[#8b2fa2] bg-[#C3EF38] hover:bg-white" />
+                    </Link>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation(); // Prevent card click
+                        removeProduct();
+                      }}
+                      className="p-1 text-red-500 hover:text-red-700 dark:text-white hover:dark:text-gray-200"
+                    >
+                      <MdDelete className="h-4 w-4" />
+                    </button>
+                  </>
+                )}
+            </div>
           </div>
         </div>
-
-          <Image
-              alt={product.name}
-              src={product.imageUrls.length > 0 ? product.imageUrls[0] : placeholder}
-              width={500}
-              height={500}
-              className="h-36 bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] rounded-2xl border-y-2 border-dashed border-[#8b2fa2] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0] object-fill"
-          />
-
-      </Link>
-            
+                    
 
       {/* Product Details */}
       <div className="flex flex-col justify-between min-w-0">
@@ -169,11 +298,11 @@ function ProductCard({ product, productView, products, setProducts }) {
 
         {/* Product Description */}
         <p className="text-sm font-semibold text-zinc-600 dark:text-white max-h-14 -mt-2 overflow-hidden text-ellipsis leading-tight">
-          {descriptionPreview?.length > 20
-            ? `${descriptionPreview.slice(0, 20)}...`
+          {descriptionPreview?.length > 21
+            ? `${descriptionPreview.slice(0, 27)}...`
             : descriptionPreview}
           <Link
-            href={`${PRODUCTS_ROUTE}/${product.id}`}
+            href={`${PRODUCTS_ROUTE}/${product._id}`}
             className="text-[#dc57fd] ml-1 underline hover:text-[#8b2fa2]"
           >
             More..
@@ -198,47 +327,83 @@ function ProductCard({ product, productView, products, setProducts }) {
 
 
         {/* Star Rating */}
-        {/* Rating */}
-          <div className="flex gap-1 mt-1 ml-3">
-            {[...Array(5)].map((_, index) => (
-              <FaStar
-                key={index}
-                className={`h-3 w-3 ${
-                  index < product.rating ? "text-yellow-400" : "text-[#8c6496]"
-                }`}
-              />
-            ))}
-          </div>
+        {user && (
+  <div className="flex flex-wrap items-center justify-start gap-2 mt-2 lg:ml-12">
 
-          <div className="flex items-center justify-end -mt-2">
-            {user &&
-              (user.roles?.includes("ADMIN") ||
-                (product.createdBy && product.createdBy.toString() === user.id)) && (
-                <>
-                  <Link
-                    href={`${PRODUCTS_ROUTE}/edit/${product.id}`}
-                    className="text-black hover:text-[#68217A] dark:text-white hover:dark:text-gray-200"
-                  >
-                    <MdOutlineEdit className="h-5 w-5 rounded-full border-2 border-[#8b2fa2] bg-[#C3EF38] hover:bg-white " />
-                  </Link>
-                  <button
-                    onClick={removeProduct}
-                    className="p-1 text-red-500 hover:text-red-700 dark:text-white hover:dark:text-gray-200"
-                  >
-                    <MdDelete />
-                  </button>
-                </>
-              )}
-          </div>
+    {/* Star Rating with Tooltips */}
+    <div className="flex gap-1">
+      {[1, 2, 3, 4, 5].map((star) => (
+        <div key={star}>
+          <FaStar
+            data-tooltip-id={`tooltip-star-${star}`}
+            data-tooltip-content={`Rate ${star} star${star > 1 ? "s" : ""}`}
+            onClick={() => submitRating(star)}
+            onMouseEnter={() => setHoverRating(star)}
+            onMouseLeave={() => setHoverRating(0)}
+            className={`h-3 w-3 sm:h-3 sm:w-3 cursor-pointer transition-colors ${
+              hoverRating >= star || userRating >= star
+                ? "text-yellow-400"
+                : "text-black"
+            }`}
+          />
+          <Tooltip
+            id={`tooltip-star-${star}`}
+            place="top"
+            className="text-[5px] px-1 py-1 rounded-sm"
+          />
+        </div>
+      ))}
+    </div>
+
+    {/* Rating Badges */}
+    <div className="flex flex-wrap items-center gap-1 text-xs lg:-ml-7">
+
+      {/* User Rating Badge */}
+      {userRating > 0 && (
+        <motion.div
+          className="bg-yellow-100 text-yellow-700 px-1 rounded-full shadow-sm border border-yellow-300 whitespace-nowrap"
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+        >
+          {userRating.toFixed(1)}{" "}
+          <span className="text-[10px]">(Your rating)</span>
+        </motion.div>
+      )}
+
+      {/* Average Rating Badge */}
+      {/* Average Rating Badge */}
+      {product.rating > 0 && (
+        <motion.div
+          className="bg-purple-100 text-purple-700 px-1 rounded-full shadow-sm border border-purple-300 whitespace-nowrap"
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+        >
+          Avg: {product.rating.toFixed(1)}
+        </motion.div>
+      )}
+
+    </div>
+  </div>
+)}
 
 
 
-    
 
-    
+          
 
 
-            
+         
+
+
+
+
+
+              
+
+              
+
+
+                      
 
       {/* Delete Confirmation Modal */}
       <Modal
