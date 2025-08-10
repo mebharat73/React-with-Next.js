@@ -328,7 +328,7 @@ function ProductCard({ product, productView, products, setProducts }) {
 
         {/* Star Rating */}
         {user && (
-  <div className="flex flex-wrap items-center justify-start gap-2 mt-2 lg:ml-12">
+  <div className="flex flex-wrap items-center justify-start gap-2 mt-1 lg:ml-12">
 
     {/* Star Rating with Tooltips */}
     <div className="flex gap-1">
@@ -361,7 +361,7 @@ function ProductCard({ product, productView, products, setProducts }) {
       {/* User Rating Badge */}
       {userRating > 0 && (
         <motion.div
-          className="bg-yellow-100 text-yellow-700 px-1 rounded-full shadow-sm border border-yellow-300 whitespace-nowrap"
+          className="-ml-2 bg-yellow-100 text-yellow-700 px-1 rounded-full shadow-sm border border-yellow-300 whitespace-nowrap"
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
         >
@@ -374,7 +374,7 @@ function ProductCard({ product, productView, products, setProducts }) {
       {/* Average Rating Badge */}
       {product.rating > 0 && (
         <motion.div
-          className="bg-purple-100 text-purple-700 px-1 rounded-full shadow-sm border border-purple-300 whitespace-nowrap"
+          className="ml-6 bg-purple-100 text-purple-700 px-1 rounded-full shadow-sm border border-purple-300 whitespace-nowrap"
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
         >

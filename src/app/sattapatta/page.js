@@ -188,36 +188,42 @@ const Products = () => {
         {/* Header */}
         <div className="flex flex-col lg:flex-row items-center justify-between gap-y-4 mb-6">
           <div className="w-full text-center -mt-5 md:-mt-4 lg:text-left">
-            <h1 className="text-2xl md:text-4xl font-bold text-[#68217A] dark:text-white font-poppins">🪙 Sattapatta Products</h1>
+            <h1 className="text-xl md:text-4xl font-bold text-[#68217A] dark:text-white font-poppins">🪙 Sattapatta Products</h1>
             <div className="h-1 w-24 bg-[#68217A] rounded mx-auto lg:mx-0" />
           </div>
 
-          <div className="-mt-2 flex flex-row items-center gap-2 w-full justify-center lg:justify-end">
-            <div className="relative">
-              <Link href="/sattapatta/offers">
-                <button className="px-2 py-0 md:px-4 md:py-1 bg-[#68217A] text-white rounded-xl hover:bg-[#8b2fa2] transition-all">
-                  📥 View Received Offers
-                </button>
-              </Link>
-              {offerCount > 0 && (
-                <motion.span
-                  className="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center"
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ type: 'spring', stiffness: 300, damping: 10 }}
-                >
-                  {offerCount}
-                </motion.span>
-              )}
-            </div>
+          <div className="-mt-2 flex flex-row items-center gap-2 w-full justify-center lg:justify-end px-2 overflow-x-auto">
+  {/* View Offers Button */}
+  <div className="relative">
+    <Link href="/sattapatta/offers">
+      <button
+        className="text-xs sm:text-sm px-2 py-1 bg-[#68217A] text-white rounded-xl hover:bg-[#8b2fa2] transition-all whitespace-nowrap"
+      >
+        📥 View received Offers
+      </button>
+    </Link>
+    {offerCount > 0 && (
+      <motion.span
+        className="absolute -top-2 -right-2 bg-red-600 text-white text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center"
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        transition={{ type: 'spring', stiffness: 300, damping: 10 }}
+      >
+        {offerCount}
+      </motion.span>
+    )}
+  </div>
 
-            <button
-              onClick={handleAddItemClick}
-              className="px-2 py-0 md:px-4 md:py-1 bg-gradient-to-r from-[#68217A] to-[#8b2fa2] text-white rounded-xl hover:brightness-110 transition-all"
-            >
-              ➕ Add New Sattapatta Item
-            </button>
-          </div>
+  {/* Add Item Button */}
+  <button
+    onClick={handleAddItemClick}
+    className="text-xs sm:text-sm px-2 py-1 bg-gradient-to-r from-[#68217A] to-[#8b2fa2] text-white rounded-xl hover:brightness-110 transition-all whitespace-nowrap"
+  >
+    ➕ Add Sattapatta Item
+  </button>
+</div>
+
+
         </div>
 
         {/* Product Grid */}

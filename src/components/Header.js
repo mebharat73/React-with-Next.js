@@ -220,7 +220,7 @@ function Header() {
               ) : (
                 <Link
                   href={LOGIN_ROUTE}
-                  className="animate-pulse px-4 py-1 mt-2 text-sm font-semibold font-serif bg-[#68217A] dark:bg-zinc-600 text-[#C3EF38] rounded-lg md:mt-0 md:ml-4 hover:bg-[#8b2fa2] hover:text-white focus:bg-[#8b2fa2] focus:outline-none focus:shadow-outline"
+                  className="animate-pulse px-4 py-1 mt-2 text-sm font-semibold font-serif bg-[#68217A] dark:bg-zinc-600 text-[#C3EF38] rounded-lg md:mt-1.5 md:ml-4 hover:bg-[#8b2fa2] hover:text-white focus:bg-[#8b2fa2] focus:outline-none focus:shadow-outline"
                 >
                   Login
                 </Link>
@@ -284,14 +284,14 @@ function Header() {
                   <h3 className="font-bold font-serif text-base text-[#68217A] ml-2">Hi! {user.name}</h3>
                 </div>
               ) : (
-                <h3 className="font-extrabold text-base font-serif text-[#68217A] dark:text-white">Hi----- Guest user</h3>
+                <h3 className="font-extrabold text-base font-serif text-[#68217A] dark:text-white">Please login.......</h3>
               )}
 
               <button
                 className="rounded-lg md:hidden focus:outline-none focus:shadow-outline"
                 onClick={() => setShowMobileMenu(false)} // Close the mobile menu when clicked
               >
-                <RxCross2 className="h-5 w-5 -mt-7 rounded-full bg-[#dd53ff] dark:hover:bg-[#8b2fa2] animate-bounce" />
+                <RxCross2 className="h-5 w-5 -mt-6 rounded-full bg-[#dd53ff] dark:hover:bg-[#8b2fa2]" />
               </button>
             </div>
 

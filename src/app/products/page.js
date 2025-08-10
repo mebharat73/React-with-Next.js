@@ -42,7 +42,11 @@ function ProductsPage() {
       try {
         setOffset(0); // Reset offset on filter/search change
         const baseParams = getBaseQueryParams();
-        const queryString = baseParams ? `${baseParams}&limit=${limit}&offset=0` : `limit=${limit}&offset=0`;
+        const sort = encodeURIComponent(JSON.stringify({ createdAt: -1 }));
+        const queryString = baseParams
+          ? `${baseParams}&sort=${sort}&limit=${limit}&offset=0`
+          : `sort=${sort}&limit=${limit}&offset=0`;
+
 
         const productsData = await getAllProducts(queryString);
         setProducts(productsData);
@@ -71,9 +75,10 @@ function ProductsPage() {
   try {
     const baseParams = getBaseQueryParams();
     const newOffset = offset + limit;
+    const sort = encodeURIComponent(JSON.stringify({ createdAt: -1 }));
     const queryString = baseParams
-      ? `${baseParams}&limit=${limit}&offset=${newOffset}`
-      : `limit=${limit}&offset=${newOffset}`;
+      ? `${baseParams}&sort=${sort}&limit=${limit}&offset=${newOffset}`
+      : `sort=${sort}&limit=${limit}&offset=${newOffset}`;
 
     const moreProducts = await getAllProducts(queryString);
 
