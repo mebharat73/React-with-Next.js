@@ -147,9 +147,9 @@ function ProductCard({ product, productView, products, setProducts }) {
       {/* Product Image */}
       <div className="relative w-full cursor-pointer" onClick={() => router.push(`${PRODUCTS_ROUTE}/${product.id}`)}>
           {/* Scrolling Product Name */}
-          <div className="mb-1 border-1 border-[#8b2fa2] border-solid rounded-lg bg-gradient-to-br from-[#f0f656] to-[#e382fb] text-[#68217A] dark:text-[#d0fa44] font-bold whitespace-nowrap overflow-hidden dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595]">
+          <div className="mb-1 h-5 px-2 flex items-center border border-[#8b2fa2] rounded-lg bg-gradient-to-br from-[#f0f656] to-[#e382fb] text-[#68217A] dark:text-[#d0fa44] font-bold whitespace-nowrap overflow-hidden text-xs dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595]">
             <motion.div
-              className="whitespace-nowrap overflow-hidden"
+              className="whitespace-nowrap"
               animate={{ x: ["-100%", "100%"] }}
               transition={{
                 x: {
@@ -163,6 +163,7 @@ function ProductCard({ product, productView, products, setProducts }) {
               {product.name}
             </motion.div>
           </div>
+
 
           {/* Product Image */}
           <Image
@@ -239,60 +240,54 @@ function ProductCard({ product, productView, products, setProducts }) {
                     
 
       {/* Product Details */}
-      <div className="flex flex-col justify-between min-w-0">
+    <div className="flex flex-col justify-between min-w-0">
 
-  {/* Brand and Category */}
-  <div className="flex flex-wrap gap-2 mb-2">
+      {/* Brand and Category */}
+      <div className="flex gap-3 flex-wrap mb-2 mt-1">
 
+        {/* Brand */}
+        <Link href={`${PRODUCTS_ROUTE}/brand/${product.brand}`}>
+          <div className="relative w-[80px] h-4 px-2 py-0 bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] text-xs font-medium text-black rounded-md overflow-hidden">
+            <motion.div
+              className="whitespace-nowrap absolute"
+              animate={{ x: ['100%', '-100%'] }}
+              transition={{
+                x: {
+                  repeat: Infinity,
+                  repeatType: 'loop',
+                  duration: 8,
+                  ease: 'linear',
+                },
+              }}
+            >
+              {product.brand}
+            </motion.div>
+          </div>
+        </Link>
 
-    <Link href={`${PRODUCTS_ROUTE}/brand/${product.brand}`}>
-      <span className="px-2 py-1 bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] text-xs font-medium text-black rounded-md relative overflow-hidden max-w-[110px] truncate">
+        {/* Category */}
+        <Link href={`${PRODUCTS_ROUTE}/category/${product.category}`}>
+          <div className="relative w-[80px] h-4 px-2 py-0 bg-[#68217A] hover:bg-[#8b2fa2] text-xs font-medium text-[#d0fa44] hover:text-white rounded-md overflow-hidden">
+            <motion.div
+              className="whitespace-nowrap absolute"
+              animate={{ x: ['100%', '-100%'] }}
+              transition={{
+                x: {
+                  repeat: Infinity,
+                  repeatType: 'loop',
+                  duration: 8,
+                  ease: 'linear',
+                },
+              }}
+            >
+              {product.category}
+            </motion.div>
+          </div>
+        </Link>
 
-        {/* Limit the displayed brand name to 5 characters */}
-        {product.brand.length > 7 ? `${product.brand.slice(0, 7)}...` : product.brand}
-        
-        {/* Scroll the remaining part of the brand name */}
-        {product.brand.length > 7 && (
-          <motion.div
-            className="whitespace-nowrap absolute left-20" // Adjust left position
-            animate={{ x: ["100%", "-100%"] }} // Move from right to left
-            transition={{
-              x: {
-                repeat: Infinity,  // Loop indefinitely
-                repeatType: "loop",  // Make it a continuous loop
-                duration: 10,  // Adjust duration for scrolling speed
-                ease: "linear",  // Smooth linear scroll
-              },
-            }}
-          >
-            {product.brand.slice(7)} {/* Show the remaining part of the brand name */}
-          </motion.div>
-        )}
-      </span>
-    </Link>
-    
-    <Link href={`${PRODUCTS_ROUTE}/category/${product.category}`}>
-      <span className="w-20 mt-1.5 md:mt-1.5 inline-flex items-center rounded-md bg-[#68217A] hover:bg-[#8b2fa2] text-xs font-medium text-[#d0fa44] hover:text-white ring-1 ring-inset ring-red-500/10 overflow-hidden md:w-20 h-4 relative"> {/* Set a fixed width */}
-        
-        
-        <motion.div
-          className="whitespace-nowrap absolute left-10" // Start scrolling from a certain gap
-          animate={{ x: ["80%", "-100%"] }} // Move from right to left
-          transition={{
-            x: {
-              repeat: Infinity,  // Loop indefinitely
-              repeatType: "loop",  // Make it a continuous loop
-              duration: 10,  // Adjust duration for scrolling speed
-              ease: "linear",  // Smooth linear scroll
-            },
-          }}
-        >
-          {product.category}
-        </motion.div>
-      </span>
-    </Link>
-  </div>
-</div>
+      </div>
+
+    </div>
               {/* Title and Edit/Delete Buttons */}
         
 
@@ -328,82 +323,65 @@ function ProductCard({ product, productView, products, setProducts }) {
 
         {/* Star Rating */}
         {user && (
-  <div className="flex flex-wrap items-center justify-start gap-2 mt-1 lg:ml-12">
+          <div className="flex flex-wrap items-center justify-start gap-2 mt-1 lg:ml-12">
 
-    {/* Star Rating with Tooltips */}
-    <div className="flex gap-1">
-      {[1, 2, 3, 4, 5].map((star) => (
-        <div key={star}>
-          <FaStar
-            data-tooltip-id={`tooltip-star-${star}`}
-            data-tooltip-content={`Rate ${star} star${star > 1 ? "s" : ""}`}
-            onClick={() => submitRating(star)}
-            onMouseEnter={() => setHoverRating(star)}
-            onMouseLeave={() => setHoverRating(0)}
-            className={`h-3 w-3 sm:h-3 sm:w-3 cursor-pointer transition-colors ${
-              hoverRating >= star || userRating >= star
-                ? "text-yellow-400"
-                : "text-black"
-            }`}
-          />
-          <Tooltip
-            id={`tooltip-star-${star}`}
-            place="top"
-            className="text-[5px] px-1 py-1 rounded-sm"
-          />
-        </div>
-      ))}
-    </div>
+            {/* Star Rating with Tooltips */}
+            <div className="flex gap-1">
+              {[1, 2, 3, 4, 5].map((star) => (
+                <div key={star}>
+                  <FaStar
+                    data-tooltip-id={`tooltip-star-${star}`}
+                    data-tooltip-content={`Rate ${star} star${star > 1 ? "s" : ""}`}
+                    onClick={() => submitRating(star)}
+                    onMouseEnter={() => setHoverRating(star)}
+                    onMouseLeave={() => setHoverRating(0)}
+                    className={`h-3 w-3 sm:h-3 sm:w-3 cursor-pointer transition-colors ${
+                      hoverRating >= star || userRating >= star
+                        ? "text-yellow-400"
+                        : "text-black"
+                    }`}
+                  />
+                  <Tooltip
+                    id={`tooltip-star-${star}`}
+                    place="top"
+                    className="text-[5px] px-1 py-1 rounded-sm"
+                  />
+                </div>
+              ))}
+            </div>
 
-    {/* Rating Badges */}
-    <div className="flex flex-wrap items-center gap-1 text-xs lg:-ml-7">
+            {/* Rating Badges */}
+            <div className="flex flex-wrap items-center gap-1 text-xs lg:-ml-7">
 
-      {/* User Rating Badge */}
-      {userRating > 0 && (
-        <motion.div
-          className="-ml-2 bg-yellow-100 text-yellow-700 px-1 rounded-full shadow-sm border border-yellow-300 whitespace-nowrap"
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-        >
-          {userRating.toFixed(1)}{" "}
-          <span className="text-[10px]">(Your rating)</span>
-        </motion.div>
-      )}
+              {/* User Rating Badge */}
+              {userRating > 0 && (
+                <motion.div
+                  className="-ml-4 -mt-1 bg-yellow-100 text-yellow-700 px-1 rounded-full shadow-sm border border-yellow-300 whitespace-nowrap"
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                >
+                  {userRating.toFixed(1)}{" "}
+                  <span className="text-[10px]">(Your rating)</span>
+                </motion.div>
+              )}
 
-      {/* Average Rating Badge */}
-      {/* Average Rating Badge */}
-      {product.rating > 0 && (
-        <motion.div
-          className="ml-6 bg-purple-100 text-purple-700 px-1 rounded-full shadow-sm border border-purple-300 whitespace-nowrap"
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-        >
-          Avg: {product.rating.toFixed(1)}
-        </motion.div>
-      )}
+              {/* Average Rating Badge */}
+              {/* Average Rating Badge */}
+              {product.rating > 0 && (
+                <motion.div
+                  className="ml-9 -mt-1 bg-purple-100 text-purple-700 px-1 rounded-full shadow-sm border border-purple-300 whitespace-nowrap"
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                >
+                  Avg: {product.rating.toFixed(1)}
+                </motion.div>
+              )}
 
-    </div>
-  </div>
-)}
+            </div>
+          </div>
+        )}
 
-
-
-
-          
-
-
-         
-
-
-
-
-
-              
-
-              
-
-
-                      
+            
 
       {/* Delete Confirmation Modal */}
       <Modal
