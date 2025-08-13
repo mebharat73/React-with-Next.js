@@ -44,7 +44,7 @@ export default function ResetPasswordPage({ params }) {
           required
           className="w-full border p-2"
         />
-        <button type="submit" className="bg-purple-600 text-white px-4 py-2">
+        <button type="submit" className="bg-[#007BFF] text-white px-4 py-2">
           Reset Password
         </button>
       </form>

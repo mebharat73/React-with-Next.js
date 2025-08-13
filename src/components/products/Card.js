@@ -136,7 +136,7 @@ function ProductCard({ product, productView, products, setProducts }) {
 
   const className =
     productView === PRODUCT_GRID_VIEW
-      ? "mx-0 my-2 py-1 px-2 md:bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] md:mx-7 md:my-2 md:py-2 md:px-2 rounded-3xl border-2 border-[#8e912d] border-double shadow-lg shadow-[#d0fa44] hover:bg-gradient-to-br from-[#F5F7FA] to-[#FEEEF9] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]"
+      ? "mx-0 my-2 py-1 px-2 md:bg-[#F5F5F7] md:mx-7 md:my-2 md:py-2 md:px-2 rounded-3xl border-2 border-[#97bee7] border-double shadow-md shadow-[#97bee7] hover:bg-gradient-to-br from-[#F5F7FA] to-[#FEEEF9] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]"
       : "grid grid-cols-1 sm:grid-cols-[1fr,1fr] md:grid-cols-[1fr,2fr] gap-x-20 bg-gray-50 p-5 sm:p-10 rounded-xl shadow dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-950 transition-all duration-300 ease-in-out";
 
   const descriptionPreview = product.description.substring(0, 60);
@@ -147,7 +147,7 @@ function ProductCard({ product, productView, products, setProducts }) {
       {/* Product Image */}
       <div className="relative w-full cursor-pointer" onClick={() => router.push(`${PRODUCTS_ROUTE}/${product.id}`)}>
           {/* Scrolling Product Name */}
-          <div className="mb-1 h-5 px-2 flex items-center border border-[#8b2fa2] rounded-lg bg-gradient-to-br from-[#f0f656] to-[#e382fb] text-[#68217A] dark:text-[#d0fa44] font-bold whitespace-nowrap overflow-hidden text-xs dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595]">
+          <div className="mb-1 h-5 px-2 flex items-center border border-[#D1D1D1] rounded-lg bg-gradient-to-b from-[#F5F5F7] to-[#97bee7] text-[#1A1A1A] dark:text-[#d0fa44] font-bold whitespace-nowrap overflow-hidden text-xs dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595]">
             <motion.div
               className="whitespace-nowrap"
               animate={{ x: ["-100%", "100%"] }}
@@ -171,7 +171,7 @@ function ProductCard({ product, productView, products, setProducts }) {
                       src={product.imageUrls.length > 0 ? product.imageUrls[0] : placeholder}
                       width={500}
                       height={500}
-                      className="h-36 bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] rounded-2xl border-y-2 border-dashed border-[#8b2fa2] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0] object-fill"
+                      className="h-36 bg-gradient-to-b from-[#F5F5F7] to-[#97bee7] rounded-2xl border-2 border-dashed border-[#D1D1D1] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0] object-fill"
                   />
 
           {/* Overlay */}
@@ -197,7 +197,7 @@ function ProductCard({ product, productView, products, setProducts }) {
                   e.stopPropagation(); // Prevent parent card click
                   handleCallUs();
                 }}
-                className="px-2 rounded-md bg-green-500 hover:bg-green-700 text-white text-xs font-medium shadow-sm"
+                className="px-2 rounded-md bg-[#007BFF] hover:bg-[#0056D2] text-[#1A1A1A] text-xs font-medium shadow-sm"
               >
                 📞 Call Us
               </button>
@@ -247,7 +247,7 @@ function ProductCard({ product, productView, products, setProducts }) {
 
         {/* Brand */}
         <Link href={`${PRODUCTS_ROUTE}/brand/${product.brand}`}>
-          <div className="relative w-[80px] h-4 px-2 py-0 bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] text-xs font-medium text-black rounded-md overflow-hidden">
+          <div className="relative w-[60px] h-4 px-2 py-0 bg-gradient-to-b from-[#F5F5F7] to-[#1a67db] text-xs font-medium text-black rounded-md overflow-hidden">
             <motion.div
               className="whitespace-nowrap absolute"
               animate={{ x: ['100%', '-100%'] }}
@@ -267,7 +267,7 @@ function ProductCard({ product, productView, products, setProducts }) {
 
         {/* Category */}
         <Link href={`${PRODUCTS_ROUTE}/category/${product.category}`}>
-          <div className="relative w-[80px] h-4 px-2 py-0 bg-[#68217A] hover:bg-[#8b2fa2] text-xs font-medium text-[#d0fa44] hover:text-white rounded-md overflow-hidden">
+          <div className="relative w-[70px] h-4 px-2 py-0 bg-gradient-to-b from-[#7070f4] to-[#bacfef] hover:bg-[#8b2fa2] text-xs font-medium text-[#1A1A1A] hover:text-white rounded-md overflow-hidden">
             <motion.div
               className="whitespace-nowrap absolute"
               animate={{ x: ['100%', '-100%'] }}
@@ -292,13 +292,13 @@ function ProductCard({ product, productView, products, setProducts }) {
         
 
         {/* Product Description */}
-        <p className="text-sm font-semibold text-zinc-600 dark:text-white max-h-14 -mt-2 overflow-hidden text-ellipsis leading-tight">
+        <p className="text-xs font-medium text-[#232527] dark:text-white max-h-14 -mt-2 overflow-hidden text-ellipsis leading-tight">
           {descriptionPreview?.length > 21
-            ? `${descriptionPreview.slice(0, 27)}...`
+            ? `${descriptionPreview.slice(0, 24)}...`
             : descriptionPreview}
           <Link
             href={`${PRODUCTS_ROUTE}/${product._id}`}
-            className="text-[#dc57fd] ml-1 underline hover:text-[#8b2fa2]"
+            className="text-[#1E2A38] ml-1 underline hover:text-[#334f79]"
           >
             More..
           </Link>
@@ -312,7 +312,7 @@ function ProductCard({ product, productView, products, setProducts }) {
               <AddToCart product={product} />
               <p className="text-right -mt-2">
                 <span className="text-base font-bold text-[#84a123] pr-1">Rs</span>
-                <span className="text-base font-bold text-[#68217A] dark:text-white">
+                <span className="text-base font-bold text-[#1A1A1A] dark:text-white">
                   {product.price}
                 </span>
               </p>
@@ -356,7 +356,7 @@ function ProductCard({ product, productView, products, setProducts }) {
               {/* User Rating Badge */}
               {userRating > 0 && (
                 <motion.div
-                  className="-ml-4 -mt-1 bg-yellow-100 text-yellow-700 px-1 rounded-full shadow-sm border border-yellow-300 whitespace-nowrap"
+                  className="-ml-4 -mt-1 bg-[#F5F5F7] text-[#1A1A1A] px-1 rounded-full shadow-sm border border-[#D1D1D1] whitespace-nowrap"
                   initial={{ scale: 0.8, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                 >
@@ -369,7 +369,7 @@ function ProductCard({ product, productView, products, setProducts }) {
               {/* Average Rating Badge */}
               {product.rating > 0 && (
                 <motion.div
-                  className="ml-9 -mt-1 bg-purple-100 text-purple-700 px-1 rounded-full shadow-sm border border-purple-300 whitespace-nowrap"
+                  className="ml-9 -mt-1 bg-[#F5F5F7] text-purple-700 px-1 rounded-full shadow-sm border border-purple-300 whitespace-nowrap"
                   initial={{ scale: 0.8, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                 >

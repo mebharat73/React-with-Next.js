@@ -99,8 +99,8 @@ function Header() {
         hideNavbar ? "transform -translate-y-full opacity-0" : "transform translate-y-0 opacity-100"
       } transition-all duration-500 ease-in-out shadow sticky top-0 z-50`}
     >
-      <div className="antialiased bg-gradient-to-r from-[#3B82F6] to-[#0EA5E9] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]">
-        <div className="h-10 w-full text-[white] bg-gradient-to-tr from-[#3B82F6] to-[#0EA5E9] dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595]">
+      <div className="antialiased bg-[#1E2A38] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]">
+        <div className="h-10 w-full text-[white] bg-[#1E2A38] dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595]">
           <div className="flex flex-col max-w-screen-xl mx-auto md:items-center md:justify-between md:flex-row">
              <div className="flex flex-row flex-wrap items-center justify-between w-full px-4">
 
@@ -121,13 +121,13 @@ function Header() {
                   </motion.div>
                   <Link
                     href={HOME_ROUTE}
-                    className="font-serif font-semibold animate-pulse text-[#68217A] lg:text-xl "
+                    className="font-serif font-semibold animate-pulse text-[#007BFF] lg:text-xl "
                   >
                     {config.appName}
                   </Link>
                 </div>
                 <div className="flex items-center gap-4 md:hidden">
-                  <button onClick={switchTheme} className="bg-transparent rounded-full hover:text-[#8b2fa2] lg:text-[#68217A] bg-[#C3EF38]">
+                  <button onClick={switchTheme} className="bg-transparent rounded-full hover:text-[#0056D2] lg:text-[#68217A] bg-[#C3EF38]">
                     {currentTheme === LIGHT_MODE ? (
                       <MdOutlineDarkMode className="h-5 w-5 animate-pulse" />
                     ) : (
@@ -196,20 +196,20 @@ function Header() {
                   <div
                     className={`${
                       showProfile ? "block" : "hidden"
-                    } w-52 py-3 px-5 rounded-xl border border-[#8e912d] bg-gradient-to-b from-[#faaae0] to-[#bacfef] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0] absolute top-10 right-0 shadow-lg transition-all duration-300 ease-in-out`}
+                    } w-52 py-3 px-5 rounded-xl border border-[#D1D1D1] bg-gradient-to-b from-[#faaae0] to-[#bacfef] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0] absolute top-10 right-0 shadow-lg transition-all duration-300 ease-in-out`}
                     onClick={() => setShowProfile(false)}
                   >
                     <h3 className="mb-2 font-bold">Hi! {user.name}</h3>
 
                     <Link
                       href={"/profile/edit"}
-                      className="bg-[#dd53ff] text-white font-serif w-full rounded-3xl hover:bg-[#8b2fa2] flex items-center justify-center my-3 transition-transform transform hover:scale-105 active:scale-105"
+                      className="bg-[#F5F5F7] text-white font-serif w-full rounded-3xl hover:bg-[#8b2fa2] flex items-center justify-center my-3 transition-transform transform hover:scale-105 active:scale-105"
                     >
                       Profile
                     </Link>
 
                     <button
-                      className="bg-[#68217A] text-[#d0fa44] font-serif hover:bg-[#8b2fa2] hover:text-white w-full rounded-3xl flex items-center justify-center transition-transform transform hover:scale-200 active:scale-105"
+                      className="bg-[#388E3C] text-[#d0fa44] font-serif hover:bg-[#8b2fa2] hover:text-white w-full rounded-3xl flex items-center justify-center transition-transform transform hover:scale-200 active:scale-105"
                       onClick={logout}
                     >
                       Logout
@@ -220,7 +220,7 @@ function Header() {
               ) : (
                 <Link
                   href={LOGIN_ROUTE}
-                  className="animate-pulse px-4 py-1 mt-2 text-sm font-semibold font-serif bg-[#68217A] dark:bg-zinc-600 text-[#C3EF38] rounded-lg md:mt-1.5 md:ml-4 hover:bg-[#8b2fa2] hover:text-white focus:bg-[#8b2fa2] focus:outline-none focus:shadow-outline"
+                  className="animate-pulse px-4 py-1 mt-2 text-sm font-semibold font-serif bg-[#388E3C] dark:bg-zinc-600 text-[#C3EF38] rounded-lg md:mt-1.5 md:ml-4 hover:bg-[#8b2fa2] hover:text-white focus:bg-[#8b2fa2] focus:outline-none focus:shadow-outline"
                 >
                   Login
                 </Link>
@@ -322,7 +322,7 @@ function Header() {
             {user ? (
               <>
                 <button
-                  className="bg-[#68217A] mt-2 text-[#d0fa44] hover:bg-[#8b2fa2] hover:text-white w-full rounded-full py-0.5 flex items-center justify-center"
+                  className="bg-[#388E3C] mt-2 text-[#d0fa44] hover:bg-[#8b2fa2] hover:text-white w-full rounded-full py-0.5 flex items-center justify-center"
                   onClick={logout}
                 >
                   Logout
@@ -332,7 +332,7 @@ function Header() {
             ) : (
               <Link
                 href={LOGIN_ROUTE}
-                className="px-3 py-1.5 mt-2 text-sm font-semibold font-serif bg-[#68217A] dark:bg-[#b4b0b0] text-center text-[#d0fa44] dark:text-white hover:text-white dark:hover:text-[#d0fa44] rounded-lg md:mt-0 md:ml-4 hover:bg-[#8b2fa2] dark:hover:bg-black focus:bg-primary-600 focus:outline-none focus:shadow-outline"
+                className="px-3 py-1.5 mt-2 text-sm font-semibold font-serif bg-[#388E3C] dark:bg-[#b4b0b0] text-center text-[#d0fa44] dark:text-white hover:text-white dark:hover:text-[#d0fa44] rounded-lg md:mt-0 md:ml-4 hover:bg-[#8b2fa2] dark:hover:bg-black focus:bg-primary-600 focus:outline-none focus:shadow-outline"
               >
                 Login
               </Link>

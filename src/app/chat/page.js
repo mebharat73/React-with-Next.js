@@ -116,7 +116,7 @@ export default function ChatPage() {
   }
 
   return (
-    <div className="flex flex-col sm:flex-row h-screen bg-white dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e] text-gray-900 dark:text-white">
+    <div className="flex flex-col sm:flex-row h-screen bg-[#F5F5F7] dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e] text-gray-900 dark:text-white">
       {/* Sidebar */}
       {showUserList && (
         <div className="w-full sm:w-64 border-b sm:border-b-0 sm:border-r dark:border-gray-600">

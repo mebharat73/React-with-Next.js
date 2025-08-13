@@ -100,17 +100,17 @@ function ProductsPage() {
 
 
   return (
-    <div className="bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595] text-black dark:text-white min-h-screen transition-colors duration-300" >
+    <div className="bg-[#F5F5F7] dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595] text-[#1A1A1A] dark:text-white min-h-screen transition-colors duration-300" >
       <div className="px-0 md:py-1 md:px-5 flex items-center justify-between">
-        <h1 className="font-serif text-center md:text-left text-2xl lg:text-4xl font-semibold text-[#68217A] dark:text-white">
+        <h1 className="font-serif text-center md:text-left text-2xl lg:text-4xl font-semibold text-[#1A1A1A] dark:text-white">
           Make a wish..
         </h1>
 
         <Image
           src="/images/logo.png"
           alt="Logo"
-          width={200}
-          height={200}
+          width={100}
+          height={100}
           className="hidden md:block md:h-10 md:w-10 lg:h-20 lg:w-20 border-2 rounded-full border-[#8b2fa2] transition-all hover:scale-150 scroll-smooth"
         />
 
@@ -119,7 +119,7 @@ function ProductsPage() {
           {user?.roles.some((role) => role === 'ADMIN' || role === 'MERCHANT') && (
             <Link
               href={`${PRODUCTS_ROUTE}/add`}
-              className="px-2 py-0 font-normal lg:font-serif lg:font-semibold rounded-xl bg-gradient-to-tl from-[#8e912d] to-[#dd53ff] lg:px-3 lg:py-0 border-2 border-[#84a123] border-solid text-[#41144c] hover:text-[white] dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e]"
+              className="px-2 py-0 font-normal lg:font-serif lg:font-semibold rounded-xl bg-[#007BFF] lg:px-3 lg:py-0 border-2 border-[#84a123] border-solid text-[#1A1A1A] hover:text-[white] dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e]"
             >
               Add Product
             </Link>
@@ -141,7 +141,7 @@ function ProductsPage() {
           <button
             onClick={loadMoreProducts}
             disabled={loading}
-            className="bg-[#68217A] text-white px-3 py-1 -mt-3 mb-4 md:px-6 md:py-1 rounded hover:bg-[#8b2fa2] transition"
+            className="bg-[#007BFF] text-[#1A1A1A] px-3 py-1 -mt-3 mb-4 md:px-6 md:py-1 rounded hover:bg-[#0056D2] transition"
           >
             {loading ? 'Loading...' : 'Load More'}
           </button>

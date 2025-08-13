@@ -146,9 +146,9 @@ const AddItemForm = ({ product = null, setAddItemFormVisibility, setProducts }) 
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-40 z-50 flex items-center justify-center px-4">
-      <div className="bg-gradient-to-tl from-[#8e912d] to-[#dd53ff] dark:from-[#5c5f1e] dark:to-[#9e39c9]
+      <div className="bg-[#FFFFFF] dark:from-[#5c5f1e] dark:to-[#9e39c9]
                       w-full max-w-2xl p-6 sm:p-8 rounded-xl shadow-2xl overflow-y-auto max-h-[90vh]">
-        <h2 className="text-2xl font-bold text-center text-[#68217A] dark:text-white mb-2 -mt-4">
+        <h2 className="text-2xl font-bold text-center text-[#1A1A1A] dark:text-white mb-2 -mt-4">
           {product ? 'Edit Sattapatta Item' : 'Add New Sattapatta Item'}
         </h2>
 

@@ -93,7 +93,7 @@ function FilterProducts({ brands, categories }) {
         name="category"
         id="category"
         value={category}
-        className="border-x-2 border-[#68217A] bg-gradient-to-b from-[#faaae0] to-[#bacfef] dark:bg-gray-950 rounded-xl py-1 px-5 w-full transition duration-300 ease-in-out transform hover:scale-105"
+        className="border-x-2 border-[#68217A] bg-gradient-to-b from-[#F5F5F7] to-[#97bee7] dark:bg-gray-950 rounded-xl py-1 px-5 w-full transition duration-300 ease-in-out transform hover:scale-105"
         onChange={(e) => setCategory(e.target.value)}
       >
         <option value="">Select category</option>
@@ -111,7 +111,7 @@ function FilterProducts({ brands, categories }) {
       {/* Filter Button */}
       <button
         onClick={() => setShowFilter(true)}
-        className="bg-[#dd53ff] hover:bg-[#8b2fa2] text-white p-2 rounded text-xl h-8 w-9 mr-2 ml-5 transition duration-300 ease-in-out transform hover:scale-105"
+        className="bg-[#007BFF] hover:bg-[#0056D2] text-[#1A1A1A] p-2 rounded text-xl h-8 w-9 mr-2 ml-5 transition duration-300 ease-in-out transform hover:scale-105"
       >
         <MdOutlineFilterAlt />
       </button>
@@ -119,7 +119,7 @@ function FilterProducts({ brands, categories }) {
       {/* Reset Button */}
       <button
         onClick={resetFilter}
-        className="bg-[#8b2fa2] hover:bg-[#dd53ff] text-white p-2 rounded text-xl h-8 w-9 transition duration-300 ease-in-out transform hover:scale-105"
+        className="bg-[#007BFF] hover:bg-[#0056D2] text-[#1A1A1A] p-2 rounded text-xl h-8 w-9 transition duration-300 ease-in-out transform hover:scale-105"
         title="Reset filter"
       >
         <LuFilterX />

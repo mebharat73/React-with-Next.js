@@ -45,7 +45,7 @@ function Modal({ title, children, show = false, setShow }) {
           dragElastic={0.15}
           dragMomentum={false}
           className="
-            bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6]
+            bg-[#FFFFFF]
             dark:from-[#000000] dark:to-[#979595]
             rounded-3xl shadow-2xl
             w-full max-w-[900px]
@@ -65,7 +65,7 @@ function Modal({ title, children, show = false, setShow }) {
           <header className="flex justify-between items-center mb-4">
             <h2
               id="modal-title"
-              className="text-2xl sm:text-2xl md:text-3xl lg:text-3xl font-semibold text-[#C3EF38] dark:text-[#d0fa44]"
+              className="text-2xl sm:text-2xl md:text-3xl lg:text-3xl font-semibold text-[#1A1A1A] dark:text-[#6C757D]"
             >
               {title}
             </h2>
@@ -75,7 +75,7 @@ function Modal({ title, children, show = false, setShow }) {
               aria-label="Close modal"
               className="text-gray-600 dark:text-white hover:text-red-500 transition"
             >
-              <MdClose className="h-6 w-6 animate-bounce rounded-full border-2 border-[#68217A]" />
+              <MdClose className="h-6 w-6 animate-bounce rounded-full border-2 border-[#D1D1D1]" />
             </button>
           </header>
           <main className="flex-grow">{children}</main>

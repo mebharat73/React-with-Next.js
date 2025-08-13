@@ -25,7 +25,7 @@ function SearchProducts() {
     <div className="flex items-center">
       <label
         htmlFor="name"
-        className="md:block hidden whitespace-nowrap mr-4 bg-gradient-to-tl from-[#C3EF38] to-[#dd53ff] text-white font-serif font-semibold dark:bg-slate-900 dark:text-white h-7 rounded-md"
+        className="md:block hidden whitespace-nowrap mr-4 bg-gradient-to-b from-[#F5F5F7] to-[#97bee7] text-[#1A1A1A] font-serif font-semibold dark:bg-slate-900 dark:text-white h-7 rounded-md"
       >
         <div className="flex items-center px-3 py-0.5" >
           <RiSearchLine className="mr-2" />
@@ -37,7 +37,7 @@ function SearchProducts() {
         placeholder="Type name of your desire product..."
         name="name"
         type="search"
-        className="h-8 text-lg font-serif text-black dark:text-white border-b-4 border-[#68217A] bg-[#f1d2f9] dark:bg-gray-950 rounded-xl w-full pl-8" // Added pl-6 for padding-left
+        className="h-8 text-lg font-serif text-black dark:text-white border-b-4 border-[#68217A] #1A1A1A dark:bg-gray-950 rounded-xl w-full pl-8" // Added pl-6 for padding-left
         onChange={(e) => setName(e.target.value)}
       />
 

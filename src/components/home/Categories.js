@@ -40,7 +40,7 @@ const categories = [
 
 function HomeCategories() {
   return (
-    <div className="mt-5 py-10 px-6 bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] dark:bg-gradient-to-tl dark:from-[#979595] dark:to-[#000000] border-y-2 border-[#84a123] rounded-3xl">
+    <div className="mt-5 py-10 px-6 bg-[#F5F5F7] dark:bg-gradient-to-tl dark:from-[#979595] dark:to-[#000000] border-y-2 border-[#84a123] rounded-3xl">
       <h2 className="font-serif text-[#68217A] text-4xl text-center font-semibold mb-8 dark:text-white">
         Popular Categories
       </h2>
@@ -58,7 +58,7 @@ function HomeCategories() {
             >
               <motion.div
                 whileHover={{ scale: 1.1 }}  // Hover effect to scale up the card
-                className="px-5 py-2 bg-[#db8cef] hover:bg-[#dba6e8] rounded-xl transition duration-300"
+                className="px-5 py-2 bg-[#F5F5F7] hover:bg-[#d4d5dc] rounded-xl transition duration-300"
               >
                 <Image
                   src={category.image}

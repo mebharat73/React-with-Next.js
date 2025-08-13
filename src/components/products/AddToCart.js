@@ -41,10 +41,10 @@ function AddToCart({ product }) {
     <>
       <button
         onClick={addProductToCart}
-        className="text-sm font-medium md:font-serif text-[#d0fa44] hover:text-white bg-[#68217A] hover:bg-[#8b2fa2] px-2 py-0 rounded-2xl flex items-center dark:text-white dark:hover:text-black dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e] animate-[pulse_1s_linear_infinite]"
+        className="text-sm font-normal md:font-serif text-[#1A1A1A] hover:text-[#6C757D] bg-[#007BFF] hover:bg-[#0056D2] px-2 py-0 rounded-2xl flex items-center dark:text-white dark:hover:text-black dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e] animate-[pulse_1s_linear_infinite]"
       >
         Add to cart
-        <MdOutlineShoppingCart className="ml-1 text-[#dbff65] dark:text-white" />
+        <MdOutlineShoppingCart className="ml-1 text-[#1A1A1A] dark:text-white" />
       </button>
     </>
   );

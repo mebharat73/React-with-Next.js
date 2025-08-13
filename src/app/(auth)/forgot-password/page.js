@@ -31,7 +31,7 @@ export default function ForgotPasswordPage() {
           required
           className="w-full border p-2"
         />
-        <button type="submit" className="bg-purple-600 text-white px-4 py-2">
+        <button type="submit" className="bg-[#007BFF] text-[#1A1A1A] px-4 py-2">
           Send Reset Link
         </button>
       </form>

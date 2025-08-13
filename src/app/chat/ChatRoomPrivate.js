@@ -147,20 +147,20 @@ const ChatRoomPrivate = ({ selectedUser, onBack }) => {
 
   if (!selectedUser) {
     return (
-      <div className="flex items-center justify-center h-full text-gray-500 bg-white dark:bg-gray-900">
+      <div className="flex items-center justify-center h-full text-gray-500 bg-[#F5F5F7] dark:bg-gray-900">
         Select a user to start chatting
       </div>
     );
   }
 
   return (
-    <div className="flex flex-col h-screen w-full p-2 md:p-3 rounded-xl bg-white dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e]">
+    <div className="flex flex-col h-screen w-full p-2 md:p-3 rounded-xl bg-[#F5F5F7] dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e]">
       {/* Back Button */}
       {onBack && (
         <div className="md:hidden">
           <button
             onClick={onBack}
-            className="text-sm bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-white px-3 py-1 rounded shadow hover:bg-gray-300 dark:hover:bg-gray-500"
+            className="text-sm bg-[#007BFF] dark:bg-gray-600 text-[#1A1A1A] dark:text-white px-3 py-1 rounded shadow hover:bg-[#0056D2] dark:hover:bg-gray-500"
           >
             Back to Users
           </button>
@@ -168,7 +168,7 @@ const ChatRoomPrivate = ({ selectedUser, onBack }) => {
       )}
 
       {/* Chat Header */}
-      <div className="font-bold text-lg text-center text-black dark:text-white  mb-2">
+      <div className="font-bold text-lg text-center text-[#1A1A1A] dark:text-white  mb-2">
         Chat with {selectedUser.name}
       </div>
 
@@ -183,7 +183,7 @@ const ChatRoomPrivate = ({ selectedUser, onBack }) => {
                 : 'mr-auto bg-purple-200 dark:bg-purple-500'
             }`}
           >
-            <div className="font-semibold text-sm text-gray-900 dark:text-white">{msg.senderName}</div>
+            <div className="font-semibold text-sm text-[#1A1A1A] dark:text-white">{msg.senderName}</div>
 
             {msg.attachment?.url && (
               <div className="mt-1">
@@ -203,9 +203,9 @@ const ChatRoomPrivate = ({ selectedUser, onBack }) => {
                     </a>
                   </>
                 ) : (
-                  <div className="flex items-center gap-2 bg-white dark:bg-gray-600 rounded px-2 border border-gray-300 dark:border-gray-500">
+                  <div className="flex items-center gap-2 bg-[#F5F5F7] dark:bg-gray-600 rounded px-2 border border-gray-300 dark:border-gray-500">
                     {renderFileIcon(msg.attachment.format || msg.attachment.original_filename?.split('.').pop())}
-                    <span className="text-sm text-gray-800 dark:text-white break-words">
+                    <span className="text-sm text-[#1A1A1A] dark:text-white break-words">
                       {msg.attachment.original_filename}
                     </span>
                     <a
@@ -213,7 +213,7 @@ const ChatRoomPrivate = ({ selectedUser, onBack }) => {
                       target="_blank"
                       rel="noopener noreferrer"
                       download
-                      className="ml-auto text-blue-600 dark:text-blue-300 text-sm underline"
+                      className="ml-auto text-[#1A1A1A] dark:text-blue-300 text-sm underline"
                     >
                       Download
                     </a>
@@ -223,11 +223,11 @@ const ChatRoomPrivate = ({ selectedUser, onBack }) => {
             )}
 
             {msg.message && (
-              <div className="mt-1 px-2 whitespace-pre-wrap text-gray-800 dark:text-white">{msg.message}</div>
+              <div className="mt-1 px-2 whitespace-pre-wrap text-[#1A1A1A] dark:text-white">{msg.message}</div>
             )}
 
             {msg.senderId === user.id && (
-              <div className="text-xs text-gray-600 dark:text-gray-300 mt-1">
+              <div className="text-xs text-[#1A1A1A] dark:text-gray-300 mt-1">
                 {msg.seen ? 'Seen' : 'Sent'}
               </div>
             )}
@@ -235,7 +235,7 @@ const ChatRoomPrivate = ({ selectedUser, onBack }) => {
         ))}
 
         {typingStatus && (
-          <div className="text-sm italic text-gray-600 dark:text-gray-300">{typingStatus}</div>
+          <div className="text-sm italic text-[#1A1A1A] dark:text-gray-300">{typingStatus}</div>
         )}
 
         <div ref={bottomRef} />
@@ -262,19 +262,19 @@ const ChatRoomPrivate = ({ selectedUser, onBack }) => {
         <input
           value={input}
           onChange={handleInputChange}
-          className="flex-grow px-4 py-2 border rounded-md bg-[#fdfdfc] dark:bg-gray-800 dark:text-white dark:border-gray-600"
+          className="flex-grow px-4 py-2 border rounded-md bg-[#F5F5F7] dark:bg-gray-800 dark:text-white dark:border-gray-600"
           placeholder="Type a message..."
         />
         <input type="file" ref={fileRef} className="hidden" onChange={handleFileChange} />
         <button
           type="button"
           onClick={() => fileRef.current?.click()}
-          className="bg-yellow-400 dark:bg-yellow-500 px-2 py-1 rounded text-xl"
+          className="bg-[#007BFF] dark:bg-yellow-500 px-2 py-1 rounded text-xl"
           title="Attach a file"
         >
           📎
         </button>
-        <button type="submit" className="bg-purple-600 text-white px-5 py-1 rounded">
+        <button type="submit" className="bg-[#007BFF] text-[#1A1A1A] px-5 py-1 rounded">
           Send
         </button>
       </form>

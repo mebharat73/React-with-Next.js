@@ -86,21 +86,21 @@ const ContactPage = () => {
           Let's Get in Touch!
         </h1>
 
-        <div className="bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] rounded-3xl w-full max-w-md shadow-lg p-6 mt-8 sm:mt-12 dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595]">
-          <h1 className="text-2xl text-[#C3EF38] font-extrabold text-center mb-4">CONTACT FORM</h1>
+        <div className="bg-[#F5F5F7] rounded-3xl w-full max-w-md shadow-lg p-6 mt-8 sm:mt-12 dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595]">
+          <h1 className="text-2xl text-[#1A1A1A] font-extrabold text-center mb-4">CONTACT FORM</h1>
           <form className="flex flex-col space-y-4" onSubmit={handleSubmit}>
             <div className="flex flex-col">
-              <label className="text-lg font-semibold text-[#8b2fa2]">Full Name:</label>
+              <label className="text-lg font-semibold text-[#1A1A1A]">Full Name:</label>
               <input
                 type="text"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className="p-3 text-blue-600 border-2 border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#68217A]"
+                className="p-3 text-[#1A1A1A] border-2 border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#68217A]"
                 placeholder="Enter your name"
                 required
               />
             </div>
-            <div className="flex flex-col text-[#8b2fa2]">
+            <div className="flex flex-col text-[#1A1A1A]">
               <label className="text-lg font-semibold">Email:</label>
               <input
                 type="email"
@@ -111,7 +111,7 @@ const ContactPage = () => {
                 required
               />
             </div>
-            <div className="flex flex-col text-[#8b2fa2]">
+            <div className="flex flex-col text-[#1A1A1A]">
               <label className="text-lg font-semibold">Message:</label>
               <textarea
                 value={formData.message}
@@ -123,7 +123,7 @@ const ContactPage = () => {
             </div>
             <button
               type="submit"
-              className="mt-4 py-1 px-6 rounded-full bg-[#68217A] font-semibold text-[#d0fa44] hover:bg-[#8b2fa2] transition-all"
+              className="mt-4 py-1 px-6 rounded-full bg-[#F5F5F7] font-semibold text-[#1A1A1A] hover:bg-[#8b2fa2] transition-all"
             >
               Submit
             </button>
@@ -157,11 +157,11 @@ const ContactPage = () => {
           <Link
             href="/chat"
             onMouseEnter={triggerFireworks}
-            className="relative px-4 py-2 text-xl font-semibold text-white bg-gradient-to-tl from-[#C3EF38] to-[#dd53ff] rounded-full shadow-lg transform transition-transform hover:scale-105 hover:from-[#68217A] hover:to-[#C3EF38] hover:text-[#68217A] animate-pulse"
+            className="relative px-4 py-2 text-xl font-semibold text-[#1A1A1A] bg-[#F5F5F7] rounded-full shadow-lg transform transition-transform hover:scale-105 hover:from-[#68217A] hover:to-[#C3EF38] hover:text-[#68217A] animate-pulse"
           >
             Start Chat
             {unseenCount > 0 && (
-              <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full border-2 border-white shadow-md">
+              <span className="absolute -top-2 -right-2 bg-red-600 text-[#1A1A1A] text-xs w-5 h-5 flex items-center justify-center rounded-full border-2 border-white shadow-md">
                 {unseenCount}
               </span>
             )}

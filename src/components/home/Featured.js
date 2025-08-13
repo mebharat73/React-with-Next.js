@@ -5,7 +5,7 @@ import { PRODUCTS_ROUTE } from "@/constants/routes";
 
 function HomeFeaturedProduct() {
   return (
-    <div className="mx-7 lg:mx-36 rounded-3xl border-2 border-[#84a123] bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595]">
+    <div className="mx-7 lg:mx-36 rounded-3xl border-2 border-[#D1D1D1] bg-[#F5F5F7] dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595]">
       <div className="grid grid-cols-1 gap-10 md:grid-cols-2 px-6 md:px-16 lg:p-5 max-w-screen-xl mx-auto">
         <div className="flex flex-col items-start justify-center dark:text-white">
           <span className="bg-blue-200 text-blue-800 px-4 rounded-xl ml-2">
@@ -30,7 +30,7 @@ function HomeFeaturedProduct() {
 
           <Link
             href={PRODUCTS_ROUTE + "/678fad39fd4fff6eb2e21d7a"}
-            className="inline-block px-6 py-2 text-lg font-semibold rounded-full text-[#d0fa44] bg-[#68217A] hover:bg-[#8b2fa2] hover:text-white transition duration-300"
+            className="inline-block px-6 py-2 text-lg font-semibold rounded-full text-[#1A1A1A] bg-[#cfd2ee] hover:bg-[#c7dcf0] hover:text-white transition duration-300"
           >
             Buy Now
           </Link>

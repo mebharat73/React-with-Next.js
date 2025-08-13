@@ -101,12 +101,12 @@ function PopularBrand() {
 
   return (
     <div
-      className="py-1 px-1 max-w-screen-xl pt-2 bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] rounded-3xl border-x-2 border-[#84a123] dark:bg-gradient-to-tl dark:from-[#979595] dark:to-[#000000]"
+      className="py-1 px-1 max-w-screen-xl pt-2 bg-[#F5F5F7] rounded-3xl border-x-2 border-[#84a123] dark:bg-gradient-to-tl dark:from-[#979595] dark:to-[#000000]"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
       <div className="flex flex-col md:flex-row items-center justify-between">
-        <h1 className="font-serif text-center md:text-left text-3xl md:text-4xl font-semibold text-[#68217A] px-2 dark:text-white">
+        <h1 className="font-serif text-center md:text-left text-3xl md:text-4xl font-semibold text-[#1A1A1A] px-2 dark:text-white">
           Popular brand
         </h1>
       </div>

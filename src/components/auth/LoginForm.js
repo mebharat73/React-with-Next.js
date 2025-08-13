@@ -36,13 +36,13 @@ function LoginForm() {
   return (
     <motion.form
       onSubmit={handleSubmit(submitForm)}
-      className="m-6 md:max-w-md mx-auto border-2 border-[#8e912d] border-dashed p-6 bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e] rounded-xl shadow-lg transform transition-all"
+      className="m-6 md:max-w-md mx-auto border-2 border-[#8e912d] border-dashed p-6 bg-[#F5F5F7] dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e] rounded-xl shadow-lg transform transition-all"
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
       <div className="text-center mb-6">
-        <h2 className="text-2xl font-semibold text-gray-800 dark:text-white">
+        <h2 className="text-2xl font-semibold text-[#1A1A1A] dark:text-white">
           Welcome Back
         </h2>
         <p className="text-sm text-gray-500 dark:text-gray-400">
@@ -56,7 +56,7 @@ function LoginForm() {
           <input
             type="email"
             id="email"
-            className="h-8 px-4 py-2 w-full border bg-gradient-to-b from-[#faaae0] to-[#bacfef] focus:outline-none focus:ring-1 focus:ring-primary-500 rounded-md text-gray-800 dark:text-white"
+            className="h-8 px-4 py-2 w-full border bg-[#F5F5F7] focus:outline-none focus:ring-1 focus:ring-primary-500 rounded-md text-gray-800 dark:text-white"
             placeholder="Your email address"
             {...register("email", {
               required: "Email address is required.",
@@ -70,7 +70,7 @@ function LoginForm() {
         <PasswordField
           id="password"
           placeholder="Your password"
-          className="h-8 px-4 py-2 w-full border bg-gradient-to-b from-[#faaae0] to-[#bacfef] focus:outline-none focus:ring-1 focus:ring-primary-500 rounded-md text-gray-800 dark:text-white"
+          className="h-8 px-4 py-2 w-full border bg-[#F5F5F7] focus:outline-none focus:ring-1 focus:ring-primary-500 rounded-md text-gray-800 dark:text-white"
           {...register("password", {
             required: "Password is required.",
           })}
@@ -83,16 +83,16 @@ function LoginForm() {
           <input
             type="checkbox"
             id="rememberMe"
-            className="focus:ring-[#68217A] text-[#68217A] dark:text-white"
+            className="focus:ring-[#007BFF] text-[#1A1A1A] dark:text-white"
           />
-          <label htmlFor="rememberMe" className="text-sm text-[#68217A] dark:text-white">
+          <label htmlFor="rememberMe" className="text-sm text-[#1A1A1A] dark:text-white">
             Remember me
           </label>
         </div>
 
         <Link
           href={FORGOT_PASSWORD_ROUTE}
-          className="text-sm text-[#8b2fa2] hover:text-primary-600 dark:text-white hover:dark:text-primary-400"
+          className="text-sm text-[#1A1A1A] hover:text-primary-600 dark:text-white hover:dark:text-primary-400"
         >
           Forgot password?
         </Link>
@@ -101,7 +101,7 @@ function LoginForm() {
       <motion.button
         type="submit"
         disabled={loading}
-        className="h-8 w-full mt-3 font-serif font-bold bg-[#68217A] text-[#d0fa44] hover:text-white py-3 rounded-lg disabled:bg-[#6a6b65] disabled:cursor-not-allowed hover:bg-[#8b2fa2] transition duration-200 flex justify-center items-center dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]"
+        className="h-8 w-full mt-3 font-serif font-bold bg-[#007BFF] text-[#1A1A1A] hover:text-white py-3 rounded-lg disabled:bg-[#007BFF] disabled:cursor-not-allowed hover:bg-[#0056D2] transition duration-200 flex justify-center items-center dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
       >
@@ -112,7 +112,7 @@ function LoginForm() {
       <div className="text-center mt-6">
         <Link
           href={REGISTER_ROUTE}
-          className="text-[#68217A] hover:text-[#8b2fa2] hover:underline dark:text-white"
+          className="text-[#1A1A1A] hover:text-[#6C757D] hover:underline dark:text-white"
         >
           Don't have an account? Create one
         </Link>

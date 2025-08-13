@@ -70,7 +70,7 @@ const Hero = () => {
   const showAdModal = false; // Change to true later when you want to show it
 
   return (
-    <div className="relative bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595] border-t-2 border-[#84a123] rounded-3xl ">
+    <div className="relative bg-[#F5F5F7] dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595] border-t-2 border-[#84a123] rounded-3xl ">
       {confetti && (
         <Confetti
           width={window.innerWidth}
@@ -117,10 +117,10 @@ const Hero = () => {
               </div>
               {/* Text and Info */}
               <div className="flex flex-col items-start justify-center space-y-4">
-                <span className="bg-[#68217A] text-white px-4 py-2 rounded-xl text-lg">
+                <span className="bg-[#F5F5F7] text-[#1A1A1A] px-4 py-2 rounded-xl text-lg">
                   {slide.brand}
                 </span>
-                <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold text-[#68217A] dark:text-white">
+                <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold text-[#1A1A1A] dark:text-white">
                   {slide.title}
                 </h1>
                 <h4 className="text-2xl md:text-3xl lg:text-5xl font-bold text-orange-500 my-5">
@@ -129,7 +129,7 @@ const Hero = () => {
                 </h4>
                 <Link
                   href={PRODUCTS_ROUTE}
-                  className="inline-block px-6 py-3 text-lg font-semibold rounded-full text-[#d0fa44] bg-[#68217A] hover:bg-[#8b2fa2] hover:text-white transition duration-300"
+                  className="inline-block px-6 py-3 text-lg font-semibold rounded-full text-[#d0fa44] bg-[#8d8dbb] hover:bg-[#F0FAF1] hover:text-black transition duration-300"
                 >
                   Shop Now
                 </Link>
@@ -139,7 +139,7 @@ const Hero = () => {
         ))}
       </Slider>
       {/* Button to Show Modal */}
-      <div className="bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595] ">
+      <div className="bg-[#F5F5F7] dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595] ">
         
 
 
