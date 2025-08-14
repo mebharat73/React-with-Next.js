@@ -187,12 +187,12 @@ const Products = () => {
       <div className="w-full max-w-screen-2xl mx-auto">
         {/* Header */}
         <div className="flex flex-col lg:flex-row items-center justify-between gap-y-4 mb-6">
-          <div className="w-full text-center -mt-5 md:-mt-4 lg:text-left">
+          <div className="w-full text-center -mt-2 md:-mt-4 lg:text-left">
             <h1 className="text-xl md:text-4xl font-bold text-[#1A1A1A] dark:text-white font-poppins">🪙 Sattapatta Products</h1>
             <div className="h-1 w-24 bg-[#1A1A1A] rounded mx-auto lg:mx-0" />
           </div>
 
-          <div className="-mt-2 flex flex-row items-center gap-2 w-full justify-center lg:justify-end px-2 overflow-x-auto">
+          <div className="flex flex-row items-center gap-2 w-full justify-center lg:justify-end px-2 overflow-x-auto">
   {/* View Offers Button */}
   <div className="relative">
     <Link href="/sattapatta/offers">
@@ -204,7 +204,7 @@ const Products = () => {
     </Link>
     {offerCount > 0 && (
       <motion.span
-        className="absolute -top-2 -right-2 bg-red-600 text-[#1A1A1A] text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center"
+        className="absolute top-1 -left-4 bg-red-600 text-[#1A1A1A] text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center"
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ type: 'spring', stiffness: 300, damping: 10 }}
@@ -234,7 +234,7 @@ const Products = () => {
             products.slice(0, visibleCount).map((product) => (
               <div
                 key={product._id}
-                className={`bg-gradient-to-tl py-[1vw] px-[1vw] rounded-xl border-2 border-[#D1D1D1] shadow-lg transform transition-all duration-300 relative flex flex-col gap-3 dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e] ${
+                className={`bg-gradient-to-b from-[#F5F5F7] to-[#d3e1ef] py-[1vw] px-[1vw] rounded-xl border-2 border-[#D1D1D1] shadow-lg transform transition-all duration-300 relative flex flex-col gap-3 dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e] ${
                   inExchangeItemIds.has(product._id)
                     ? 'pointer-events-none opacity-70'
                     : 'hover:shadow-xl hover:scale-105 cursor-pointer'
@@ -277,7 +277,7 @@ const Products = () => {
   )}
 
   {/* Title marquee */}
-  <div className="mb-1 border border-[#D1D1D1] bg-[#F5F5F7] text-[#1A1A1A] dark:text-[#ecf074] font-bold rounded-lg overflow-hidden dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e]">
+  <div className="mb-1 border border-[#D1D1D1] bg-gradient-to-b from-[#F5F5F7] to-[#97bee7] text-[#1A1A1A] dark:text-[#ecf074] font-bold rounded-lg overflow-hidden dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e]">
     <motion.div
       className="w-auto whitespace-nowrap overflow-hidden md:w-40"
       animate={{ x: ['100%', '-100%'] }}
@@ -300,7 +300,7 @@ const Products = () => {
     src={`${product.imageUrls?.[0]}?v=${new Date(product.updatedAt).getTime()}`}
     width={500}
     height={500}
-    className="h-28 md:h-36 bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] rounded-2xl border-y-2 border-dashed border-[#8b2fa2] object-fill dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e]"
+    className="h-28 md:h-36 bg-gradient-to-b from-[#F5F5F7] to-[#97bee7] rounded-2xl border-y-2 border-dashed border-[#8b2fa2] object-fill dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e]"
   />
 
   {/* Description + More details */}
@@ -308,7 +308,7 @@ const Products = () => {
     {product.description ? product.description.slice(0, 30) : ''}
     <Link
       href={`/sattapatta/${product._id}`}
-      className="text-[#1A1A1A] dark:text-[#673075] font-semibold underline hover:text-[#8b2fa2] ml-1"
+      className="text-[#af94e7] dark:text-[#673075] font-semibold underline hover:text-[#7fa0f5] ml-1"
     >
       More details
     </Link>
@@ -332,7 +332,7 @@ const Products = () => {
       <span className="text-base font-bold font-serif text-[#84a123] dark:text-[#58ee71] pr-1">
         Rs
       </span>
-      <span className="text-[#68217A] font-bold">{product.estimatedValue}</span>
+      <span className="text-[#1A1A1A] font-bold">{product.estimatedValue}</span>
     </p>
   </div>
 
@@ -400,7 +400,7 @@ const Products = () => {
           {visibleCount < products.length && (
             <button
               onClick={handleLoadMore}
-              className="px-3 py-0 md:px-6 md:py-1 bg-[#68217A] text-white rounded-full hover:bg-[#8b2fa2] transition-all"
+              className="px-3 py-0 md:px-6 md:py-1 bg-[#007BFF] text-white rounded-full hover:bg-[#0056D2] transition-all"
             >
               Load More
             </button>
@@ -456,7 +456,7 @@ const Products = () => {
           <div className="text-center mt-6">
             <button
               onClick={handleNewExchange}
-              className="px-6 py-2 bg-[#68217A] text-white rounded-full hover:bg-[#8b2fa2] transition-all"
+              className="px-6 py-2 bg-[#F5F5F7] text-[#1A1A1A] rounded-full hover:bg-[#b9b9c4] transition-all"
             >
               🔁 Start New Exchange
             </button>

@@ -96,8 +96,8 @@ const ReceivedOffers = () => {
   }
 
   return (
-   <div className="mb-6 p-4 bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e] rounded shadow">
-  <h2 className="text-xl font-bold text-[#68217A] dark:text-white mb-4">Exchange Offers</h2>
+   <div className="mb-6 p-4 bg-gradient-to-b from-[#F5F5F7] to-[#c0d1e2] dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e] rounded shadow">
+  <h2 className="text-xl font-bold text-[#1A1A1A] dark:text-white mb-4">Exchange Offers</h2>
 
   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 justify-items-center">
     {offers.map(offer => {
@@ -107,7 +107,7 @@ const ReceivedOffers = () => {
       return (
         <div
           key={offer._id}
-          className="w-full max-w-sm bg-gradient-to-tl from-[#8e912d] to-[#dd53ff] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0] text-sm text-black dark:text-white rounded-lg shadow p-4 hover:shadow-md transition"
+          className="w-full max-w-sm bg-gradient-to-tl from-[#F5F5F7] to-[#c0d1e2] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0] text-sm text-black dark:text-white rounded-lg shadow p-3 hover:shadow-md transition"
         >
           {/* Image Section */}
           <div className="flex justify-center gap-3 mb-3">
@@ -117,16 +117,16 @@ const ReceivedOffers = () => {
                 alt="Requested Item"
                 className="w-24 h-24 object-cover rounded-md border dark:border-gray-600"
               />
-              <p className="text-sm font-semibold text-[#f2f75d] dark:text-gray-300 mt-1">Requested</p>
+              <p className="text-sm font-semibold text-[#1A1A1A] dark:text-gray-300 mt-1">Requested</p>
             </div>
-            <span className="text-gray-400 dark:text-gray-300 text-xl self-center">⇄</span>
+            <span className="text-[#262fda] dark:text-gray-300 text-xl self-center">⇄</span>
             <div className="flex flex-col items-center">
               <img
                 src={offer.requestedItemImage || '/placeholder.jpg'}
                 alt="Proposed Item"
                 className="w-24 h-24 object-cover rounded-md border dark:border-gray-600"
               />
-              <p className="text-sm font-semibold text-[#6a1f7b] dark:text-gray-300 mt-1">Offered</p>
+              <p className="text-sm font-semibold text-[#1e2ad2] dark:text-gray-300 mt-1">Offered</p>
             </div>
           </div>
 
@@ -134,7 +134,7 @@ const ReceivedOffers = () => {
           <div>
             <div className="mb-2">
               {isRequester && offer.status === 'pending' && (
-                <span className="text-[#541a61] font-semibold dark:text-blue-400 text-xs">You made this offer</span>
+                <span className="text-[#541a61] font-poppins-bold dark:text-blue-400 text-xs">You made this offer</span>
               )}
               {isOfferedItemOwner && offer.status === 'pending' && (
                 <span className="text-green-600 dark:text-green-400 text-xs">Offer on your item</span>

@@ -105,8 +105,8 @@ const ProductDetailExchangeForm = React.forwardRef(
         dragElastic={0.15}
         dragMomentum={false}
       >
-        <div className="p-2 -mt-2 rounded-2xl shadow-2xl border-2 border-[#656dff] bg-gradient-to-tl from-[#8e912d] to-[#dd53ff] dark:from-[#2c2c2f] dark:to-[#4a2e58]">
-          <div className="border-4 border-double border-[#d8fd72] rounded-xl p-4 bg-gradient-to-br from-[#C3EF38] to-[#f37dff] dark:from-[#434d2b] dark:to-[#6a3e74]">
+        <div className="p-2 -mt-2 rounded-2xl shadow-2xl border-2 border-[#656dff] bg-gradient-to-b from-[#F5F5F7] to-[#97bee7] dark:from-[#2c2c2f] dark:to-[#4a2e58]">
+          <div className="border-4 border-double border-[#D1D1D1] rounded-xl p-4 bg-gradient-to-b from-[#F5F5F7] to-[#97bee7] dark:from-[#434d2b] dark:to-[#6a3e74]">
             {!isFormSubmitted ? (
               <form
                 onSubmit={handleExchangeSubmit}
@@ -116,7 +116,7 @@ const ProductDetailExchangeForm = React.forwardRef(
                 {!selectedExchangeProduct && (
                   <h2
                     id="exchange-form-heading"
-                    className="-mt-2 text-2xl font-extrabold text-center text-[#68217A] dark:text-[#f3d3ff] w-full md:hidden lg:hidden"
+                    className="-mt-2 text-2xl font-extrabold text-center text-[#1A1A1A] dark:text-[#f3d3ff] w-full md:hidden lg:hidden"
                   >
                     ✨ Start Exchange
                   </h2>
@@ -129,12 +129,12 @@ const ProductDetailExchangeForm = React.forwardRef(
                     product ? (
                       <div
                         key={idx}
-                        className="flex flex-col items-center bg-white/70 dark:bg-[#2e2e31] p-2 rounded-xl shadow-md border-2 border-[#68217A] w-[140px] sm:w-[160px] md:w-[180px]"
+                        className="flex flex-col items-center bg-white/70 dark:bg-[#2e2e31] p-2 rounded-xl shadow-md border-2 border-[#D1D1D1] w-[140px] sm:w-[160px] md:w-[180px]"
                       >
-                        <p className="text-sm font-semibold text-[#500b57] dark:text-purple-200 text-center mb-1">
+                        <p className="text-sm font-semibold text-[#1A1A1A] dark:text-purple-200 text-center mb-1">
                           {idx === 0 ? 'Yours Product' : 'Exchange Product'}
                         </p>
-                        <div className="aspect-square w-full max-w-[120px] sm:max-w-[140px] bg-white dark:bg-[#1e1e20] rounded-md overflow-hidden flex justify-center items-center">
+                        <div className="aspect-square w-full max-w-[120px] sm:max-w-[140px] bg-[#F5F5F7] dark:bg-[#1e1e20] rounded-md overflow-hidden flex justify-center items-center">
                           <Image
                             src={product.imageUrls?.[0] || '/placeholder.jpg'}
                             alt={product.title || 'Product image'}
@@ -145,10 +145,10 @@ const ProductDetailExchangeForm = React.forwardRef(
                         </div>
 
 
-                        <p className="mt-2 text-xs font-medium text-center text-[#68217A] dark:text-purple-200 truncate">
+                        <p className="mt-2 text-xs font-medium text-center text-[#1A1A1A] dark:text-purple-200 truncate">
                           {product.title}
                         </p>
-                        <p className="text-sm font-bold text-[#3e125a] dark:text-green-300">
+                        <p className="text-sm font-bold text-[#1A1A1A] dark:text-green-300">
                           💰 Rs{product.estimatedValue}
                         </p>
                       </div>
@@ -159,7 +159,7 @@ const ProductDetailExchangeForm = React.forwardRef(
                 {/* Form Inputs */}
                 <div className="flex flex-col gap-2 w-full max-w-[480px]">
 
-                  <label htmlFor="exchange-product-select" className="text-sm font-medium text-[#333] dark:text-gray-300">
+                  <label htmlFor="exchange-product-select" className="text-sm font-medium text-[#1A1A1A] dark:text-gray-300">
                     Select your exchange product
                   </label>
                   <select
@@ -169,7 +169,7 @@ const ProductDetailExchangeForm = React.forwardRef(
                       const selected = products.find((p) => p._id === e.target.value);
                       setSelectedExchangeProduct(selected);
                     }}
-                    className="w-full px-4 py-1 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-[#2a2a2d] text-[#333] dark:text-gray-200 focus:ring-2 focus:ring-[#68217A]"
+                    className="w-full px-4 py-1 rounded-lg border border-[#D1D1D1] dark:border-gray-600 bg-[#F5F5F7] dark:bg-[#2a2a2d] text-[#333] dark:text-gray-200 focus:ring-2 focus:ring-[#68217A]"
                     aria-required="true"
                   >
                     <option value="" disabled>
@@ -197,7 +197,7 @@ const ProductDetailExchangeForm = React.forwardRef(
 
                   <button
                     type="submit"
-                    className="mt-2 px-6 py-2 bg-[#f5e72a] text-[#051206] font-semibold rounded-full hover:bg-[#8b2fa2] transition-transform duration-300 hover:scale-105 disabled:opacity-50"
+                    className="mt-2 px-6 py-2 bg-[#007BFF] text-[#051206] font-semibold rounded-full hover:bg-[#0056D2] transition-transform duration-300 hover:scale-105 disabled:opacity-50"
                     disabled={!selectedExchangeProduct}
                   >
                     🔁 Confirm Exchange
@@ -206,10 +206,10 @@ const ProductDetailExchangeForm = React.forwardRef(
               </form>
             ) : (
               <div className="text-center" role="alert" aria-live="polite">
-                <h3 className="text-xl md:text-2xl text-[#68217A] dark:text-[#f3d3ff] font-semibold mb-2">
+                <h3 className="text-xl md:text-2xl text-[#1A1A1A] dark:text-[#f3d3ff] font-semibold mb-2">
                   ✅ Exchange Confirmed!
                 </h3>
-                <ol className="text-left text-sm text-[#333] dark:text-gray-200 bg-white/60 dark:bg-white/10 p-4 rounded-xl border border-[#68217A] list-decimal space-y-2 pl-8 marker:font-bold marker:text-[#68217A]">
+                <ol className="text-left text-sm text-[#1A1A1A] dark:text-gray-200 bg-white/60 dark:bg-white/10 p-4 rounded-xl border border-[#D1D1D1] list-decimal space-y-2 pl-8 marker:font-bold marker:text-[#1A1A1A]">
                   <li>Order confirmed. Check “View Received Offers”.</li>
                   <li>Delete or wait for owner response.</li>
                   <li>On response, view contact details.</li>
@@ -219,7 +219,7 @@ const ProductDetailExchangeForm = React.forwardRef(
 
                 <button
                   onClick={resetForm}
-                  className="mt-4 w-full px-4 py-1 bg-[#68217A] text-white font-semibold rounded-full hover:bg-[#8b2fa2]"
+                  className="mt-4 w-full px-4 py-1 bg-[#F5F5F7] text-[#1A1A1A] font-semibold rounded-full hover:bg-[#aba0ae]"
                 >
                   ➕ Start Another Exchange
                 </button>

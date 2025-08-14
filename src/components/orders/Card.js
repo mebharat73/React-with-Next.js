@@ -6,14 +6,14 @@ import { motion } from "framer-motion";
 function OrdersCard({ order, status }) {
   return (
     <motion.div
-      className="border-4 rounded-3xl border-[#8b2fa2] border-double my-5 bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e]"
+      className="border-4 rounded-3xl border-[#D1D1D1] border-double my-5 bg-gradient-to-b from-[#F5F5F7] to-[#d3e1ef] dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e]"
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, type: "spring", stiffness: 300 }}
     >
-      <div className="lg:px-10 py-0 rounded-full flex items-center justify-between m-6 bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]">
+      <div className="lg:px-10 py-0 rounded-full flex items-center justify-between m-6 bg-gradient-to-b from-[#F5F5F7] to-[#d3e1ef] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]">
         <div>
-          <p className="text-[#68217A] font-extrabold dark:text-gray-200 text-sm">OrderId</p>
+          <p className="text-[#1A1A1A] font-extrabold dark:text-gray-200 text-sm">OrderId</p>
           <h5 className="font-semibold dark:text-white">#{order.id}</h5>
         </div>
         <motion.span
@@ -44,7 +44,7 @@ function OrdersCard({ order, status }) {
           return (
             <motion.div
               key={index}
-              className="grid grid-cols-[auto,1fr] gap-5 py-3 px-5 rounded-2xl border-2 border-[#84a123] border-dashed dark:text-white bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]"
+              className="grid grid-cols-[auto,1fr] gap-5 py-3 px-5 rounded-2xl border-2 border-[#D1D1D1] border-dashed dark:text-white bg-gradient-to-b from-[#F5F5F7] to-[#8aaacb] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]"
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
@@ -56,12 +56,12 @@ function OrdersCard({ order, status }) {
                 className="h-24 w-auto rounded-lg transition hover:scale-125"
               />
               <div>
-                <h5 className="font-serif text-[#68217A] font-semibold text-xl">{item.product.name}</h5>
-                <p className="text-base font-extrabold font-serif text-[#8b2fa2]">
+                <h5 className="font-serif text-[#1A1A1A] font-semibold text-xl">{item.product.name}</h5>
+                <p className="text-base font-extrabold font-serif text-[#1A1A1A]">
                   Brand:
                   <span className="font-semibold ml-2">{item.product.brand}</span>
                 </p>
-                <p className="text-sm font-extrabold text-gray-900 dark:text-gray-100">
+                <p className="text-sm font-extrabold text-[#1A1A1A] dark:text-gray-100">
                   ${Math.floor(item.product.price * 0.9)}
                 </p>
                 <p>Quantity: {item.quantity}</p>
@@ -71,10 +71,10 @@ function OrdersCard({ order, status }) {
         })}
       </div>
 
-      <div className="bg-[#84a123] dark:bg-slate-800 dark:text-white rounded-b-2xl py-2 px-5 flex justify-between items-center">
-        <p className="text-[#68217A] font-extrabold">
+      <div className="bg-[#F5F5F7] dark:bg-slate-800 dark:text-white rounded-b-2xl py-2 px-5 flex justify-between items-center">
+        <p className="text-[#1A1A1A] font-extrabold">
           Total price:
-          <span className="font-bold ml-4 text-[#d0fa44]">${order.totalPrice}</span>
+          <span className="font-bold ml-4 text-[#1A1A1A]">${order.totalPrice}</span>
         </p>
         <div className={status === ORDER_PENDING ? "block" : "hidden"}>
           <ConfirmOrder order={order} />

@@ -43,7 +43,7 @@ function ConfirmOrder({ order }) {
   return (
     <>
       <button
-        className={`font-serif font-extrabold rounded-2xl bg-[#68217A] px-4 py-1 text-[#d0fa44] hover:bg-[#8b2fa2] hover:text-white shadow`}
+        className={`font-serif font-extrabold rounded-2xl bg-[#007BFF] px-4 py-1 text-[#1A1A1A] hover:bg-[#0056D2] hover:text-white shadow`}
         onClick={onClickConfirm}
       >
         Confirm Order
@@ -59,7 +59,7 @@ function ConfirmOrder({ order }) {
           </div>
         ) : (
           <>
-            <p className="py-5 text-left text-[#68217A] font-serif font-semibold">
+            <p className="py-5 text-left text-[#1A1A1A] font-serif font-semibold">
               Are you sure you want to confirm this order?
             </p>
 

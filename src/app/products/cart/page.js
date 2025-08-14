@@ -25,7 +25,7 @@ function ProductsCart() {
 
   // Update scroll indicators
   const checkScroll = () => {
-    const el = scrollRef.current;
+    const el = scrollRef.current;[]
     if (!el) return;
     setCanScrollLeft(el.scrollLeft > 5);
     setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 5);
@@ -47,10 +47,10 @@ function ProductsCart() {
   const isMobile = typeof window !== "undefined" && window.innerWidth < 640;
 
   return (
-  <div className="min-h-screen bg-from-[#fdffc0] to-[#f1d2f9] dark:bg-[#1a1a1a]">
+  <div className="min-h-screen bg-[#F5F5F7] dark:bg-[#1a1a1a]">
       <div className="px-[4vw] sm:px-[6vw] md:px-[8vw] lg:px-[10vw] py-[3vh] max-w-screen-xl mx-auto">
       <motion.div
-        className="bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] rounded-3xl border-4 border-[#C3EF38] border-double shadow-2xl dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e]"
+        className="bg-gradient-to-br from-[#F5F5F7] to-[#d3e1ef] rounded-3xl border-4 border-[#D1D1D1] border-double shadow-2xl dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e]"
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: isMobile ? 0.4 : 0.8 }}
@@ -58,7 +58,7 @@ function ProductsCart() {
       >
         <div className="flex flex-col sm:flex-row justify-between items-center">
           <motion.h2
-            className="mt-[3vh] mb-[2vh] sm:mb-[1vh] px-[2vw] font-serif text-center sm:text-left text-[6vw] sm:text-3xl font-bold text-[#8b2fa2] dark:text-white"
+            className="mt-[3vh] mb-[2vh] sm:mb-[1vh] px-[2vw] font-serif text-center sm:text-left text-[6vw] sm:text-3xl font-bold text-[#1A1A1A] dark:text-white"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: isMobile ? 0.4 : 1 }}
@@ -67,7 +67,7 @@ function ProductsCart() {
           </motion.h2>
 
           <motion.button
-            className="bg-[#8b2fa2] text-white hover:text-[#C3EF38] h-[4vh] px-[3vw] sm:px-[1.5rem] sm:mt-8 rounded-lg hover:bg-[#68217A] transition-colors"
+            className="bg-[#007BFF] mr-2 text-[#1A1A1A] hover:text-[#fafbfc] h-[4vh] px-[3vw] sm:px-[1.5rem] sm:mt-8 rounded-lg hover:bg-[#0056D2] transition-colors"
             onClick={() => router.back()}
             whileTap={{ scale: isMobile ? 0.95 : 0.9 }}
           >
@@ -78,7 +78,7 @@ function ProductsCart() {
         {/* TABLE VIEW FOR md+ */}
         <motion.div
           ref={scrollRef}
-          className="hidden sm:block p-[3vw] md:py-[3vh] overflow-x-auto shadow-lg bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] dark:bg-gray-800 rounded-xl border-2 border-[#84a123] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0] relative"
+          className="hidden sm:block p-[3vw] md:py-[3vh] overflow-x-auto shadow-lg bg-gradient-to-br from-[#F5F5F7] to-[#d3e1ef] dark:bg-gray-800 rounded-xl border-2 border-[#84a123] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0] relative"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: isMobile ? 0.4 : 1 }}
@@ -86,16 +86,16 @@ function ProductsCart() {
         >
           {/* Left shadow indicator */}
           {canScrollLeft && (
-            <div className="pointer-events-none absolute top-0 left-0 h-full w-6 bg-gradient-to-r from-[#68217A]/70 to-transparent z-10" />
+            <div className="pointer-events-none absolute top-0 left-0 h-full w-6 bg-gradient-to-br from-[#F5F5F7] to-[#d3e1ef] z-10" />
           )}
           {/* Right shadow indicator */}
           {canScrollRight && (
-            <div className="pointer-events-none absolute top-0 right-0 h-full w-6 bg-gradient-to-l from-[#68217A]/70 to-transparent z-10" />
+            <div className="pointer-events-none absolute top-0 right-0 h-full w-6bg-gradient-to-br from-[#F5F5F7] to-[#d3e1ef] z-10" />
           )}
 
           <table className="min-w-[600px] w-full border-2 rounded-2xl dark:text-white text-[3.5vw] sm:text-base">
             <thead>
-              <tr className="rounded-2xl border-b-2 border-[#8b2fa2] bg-[#f0b8ff] dark:bg-gray-700">
+              <tr className="rounded-2xl border-b-2 border-[#D1D1D1] bg-[#F5F5F7] dark:bg-gray-700">
                 <th className="p-[1vw] text-left">S.N</th>
                 <th colSpan={2} className="p-[1vw] text-left">
                   Product Name
@@ -145,17 +145,17 @@ function ProductsCart() {
                         </motion.div>
                         <Link
                           href={`${PRODUCTS_ROUTE}/${product.id}`}
-                          className="font-semibold text-[#68217A] hover:text-[#8b2fa2] capitalize dark:text-primary-200 hover:underline text-[4vw] sm:text-base"
+                          className="font-semibold text-[#1A1A1A] hover:text-[#6C757D] capitalize dark:text-primary-200 hover:underline text-[4vw] sm:text-base"
                         >
                           {product.name}
                         </Link>
                       </div>
                     </td>
-                    <td className="p-[1vw] text-center">Rs{product.price}</td>
+                    <td className="p-[1vw] text-center">Rs {product.price}</td>
                     <td className="p-[1vw] text-center">
                       <div className="flex items-center justify-center space-x-[3vw] sm:space-x-3">
                         <motion.button
-                          className="px-[2vw] py-[1vw] bg-[#68217A] rounded-full text-white hover:bg-[#8b2fa2] border-2 border-[#6f8622]"
+                          className="px-[1vw] py-[0.5vw] bg-[#007BFF] rounded-full text-[#1A1A1A] hover:bg-[#0056D2] border-2 border-[#D1D1D1]"
                           onClick={() => dispatch(decreaseQuantity(product))}
                           disabled={product.quantity <= 1}
                           whileTap={{ scale: 0.9 }}
@@ -166,7 +166,7 @@ function ProductsCart() {
                           {product.quantity}
                         </span>
                         <motion.button
-                          className="px-[2vw] py-[1vw] bg-[#C3EF38] rounded-full text-gray-700 hover:bg-[#d0fa44] border-2 border-[#68217A]"
+                          className="px-[1vw] py-[0.5vw] bg-[#007BFF] rounded-full text-[#1A1A1A] hover:bg-[#0056D2] border-2 border-[#D1D1D1]"
                           onClick={() => dispatch(increaseQuantity(product))}
                           disabled={product.quantity >= 5}
                           whileTap={{ scale: 0.9 }}
@@ -192,10 +192,10 @@ function ProductsCart() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.5 }}
-                  className="border-t-4 border-[#68217A]"
+                  className="border-t-4 border-[#D1D1D1]"
                 >
                   <td colSpan={4}></td>
-                  <td className="font-serif font-extrabold text-[4vw] sm:text-lg text-[#68217A]">
+                  <td className="font-serif font-extrabold text-[4vw] sm:text-lg text-[#1A1A1A]">
                     Sub total:
                   </td>
                   <td className="text-[4vw] sm:text-lg font-bold">Rs{totalPrice}</td>
@@ -206,13 +206,13 @@ function ProductsCart() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.5 }}
-                  className="border-1 border-[#68217A]"
+                  className="border-1 border-[#D1D1D1]"
                 >
                   <td colSpan={4}></td>
-                  <td className="font-serif font-extrabold text-[4vw] sm:text-lg text-[#68217A]">
+                  <td className="font-serif font-extrabold text-[4vw] sm:text-lg text-[#1A1A1A]">
                     Discount:
                   </td>
-                  <td className="text-[4vw] sm:text-lg text-[#d0fa44]">
+                  <td className="text-[4vw] sm:text-lg text-[#1A1A1A]">
                     Rs{Math.floor(totalPrice * 0.1)}
                   </td>
                   <td></td>
@@ -222,10 +222,10 @@ function ProductsCart() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.5 }}
-                  className="border-b-4 border-[#68217A]"
+                  className="border-b-4 border-[#D1D1D1]"
                 >
                   <td colSpan={4}></td>
-                  <td className="font-serif font-extrabold text-[5vw] sm:text-xl text-[#68217A]">
+                  <td className="font-serif font-extrabold text-[5vw] sm:text-xl text-[#1A1A1A]">
                     Grand total:
                   </td>
                   <td className="text-[5vw] sm:text-xl font-bold text-green-500">
@@ -241,14 +241,14 @@ function ProductsCart() {
         {/* STACKED MOBILE VIEW */}
         <div className="sm:hidden mt-4 space-y-4">
           {products.length === 0 ? (
-            <div className="text-center text-lg font-semibold text-gray-500 dark:text-white h-[6vh] flex items-center justify-center">
+            <div className="text-center text-lg font-semibold text-[#1A1A1A] dark:text-white h-[6vh] flex items-center justify-center">
               Cart is empty
             </div>
           ) : (
             products.map((product, index) => (
               <motion.div
                 key={product.id || index}
-                className="bg-[#fff5ff] dark:bg-gray-800 rounded-xl border-2 border-[#68217A] p-4 shadow-md"
+                className="bg-[#F5F5F7] dark:bg-gray-800 rounded-xl border-2 border-[#D1D1D1] p-4 shadow-md"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1, duration: 0.5 }}
@@ -265,21 +265,21 @@ function ProductsCart() {
                   <div className="flex flex-col flex-grow">
                     <Link
                       href={`${PRODUCTS_ROUTE}/${product.id}`}
-                      className="font-semibold text-[#68217A] hover:text-[#8b2fa2] capitalize dark:text-primary-200 hover:underline text-lg"
+                      className="font-semibold text-[#1A1A1A] hover:text-[#6C757D] capitalize dark:text-primary-200 hover:underline text-lg"
                     >
                       {product.name}
                     </Link>
-                    <div className="mt-1 text-sm text-gray-600 dark:text-gray-300">
+                    <div className="mt-1 text-sm text-[#1A1A1A] dark:text-gray-300">
                       Price: <span className="font-bold">Rs{product.price}</span>
                     </div>
-                    <div className="mt-1 text-sm text-gray-600 dark:text-gray-300">
+                    <div className="mt-1 text-sm text-[#1A1A1A] dark:text-gray-300">
                       Total:{" "}
                       <span className="font-bold">Rs{product.price * product.quantity}</span>
                     </div>
 
                     <div className="flex items-center mt-2 space-x-4">
                       <motion.button
-                        className="px-3 py-1 bg-[#68217A] rounded-full text-white hover:bg-[#8b2fa2] border-2 border-[#6f8622]"
+                        className="px-3 py-1 bg-[#007BFF] rounded-full text-[#1A1A1A] hover:bg-[#0056D2] border-2 border-[#D1D1D1]"
                         onClick={() => dispatch(decreaseQuantity(product))}
                         disabled={product.quantity <= 1}
                         whileTap={{ scale: 0.9 }}
@@ -288,7 +288,7 @@ function ProductsCart() {
                       </motion.button>
                       <span className="text-lg font-bold">{product.quantity}</span>
                       <motion.button
-                        className="px-3 py-1 bg-[#C3EF38] rounded-full text-gray-700 hover:bg-[#d0fa44] border-2 border-[#68217A]"
+                        className="px-3 py-1 bg-[#007BFF] rounded-full text-gray-700 hover:bg-[#0056D2] border-2 border-[#D1D1D1]"
                         onClick={() => dispatch(increaseQuantity(product))}
                         disabled={product.quantity >= 5}
                         whileTap={{ scale: 0.9 }}

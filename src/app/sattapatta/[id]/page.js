@@ -17,7 +17,7 @@ export default async function SattapattaItemPage(props) {
   const item = await getSattapattaItemById(id);
 
   return (
-    <div className="min-h-screen px-10 flex flex-col lg:flex-row justify-around bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] dark:bg-gradient-to-br dark:from-[#1f1f1f] dark:to-[#4b4b4b]">
+    <div className="min-h-screen px-10 flex flex-col lg:flex-row justify-around bg-gradient-to-b from-[#F5F5F7] to-[#97bee7] dark:bg-gradient-to-br dark:from-[#1f1f1f] dark:to-[#4b4b4b]">
 
 
       {/* Left Column: Image */}

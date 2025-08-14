@@ -28,7 +28,7 @@ function Modal({ title, children, show = false, setShow }) {
     <AnimatePresence>
       <motion.div
         key="backdrop"
-        className="fixed inset-0 z-50 flex items-center justify-center bg-[#e382fb]/50 dark:bg-gray-800/50 px-4"
+        className="fixed inset-0 z-50 flex items-center justify-center bg-[[#e382fb]/50] dark:bg-gray-800/50 px-4"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}

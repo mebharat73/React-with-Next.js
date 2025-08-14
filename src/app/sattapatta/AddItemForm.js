@@ -251,15 +251,15 @@ const AddItemForm = ({ product = null, setAddItemFormVisibility, setProducts }) 
             <button
               type="button"
               onClick={() => setAddItemFormVisibility(false)}
-              className="px-2 py-1 rounded-md bg-gray-300 hover:bg-gray-400 text-black font-semibold dark:bg-gray-600 dark:text-white dark:hover:bg-gray-700"
+              className="px-2 rounded-md bg-gray-300 hover:bg-gray-400 text-black font-semibold dark:bg-gray-600 dark:text-white dark:hover:bg-gray-700"
             >
               Cancel
             </button>
             <button
   type="submit"
   disabled={isSubmitting}
-  className={`px-4 py-2 rounded-md font-semibold text-white flex items-center justify-center gap-2
-              ${isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#68217A] hover:bg-[#8b2fa2]'}`}
+  className={`px-2 py-1 rounded-md font-semibold text-white flex items-center justify-center gap-2
+              ${isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#007BFF] hover:bg-[#0056D2]'}`}
 >
   {isSubmitting ? (
     <>
