@@ -70,13 +70,13 @@ function CheckoutProducts({ disabled }) {
 
         <div className="flex items-center justify-between pt-2">
           <button
-            className="px-5 py-2 bg-red-500 hover:bg-red-700 text-white rounded"
+            className="px-5 py-1 bg-red-500 hover:bg-red-700 text-white rounded"
             onClick={() => setShowCheckoutPopup(false)}
           >
             Cancel
           </button>
           <button
-            className="px-5 py-2 bg-green-700 hover:bg-green-800 text-white rounded"
+            className="px-5 py-1 bg-green-700 hover:bg-green-800 text-white rounded"
             onClick={confirmCheckoutProduct}
           >
             Checkout

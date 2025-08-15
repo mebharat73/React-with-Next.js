@@ -20,14 +20,14 @@ function ZoomImage({ url, zoom = false, setZoom }) {
         className="absolute top-4 right-4 text-white hover:scale-110 transition"
         onClick={() => setZoom(false)}
       >
-        <RxCross2 className="h-8 w-8 bg-gradient-to-tl from-[#C3EF38] to-[#dd53ff] rounded-full border-2 border-[#68217A] p-1" />
+        <RxCross2 className="h-8 w-8 bg-[#F5F5F7] text-red-700 rounded-full border-2 border-[#D1D1D1] p-1" />
       </button>
       <Image
         src={url}
         alt="Zoomed product image"
         width={1000}
         height={1000}
-        className="max-w-[90vw] max-h-[90vh] rounded-3xl border-4 border-[#84a123] bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] p-4 object-contain"
+        className="max-w-[90vw] max-h-[85vh] rounded-3xl border-4 border-[#D1D1D1] bg-gradient-to-b from-[#F5F5F7] to-[#97bee7] p-4 object-contain"
       />
     </motion.div>
   );
@@ -71,18 +71,19 @@ function ProductImageViewer({ product }) {
       />
 
       {/* Main Image with Arrows */}
-      <div className="relative w-[350px] h-[350px] md:w-[400px] md:h-[400px] bg-white rounded-3xl shadow-md border-4 border-[#C3EF38] overflow-hidden">
+      <div className="relative w-full max-w-[350px] sm:max-w-[90vw] aspect-square bg-[#F5F5F7] rounded-3xl shadow-md border-4 border-[#D1D1D1] overflow-hidden">
+
         {/* Arrows */}
         <button
           onClick={prevImage}
-          className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-[#68217A] text-white p-2 rounded-full hover:scale-110 transition"
+          className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-[#007BFF] text-white p-2 rounded-full hover:scale-110 transition"
         >
           <FaArrowLeft />
         </button>
 
         <button
           onClick={nextImage}
-          className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-[#68217A] text-white p-2 rounded-full hover:scale-110 transition"
+          className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-[#007BFF] text-white p-2 rounded-full hover:scale-110 transition"
         >
           <FaArrowRight />
         </button>

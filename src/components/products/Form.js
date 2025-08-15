@@ -94,7 +94,7 @@ const [existingImageUrls, setExistingImageUrls] = useState(product?.imageUrls ||
       <div className="container mx-auto px-4 py-8">
         <motion.form
           onSubmit={handleSubmit(submitForm)}
-          className="w-full -mt-6 max-w-4xl mx-auto p-6 sm:p-8 shadow-xl rounded-2xl bg-gradient-to-br from-[#fdffc0] to-[#f1d2f9] dark:from-[#504e4e] dark:to-[#b4b0b0]"
+          className="w-full -mt-6 max-w-4xl mx-auto p-6 sm:p-8 shadow-xl rounded-2xl bg-gradient-to-br from-[#F5F5F7] to-[#97bee7] dark:from-[#504e4e] dark:to-[#b4b0b0]"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -103,7 +103,7 @@ const [existingImageUrls, setExistingImageUrls] = useState(product?.imageUrls ||
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Product Name */}
             <div>
-              <label htmlFor="name" className="-mt-2 block text-sm font-semibold text-[#8b2fa2] dark:text-white">
+              <label htmlFor="name" className="-mt-2 block text-sm font-semibold text-[#1A1A1A] dark:text-white">
                 Product Name
               </label>
               <input
@@ -117,7 +117,7 @@ const [existingImageUrls, setExistingImageUrls] = useState(product?.imageUrls ||
 
             {/* Brand */}
             <div>
-              <label htmlFor="brand" className="-mt-2 block text-sm font-semibold text-[#8b2fa2] dark:text-white">
+              <label htmlFor="brand" className="-mt-2 block text-sm font-semibold text-[#1A1A1A] dark:text-white">
                 Brand
               </label>
               <input
@@ -130,7 +130,7 @@ const [existingImageUrls, setExistingImageUrls] = useState(product?.imageUrls ||
 
             {/* Category */}
             <div>
-              <label htmlFor="category" className="-mt-3 block text-sm font-semibold text-[#8b2fa2] dark:text-white">
+              <label htmlFor="category" className="-mt-3 block text-sm font-semibold text-[#1A1A1A] dark:text-white">
                 Category
               </label>
               <input
@@ -143,7 +143,7 @@ const [existingImageUrls, setExistingImageUrls] = useState(product?.imageUrls ||
 
             {/* Price */}
             <div>
-              <label htmlFor="price" className="-mt-3 block text-sm font-semibold text-[#8b2fa2] dark:text-white">
+              <label htmlFor="price" className="-mt-3 block text-sm font-semibold text-[#1A1A1A] dark:text-white">
                 Price
               </label>
               <input
@@ -160,7 +160,7 @@ const [existingImageUrls, setExistingImageUrls] = useState(product?.imageUrls ||
 
             {/* Stock */}
             <div>
-              <label htmlFor="stock" className="-mt-3 block text-sm font-semibold text-[#8b2fa2] dark:text-white">
+              <label htmlFor="stock" className="-mt-3 block text-sm font-semibold text-[#1A1A1A] dark:text-white">
                 Stock
               </label>
               <input
@@ -176,7 +176,7 @@ const [existingImageUrls, setExistingImageUrls] = useState(product?.imageUrls ||
 
             {/* Description (Full width) */}
             <div className="md:col-span-2">
-              <label htmlFor="description" className="-mt-3 block text-sm font-semibold text-[#8b2fa2] dark:text-white">
+              <label htmlFor="description" className="-mt-3 block text-sm font-semibold text-[#1A1A1A] dark:text-white">
                 Description
               </label>
               <textarea
@@ -189,7 +189,7 @@ const [existingImageUrls, setExistingImageUrls] = useState(product?.imageUrls ||
 
             {/* Images (Full width) */}
             <div className="md:col-span-2">
-              <label htmlFor="images" className="-mt-4 block text-sm font-semibold text-[#8b2fa2] dark:text-white">
+              <label htmlFor="images" className="-mt-4 block text-sm font-semibold text-[#1A1A1A] dark:text-white">
                 Images
               </label>
 
@@ -256,7 +256,7 @@ const [existingImageUrls, setExistingImageUrls] = useState(product?.imageUrls ||
                 type="submit"
                 value={loading ? "Submitting..." : isEditing ? "Edit Product" : "Add Product +"}
                 disabled={loading}
-                className="px-4 py-1 rounded-xl cursor-pointer bg-[#68217A] text-[#C3EF38] hover:bg-[#8b2fa2] hover:text-white disabled:bg-gray-400"
+                className="px-4 py-1 rounded-xl cursor-pointer bg-[#007BFF] text-[#1A1A1A] hover:bg-[#0056D2] hover:text-white disabled:bg-gray-400"
                 whileHover={{ scale: 1.05 }}
                 transition={{ type: "spring", stiffness: 200 }}
               />

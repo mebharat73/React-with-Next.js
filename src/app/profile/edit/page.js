@@ -63,18 +63,18 @@ function EditProfilePage() {
   }, [router, user]);
 
   return (
-    <div className="py-2 md:py-8 min-h-screen w-auto bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] flex items-center justify-center dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]">
+    <div className="py-2 md:py-8 min-h-screen w-auto bg-[#F5F5F7] flex items-center justify-center dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]">
       {/* Back Button */}
       <button
-        className="absolute top-20 right-5 bg-[#8b2fa2] text-white hover:text-[#C3EF38] h-6 px-3 mt-1 mr-6 rounded-lg hover:bg-[#68217A] transition-colors md:absolute md:top-16 md:right-5 animate-bounce z-10"
+        className="absolute top-20 right-5 bg-[#007BFF] text-[#1A1A1A] hover:text-white h-6 px-3 mt-1 mr-6 rounded-lg hover:bg-[#0056D2] transition-colors md:absolute md:top-16 md:right-5 animate-bounce z-10"
         onClick={() => router.back()}
       >
         Back
       </button>
 
-      <div className="-mt-12 md:-mt-2 rounded-2xl shadow-xl p-5 w-11/12 max-w-lg bg-white dark:bg-gray-800 transform transition-all duration-500 ease-in-out hover:scale-105">
+      <div className="-mt-12 md:-mt-6 rounded-2xl shadow-xl p-5 w-11/12 max-w-lg bg-gradient-to-b from-[#F5F5F7] to-[#97bee7] dark:bg-gray-800 transform transition-all duration-500 ease-in-out hover:scale-105">
         <ProfileImage className="rounded-full shadow-xl mb-2" /> {/* Profile image styling */}
-        <h2 className="p-1 text-xl md:p-2 font-serif md:text-3xl text-[#68217A] font-bold text-center mb-1">Edit Profile</h2>
+        <h2 className="p-1 text-xl md:p-2 font-serif md:text-2xl text-[#1A1A1A] font-bold text-center mb-1">Edit Profile</h2>
         <form onSubmit={handleSubmit(submitForm)} className="space-y-2 md:space-y-3 animate__animated animate__fadeIn">
           {/* Name Input */}
           <div>
@@ -84,7 +84,7 @@ function EditProfilePage() {
             <input
               type="text"
               id="name"
-              className="h-8 md:h-10 px-4 py-2 w-full border-2 bg-gradient-to-b from-[#faaae0] to-[#bacfef] focus:outline-none focus:ring-2 focus:ring-primary-500 rounded-lg text-gray-800 dark:text-white transition-all ease-in-out duration-300 transform hover:scale-105"
+              className="h-8 md:h-10 px-4 py-2 w-full border-2  bg-gradient-to-b from-[#F5F5F7] to-[#cedded] focus:outline-none focus:ring-2 focus:ring-primary-500 rounded-lg text-gray-800 dark:text-white transition-all ease-in-out duration-300 transform hover:scale-105"
               {...register("name", { required: "Name is required." })}
             />
             <p className="text-red-600 text-sm m-1">{errors.name?.message}</p>
@@ -99,7 +99,7 @@ function EditProfilePage() {
               type="text"
               id="email"
               disabled={true}
-              className="h-8 md:h-10 px-4 py-2 w-full border-2 bg-gradient-to-b from-[#faaae0] to-[#bacfef] focus:outline-none focus:ring-2 focus:ring-primary-500 rounded-lg text-gray-800 dark:text-white"
+              className="h-8 md:h-10 px-4 py-2 w-full border-2  bg-gradient-to-b from-[#F5F5F7] to-[#cedded] focus:outline-none focus:ring-2 focus:ring-primary-500 rounded-lg text-gray-800 dark:text-white"
               {...register("email", { required: "Email is required." })}
             />
             <p className="text-red-600 text-sm m-1">{errors.email?.message}</p>
@@ -115,7 +115,7 @@ function EditProfilePage() {
                 type="text"
                 id="street"
                 placeholder="Street"
-                className="h-8 md:h-10 px-4 py-2 w-full border-2 bg-gradient-to-b from-[#faaae0] to-[#bacfef] focus:outline-none focus:ring-2 focus:ring-primary-500 rounded-lg text-gray-800 dark:text-white transition-all ease-in-out duration-300 transform hover:scale-105"
+                className="h-8 md:h-10 px-4 py-2 w-full border-2  bg-gradient-to-b from-[#F5F5F7] to-[#cedded] focus:outline-none focus:ring-2 focus:ring-primary-500 rounded-lg text-gray-800 dark:text-white transition-all ease-in-out duration-300 transform hover:scale-105"
                 {...register("street", { required: "Street is required." })}
               />
               <p className="text-red-600 text-sm m-1">{errors.street?.message}</p>
@@ -126,7 +126,7 @@ function EditProfilePage() {
                   type="text"
                   id="city"
                   placeholder="City"
-                  className="h-8 md:h-10 px-4 py-2 w-full border-2 bg-gradient-to-b from-[#faaae0] to-[#bacfef] focus:outline-none focus:ring-2 focus:ring-primary-500 rounded-lg text-gray-800 dark:text-white transition-all ease-in-out duration-300 transform hover:scale-105"
+                  className="h-8 md:h-10 px-4 py-2 w-full border-2  bg-gradient-to-b from-[#F5F5F7] to-[#cedded] focus:outline-none focus:ring-2 focus:ring-primary-500 rounded-lg text-gray-800 dark:text-white transition-all ease-in-out duration-300 transform hover:scale-105"
                   {...register("city", { required: "City is required." })}
                 />
                 <p className="text-red-600 text-sm m-1">{errors.city?.message}</p>
@@ -136,7 +136,7 @@ function EditProfilePage() {
                   type="text"
                   id="province"
                   placeholder="Province"
-                  className="h-8 md:h-10 px-4 py-2 w-full border-2 bg-gradient-to-b from-[#faaae0] to-[#bacfef] focus:outline-none focus:ring-2 focus:ring-primary-500 rounded-lg text-gray-800 dark:text-white transition-all ease-in-out duration-300 transform hover:scale-105"
+                  className="h-8 md:h-10 px-4 py-2 w-full border-2  bg-gradient-to-b from-[#F5F5F7] to-[#cedded] focus:outline-none focus:ring-2 focus:ring-primary-500 rounded-lg text-gray-800 dark:text-white transition-all ease-in-out duration-300 transform hover:scale-105"
                   {...register("province", { required: "Province is required." })}
                 />
                 <p className="text-red-600 text-sm m-1">{errors.province?.message}</p>
@@ -146,7 +146,7 @@ function EditProfilePage() {
                   type="text"
                   id="country"
                   placeholder="Country"
-                  className="h-8 md:h-10 px-4 py-2 w-full border-2 bg-gradient-to-b from-[#faaae0] to-[#bacfef] focus:outline-none focus:ring-2 focus:ring-primary-500 rounded-lg text-gray-800 dark:text-white transition-all ease-in-out duration-300 transform hover:scale-105"
+                  className="h-8 md:h-10 px-4 py-2 w-full border-2  bg-gradient-to-b from-[#F5F5F7] to-[#cedded] focus:outline-none focus:ring-2 focus:ring-primary-500 rounded-lg text-gray-800 dark:text-white transition-all ease-in-out duration-300 transform hover:scale-105"
                   {...register("country", { required: "Country is required." })}
                 />
                 <p className="text-red-600 text-sm m-1">{errors.country?.message}</p>
@@ -162,7 +162,7 @@ function EditProfilePage() {
             <input
               type="text"
               id="phone"
-              className="h-8 md:h-10 px-4 py-2 w-full border-2 bg-gradient-to-b from-[#faaae0] to-[#bacfef] focus:outline-none focus:ring-2 focus:ring-primary-500 rounded-lg text-gray-800 dark:text-white transition-all ease-in-out duration-300 transform hover:scale-105"
+              className="h-8 md:h-10 px-4 py-2 w-full border-2  bg-gradient-to-b from-[#F5F5F7] to-[#cedded] focus:outline-none focus:ring-2 focus:ring-primary-500 rounded-lg text-gray-800 dark:text-white transition-all ease-in-out duration-300 transform hover:scale-105"
               {...register("phone", { required: "Phone number is required." })}
             />
             <p className="text-red-600 text-sm m-1">{errors.phone?.message}</p>
@@ -173,7 +173,7 @@ function EditProfilePage() {
             <button
               disabled={loading}
               type="submit"
-              className="px-2 py-0 font-serif font-semibold bg-[#68217A] text-[#d0fa44] md:px-3 md:py-1 rounded-3xl cursor-pointer disabled:bg-blue-300 disabled:cursor-not-allowed flex items-center justify-center transition-all ease-in-out duration-300 transform hover:bg-[#8b2fa2] hover:scale-105 hover:text-white"
+              className="px-2 py-0 font-serif font-semibold bg-[#007BFF] text-[#1A1A1A] md:px-3 md:py-1 rounded-3xl cursor-pointer disabled:bg-blue-300 disabled:cursor-not-allowed flex items-center justify-center transition-all ease-in-out duration-300 transform hover:bg-[#0056D2] hover:scale-105 hover:text-white"
             >
               {loading ? (
                 <>

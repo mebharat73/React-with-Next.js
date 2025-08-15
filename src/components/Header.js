@@ -116,7 +116,7 @@ function Header() {
                       alt="Dokan Logo"
                       width={40} // Adjust size as needed
                       height={40} // Adjust size as needed
-                      className="h-8 w-8 rounded-lg lg:hover:scale-125 transition-transform duration-300"
+                      className="h-8 w-8 mt-1 rounded-lg lg:hover:scale-125 transition-transform duration-300"
                     />
                   </motion.div>
                   <Link
@@ -150,7 +150,7 @@ function Header() {
                   return (
                     <div key={navlink.route} className="relative">
                       <Link
-                        className="h-8 px-5 py-1 mt-2 font-semibold text-[#d0fa44] dark:text-white font-serif bg-transparent rounded-3xl dark:bg-transparent md:mt-0 md:ml-4 hover:text-white focus:text-white hover:bg-[#8b2fa2] focus:bg-[#68217A] focus:outline-none focus:shadow-outline transition-all transform hover:scale-90 active:scale-105"
+                        className="h-8 px-5 py-1 mt-2 font-semibold text-[#d0fa44] dark:text-white font-serif bg-[#007BFF] rounded-3xl dark:bg-transparent md:mt-0 md:ml-4 hover:text-white focus:text-white hover:bg-[#0056D2] focus:bg-[#68217A] focus:outline-none focus:shadow-outline transition-all transform hover:scale-90 active:scale-105"
                         href={navlink.route}
                       >
                         {navlink.label}
@@ -196,20 +196,20 @@ function Header() {
                   <div
                     className={`${
                       showProfile ? "block" : "hidden"
-                    } w-52 py-3 px-5 rounded-xl border border-[#D1D1D1] bg-gradient-to-b from-[#faaae0] to-[#bacfef] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0] absolute top-10 right-0 shadow-lg transition-all duration-300 ease-in-out`}
+                    } w-52 py-3 px-5 rounded-xl border border-[#D1D1D1] bg-gradient-to-b from-[#F5F5F7] to-[#97bee7] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0] absolute top-10 right-0 shadow-lg transition-all duration-300 ease-in-out`}
                     onClick={() => setShowProfile(false)}
                   >
-                    <h3 className="mb-2 font-bold">Hi! {user.name}</h3>
+                    <h3 className="mb-2 text-[#1A1A1A] font-bold">Hi! {user.name}</h3>
 
                     <Link
                       href={"/profile/edit"}
-                      className="bg-[#F5F5F7] text-white font-serif w-full rounded-3xl hover:bg-[#8b2fa2] flex items-center justify-center my-3 transition-transform transform hover:scale-105 active:scale-105"
+                      className="bg-[#007BFF] text-white font-serif w-full rounded-3xl hover:bg-[#0056D2] flex items-center justify-center my-3 transition-transform transform hover:scale-105 active:scale-105"
                     >
                       Profile
                     </Link>
 
                     <button
-                      className="bg-[#388E3C] text-[#d0fa44] font-serif hover:bg-[#8b2fa2] hover:text-white w-full rounded-3xl flex items-center justify-center transition-transform transform hover:scale-200 active:scale-105"
+                      className="bg-[#388E3C] text-[#1A1A1A] font-serif hover:bg-[#8b2fa2] hover:text-white w-full rounded-3xl flex items-center justify-center transition-transform transform hover:scale-200 active:scale-105"
                       onClick={logout}
                     >
                       Logout
@@ -239,7 +239,7 @@ function Header() {
           } md:hidden absolute top-2 right-1 bottom-0 w-full bg-opacity-50 dark:bg-opacity-50 h-screen z-40 transition-all`}
           onClick={() => setShowMobileMenu(false)} // Close the mobile menu when clicked outside
         >
-          <div className="w-auto h-auto border-2 border-double border-[#68217A] rounded-xl bg-gradient-to-b from-[#faaae0] to-[#bacfef] float-right px-3 py-4 grid grid-cols-1 grid-rows-[auto,1fr,auto] dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595]">
+          <div className="w-auto h-auto border-2 border-double border-[#68217A] rounded-xl bg-[#1E2A38] float-right px-3 py-4 grid grid-cols-1 grid-rows-[auto,1fr,auto] dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595]">
             <div className="border-b flex items-center justify-between">
               {user ? (
                 <div className="flex items-center justify-start ">
@@ -273,7 +273,7 @@ function Header() {
                   >
                     <Link
                       href={"/profile/edit"}
-                      className="bg-[#dd53ff] text-white font-serif w-full rounded-3xl hover:bg-[#8b2fa2] flex items-center justify-center my-1 transition-transform transform hover:scale-105 active:scale-105"
+                      className="bg-[#007BFF] text-[#1A1A1A] font-serif w-full rounded-3xl hover:bg-[#0056D2] flex items-center justify-center my-1 transition-transform transform hover:scale-105 active:scale-105"
                     >
                       Profile
                     </Link>
@@ -281,17 +281,17 @@ function Header() {
                     
                   </div>
 
-                  <h3 className="font-bold font-serif text-base text-[#68217A] ml-2">Hi! {user.name}</h3>
+                  <h3 className="font-bold font-serif text-base text-[#5965eb] ml-2">Hi! {user.name}</h3>
                 </div>
               ) : (
-                <h3 className="font-extrabold text-base font-serif text-[#68217A] dark:text-white">Please login.......</h3>
+                <h3 className="font-extrabold text-base font-serif text-[#5965eb] dark:text-white">Please login.......</h3>
               )}
 
               <button
                 className="rounded-lg md:hidden focus:outline-none focus:shadow-outline"
                 onClick={() => setShowMobileMenu(false)} // Close the mobile menu when clicked
               >
-                <RxCross2 className="h-5 w-5 -mt-6 rounded-full bg-[#dd53ff] dark:hover:bg-[#8b2fa2]" />
+                <RxCross2 className="h-5 w-5 -mt-6 rounded-full bg-[#F5F5F7] dark:hover:bg-[#c1c1e2]" />
               </button>
             </div>
 
@@ -303,7 +303,7 @@ function Header() {
             <Link
               key={navlink.route}
               href={navlink.route}
-              className="relative bg-[#dd53ff] dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595] text-[#d0fa44] dark:text-white px-6 py-0.5 rounded-xl font-semibold text-base font-serif flex items-center justify-start gap-2 hover:bg-[#8b2fa2] transition-transform transform hover:scale-105"
+              className="relative bg-[#007BFF] dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595] text-[#d0fa44] dark:text-white px-6 py-0.5 rounded-xl font-semibold text-base font-serif flex items-center justify-start gap-2 hover:bg-[#0056D2] transition-transform transform hover:scale-105"
             >
               <span>{navlink.label}</span>
 

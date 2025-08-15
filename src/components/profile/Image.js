@@ -44,19 +44,19 @@ function ProfileImage() {
   }
 
   return (
-    <div className="flex items-center justify-center flex-col">
+    <div className="flex items-center justify-center flex-col -mt-6">
       <Image
         src={localImageUrl || user?.profileImageUrl || userImage}
         alt="image"
         height={200}
         width={200}
-        className="h-16 w-16 p-1 rounded-full border-[#84a123] border-4  md:h-28 md:w-28 object-cover bg-gradient-to-tl from-[#C3EF38] to-[#dd53ff] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]"
+        className="h-14 w-14 p-1 rounded-full border-[#84a123] border-4  md:h-20 md:w-20 object-cover bg-gradient-to-tl from-[#C3EF38] to-[#dd53ff] dark:bg-gradient-to-tl dark:from-[#504e4e] dark:to-[#b4b0b0]"
       />
 
       <form onSubmit={updateProfile} className="flex items-center mt-2">
         <input
           type="file"
-          className="border border-[#8b2fa2] rounded-2xl px-3 text-[#68217A] text-base font-bold  py-0 w-full shadow-md dark:text-white dark:bg-zinc-600"
+          className="border border-[#8b2fa2] rounded-2xl px-3 text-[#1A1A1A] text-base font-bold  py-0 w-full shadow-md dark:text-white dark:bg-zinc-600"
           id="profile-image"
           onChange={(e) => {
             const files = [];
@@ -74,7 +74,7 @@ function ProfileImage() {
         <button
           disabled={uploading || localImageUrl == null}
           type="submit"
-          className="bg-[#68217A] text-[#C3EF38] px-4 py-1 h-7 ml-3 rounded-2xl cursor-pointer disabled:bg-[#8b2fa2] disabled:cursor-not-allowed flex items-center disabled:bg-opacity-80 hover:bg-[#8b2fa2]"
+          className="bg-[#007BFF] text-[#1A1A1A] px-4 py-1 h-7 ml-3 rounded-2xl cursor-pointer disabled:bg-[#8b2fa2] disabled:cursor-not-allowed flex items-center disabled:bg-opacity-80 hover:bg-[#0056D2]"
         >
           {uploading ? (
             <>

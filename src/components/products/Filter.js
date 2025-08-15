@@ -222,13 +222,13 @@ function FilterProducts({ brands, categories }) {
         {/* Modal Footer */}
         <div className="flex items-center justify-between">
           <button
-            className="bg-red-500 text-white rounded px-5 py-2 transition duration-300 ease-in-out transform hover:scale-105"
+            className="bg-red-500 text-white rounded px-5 py-1 transition duration-300 ease-in-out transform hover:scale-105"
             onClick={() => setShowFilter(false)}
           >
             Cancel
           </button>
           <button
-            className="bg-primary-500 text-white rounded px-5 py-2 transition duration-300 ease-in-out transform hover:scale-105"
+            className="bg-primary-500 text-white rounded px-5 py-1 transition duration-300 ease-in-out transform hover:scale-105"
             onClick={setFilter}
           >
             Submit

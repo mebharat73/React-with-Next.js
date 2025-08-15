@@ -28,22 +28,22 @@ export function SattapattaItemImageGallery({ imageUrls = [], title }) {
             className="absolute top-4 right-4 text-white hover:scale-110 transition"
             onClick={() => setZoom(false)}
           >
-            <RxCross2 className="h-8 w-8 bg-gradient-to-tl from-[#C3EF38] to-[#dd53ff] rounded-full border-2 border-[#68217A] p-1" />
+            <RxCross2 className="h-8 w-8 bg-gradient-to-b from-[#F5F5F7] to-[#97bee7] rounded-full border-2 border-[#68217A] p-1" />
           </button>
           <img
             src={imageUrls[currentIndex]}
             alt={title}
-            className="max-w-[90vw] max-h-[90vh] rounded-3xl border-4 border-[#84a123] bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] p-4 object-contain"
+            className="max-w-[90vw] max-h-[90vh] rounded-3xl border-4 border-[#84a123]bg-gradient-to-tl from-[#F5F5F7] to-[#97bee7] p-4 object-contain"
           />
         </motion.div>
       )}
 
       {/* Main Image Container with Arrows */}
-      <div className="relative flex justify-center items-center p-10 mt-4 md:p-12 md:-mt-4 rounded-2xl border-2 border-[#84a123] bg-gradient-to-tl from-[#f0f656] to-[#e382fb] dark:from-[#000000] dark:to-[#979595]">
+      <div className="relative flex justify-center items-center p-10 mt-4 md:p-12 md:-mt-4 rounded-2xl border-2 border-[#D1D1D1] bg-gradient-to-b from-[#F5F5F7] to-[#97bee7] dark:from-[#000000] dark:to-[#979595]">
         {/* Prev Arrow */}
         <button
           onClick={handlePrev}
-          className="absolute left-3 top-1/2 -translate-y-1/2 bg-[#68217A] text-white p-2 rounded-full hover:scale-110 transition"
+          className="absolute left-3 top-1/2 -translate-y-1/2 bg-[#007BFF] text-[#1A1A1A] p-2 rounded-full hover:scale-110 transition"
         >
           <FaArrowLeft />
         </button>
@@ -59,7 +59,7 @@ export function SattapattaItemImageGallery({ imageUrls = [], title }) {
         {/* Next Arrow */}
         <button
           onClick={handleNext}
-          className="absolute right-3 top-1/2 -translate-y-1/2 bg-[#68217A] text-white p-2 rounded-full hover:scale-110 transition"
+          className="absolute right-3 top-1/2 -translate-y-1/2 bg-[#007BFF] text-[#1A1A1A] p-2 rounded-full hover:scale-110 transition"
         >
           <FaArrowRight />
         </button>
