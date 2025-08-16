@@ -24,13 +24,13 @@ const TermsPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-tl from-[#ebacfb] to-[#f9fbc6] text-gray-900 dark:text-white dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e]">
+    <div className="min-h-screen bg-gradient-to-b from-[#F5F5F7] to-[#97bee7] text-gray-900 dark:text-white dark:bg-gradient-to-tl dark:from-[#b4b0b0] dark:to-[#504e4e]">
       <Head>
         <title>Terms and Conditions - Online Shopping Platform</title>
         <meta name="description" content="Terms and Conditions for our online shopping platform." />
       </Head>
 
-      <header className="bg-gradient-to-tl from-[#8e912d] to-[#dd53ff] text-white text-center dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595] dark:text-[#d0fa44] animate__animated animate__fadeIn">
+      <header className="bg-gradient-to-b from-[#F5F5F7] to-[#97bee7] text-white text-center dark:bg-gradient-to-tl dark:from-[#000000] dark:to-[#979595] dark:text-[#d0fa44] animate__animated animate__fadeIn">
         <h1 className="text-3xl font-semibold">Terms and Conditions</h1>
       </header>
 
@@ -150,7 +150,7 @@ const TermsPage = () => {
         {/* Attractive Login Box */}
         <div 
           onClick={redirectToLogin} 
-          className="mt-4 cursor-pointer w-full px-4 bg-gradient-to-tl from-[#f0f656] via-lime-400 to-[#e382fb] rounded-lg shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-xl text-center text-white font-bold text-xl animate__animated animate__fadeIn animate__delay-25s"
+          className="mt-4 cursor-pointer w-full px-4 bg-gradient-to-tl from-[#F5F5F7] to-[#1a7ce4] rounded-lg shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-xl text-center text-white font-bold text-xl animate__animated animate__fadeIn animate__delay-25s"
         >
           <motion.div
             initial={{ opacity: 0 }}
