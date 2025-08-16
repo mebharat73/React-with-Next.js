@@ -356,7 +356,7 @@ function ProductCard({ product, productView, products, setProducts }) {
               {/* User Rating Badge */}
               {userRating > 0 && (
                 <motion.div
-                  className="-ml-2 -mt-1 bg-[#F5F5F7] text-[#1A1A1A] px-1 rounded-full shadow-sm border border-[#D1D1D1] whitespace-nowrap"
+                  className="-ml-1 -mt-1 bg-[#F5F5F7] text-[#1A1A1A] px-1 rounded-full shadow-sm border border-[#D1D1D1] whitespace-nowrap"
                   initial={{ scale: 0.8, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                 >
@@ -369,7 +369,7 @@ function ProductCard({ product, productView, products, setProducts }) {
               {/* Average Rating Badge */}
               {product.rating > 0 && (
                 <motion.div
-                  className="ml-7 -mt-1 bg-[#F5F5F7] text-purple-700 px-1 rounded-full shadow-sm border border-purple-300 whitespace-nowrap"
+                  className="ml-4 -mt-1 bg-[#F5F5F7] text-purple-700 px-1 rounded-full shadow-sm border border-purple-300 whitespace-nowrap"
                   initial={{ scale: 0.8, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                 >
