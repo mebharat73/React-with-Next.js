@@ -89,7 +89,7 @@ function EditOrderStatus({ order, setIsStatusUpdated }) {
             <div className="flex items-center justify-between pt-2">
               <button
                 type="button"
-                className="px-5 py-2 bg-red-500 hover:bg-red-700 text-white rounded"
+                className="px-5 py-1 bg-red-500 hover:bg-red-700 text-white rounded"
                 onClick={handleClose}
               >
                 Cancel
@@ -97,7 +97,7 @@ function EditOrderStatus({ order, setIsStatusUpdated }) {
               <button
                 type="submit"
                 disabled={loading}
-                className={`flex px-5 py-2 bg-primary-500 hover:bg-primary-700 text-white rounded disabled:opacity-85 ${
+                className={`flex px-5 py-1 bg-primary-500 hover:bg-primary-700 text-white rounded disabled:opacity-85 ${
                   loading ? "pointer-events-none" : ""
                 }`}
               >
