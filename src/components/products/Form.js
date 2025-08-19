@@ -168,8 +168,10 @@ const [existingImageUrls, setExistingImageUrls] = useState(product?.imageUrls ||
                 id="stock"
                 className="block w-full mt-1 px-3 py-1 border rounded-lg shadow-sm dark:bg-zinc-600 dark:text-black"
                 {...register("stock", {
-                  min: { value: 0, message: "Stock must be positive." },
+                  required: "Stock is required.",
+                  min: { value: 0, message: "Stock must be positive or zero." },
                 })}
+
               />
               {errors.stock && <p className="text-red-600 text-sm mt-1">{errors.stock.message}</p>}
             </div>
